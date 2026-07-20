@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hivera — Business platforms, built to work like a hive</title>
+<meta name="description" content="Hivera builds admin dashboards, dispatch systems and field portals for service businesses. Explore live demos right on this site." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#13111C;
+    --surface:#1A1723;
+    --surface-2:#211D2E;
+    --line:#2B2740;
+    --violet:#6C3FE7;
+    --violet-deep:#5B32C7;
+    --fuchsia:#A063F7;
+    --honey:#F5B942;
+    --lavender:#B9A6F5;
+    --text:#F2F0F7;
+    --muted:#9D96B8;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--violet);color:#fff}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(18,14,26,.82);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;letter-spacing:.02em}
+  .nav-links{display:flex;gap:28px}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--text)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--lavender);outline-offset:3px;border-radius:4px}
+
+  /* ---------- Hex logo ---------- */
+  .hex-logo{width:30px;height:34px;flex-shrink:0}
+
+  /* ---------- Hero ---------- */
+  header.hero{position:relative;overflow:hidden;padding:110px 0 90px}
+  .hex-field{
+    position:absolute;inset:0;
+    opacity:.5;
+    pointer-events:none;
+    mask-image:radial-gradient(ellipse 75% 90% at 70% 10%, #000 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 75% 90% at 70% 10%, #000 30%, transparent 75%);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;letter-spacing:.14em;
+    color:var(--lavender);
+    text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--lavender);display:inline-block}
+  .hero h1{
+    font-family:'Sora',sans-serif;
+    font-weight:800;
+    font-size:clamp(2.4rem,6vw,4.2rem);
+    line-height:1.08;
+    letter-spacing:-.02em;
+    margin:20px 0 22px;
+    max-width:16ch;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(92deg,var(--violet) 10%,var(--fuchsia) 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lede{max-width:52ch;color:var(--muted);font-size:1.08rem;margin-bottom:36px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Sora',sans-serif;font-weight:600;font-size:.95rem;
+    padding:13px 24px;border-radius:10px;text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, background .2s;
+    border:1px solid transparent;cursor:pointer;
+  }
+  .btn-primary{
+    background:linear-gradient(92deg,var(--violet-deep),var(--violet));
+    color:#fff;
+    box-shadow:0 8px 24px rgba(108,63,231,.38);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(108,63,231,.5)}
+  .btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
+  .btn-ghost:hover{background:var(--surface)}
+
+  /* ---------- Sections ---------- */
+  section{padding:88px 0;border-top:1px solid var(--line)}
+  .sec-head{margin-bottom:44px;max-width:60ch}
+  .sec-head h2{
+    font-family:'Sora',sans-serif;font-weight:700;
+    font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.01em;margin:14px 0 10px;
+  }
+  .sec-head p{color:var(--muted)}
+
+  /* ---------- Services ---------- */
+  .cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .cell{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 24px;
+    transition:border-color .2s, transform .2s;
+  }
+  .cell:hover{border-color:var(--violet);transform:translateY(-3px)}
+  .cell .hex-ic{width:38px;height:42px;margin-bottom:16px}
+  .cell h3{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:8px}
+  .cell p{color:var(--muted);font-size:.92rem}
+
+  /* ---------- Featured project / emulator ---------- */
+  .project-tag{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;
+    color:var(--fuchsia);text-transform:uppercase;
+  }
+  .emulator{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+  }
+  .emu-bar{
+    display:flex;align-items:center;gap:14px;
+    padding:12px 16px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .emu-dots{display:flex;gap:6px}
+  .emu-dots span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+  .emu-dots span:first-child{background:var(--fuchsia)}
+  .emu-dots span:nth-child(2){background:var(--honey)}
+  .emu-dots span:nth-child(3){background:var(--violet)}
+  .emu-url{
+    flex:1;min-width:140px;
+    font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);
+    background:var(--bg);border:1px solid var(--line);border-radius:7px;
+    padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .role-tabs{display:flex;gap:6px}
+  .role-tab{
+    font-family:'Sora',sans-serif;font-size:.8rem;font-weight:600;
+    color:var(--muted);background:transparent;
+    border:1px solid var(--line);border-radius:8px;
+    padding:6px 14px;cursor:pointer;transition:all .2s;
+  }
+  .role-tab:hover{color:var(--text);border-color:var(--violet)}
+  .role-tab.active{
+    color:#fff;
+    background:linear-gradient(92deg,var(--violet-deep),var(--violet));
+    border-color:transparent;
+  }
+  .emu-screen{
+    position:relative;
+    aspect-ratio:16/9.5;
+    min-height:340px;
+    background:
+      radial-gradient(ellipse 60% 55% at 50% 0%, rgba(108,63,231,.16), transparent 70%),
+      var(--bg);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .emu-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .emu-placeholder{text-align:center;padding:24px;max-width:46ch}
+  .emu-placeholder .hex-ic{width:52px;height:58px;margin:0 auto 18px;animation:pulse 3s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+  .emu-placeholder h3{font-family:'Sora',sans-serif;font-weight:600;margin-bottom:8px}
+  .emu-placeholder p{color:var(--muted);font-size:.92rem}
+  .proj-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;
+    color:var(--muted);border:1px solid var(--line);border-radius:99px;
+    padding:5px 13px;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start}
+  .about-grid p+p{margin-top:14px}
+  .about-grid p{color:var(--muted)}
+  .about-grid strong{color:var(--text);font-weight:600}
+  .fact-card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:24px;
+  }
+  .fact-card dl{display:grid;gap:14px}
+  .fact-card dt{
+    font-family:'JetBrains Mono',monospace;font-size:.7rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--lavender);
+  }
+  .fact-card dd{font-size:.95rem}
+
+  /* ---------- Contact ---------- */
+  .contact-box{
+    text-align:center;
+    background:
+      radial-gradient(ellipse 55% 90% at 50% 0%, rgba(160,99,247,.10), transparent 70%),
+      var(--surface);
+    border:1px solid var(--line);border-radius:20px;
+    padding:64px 28px;
+  }
+  .contact-box h2{font-family:'Sora',sans-serif;font-size:clamp(1.5rem,3vw,2rem);margin-bottom:12px}
+  .contact-box p{color:var(--muted);max-width:44ch;margin:0 auto 30px}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.85rem}
+  .foot-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--text)}
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .emu-placeholder .hex-ic{animation:none}
+    html{scroll-behavior:auto}
+  }
+
+  @media (max-width:760px){
+    .nav-links{display:none}
+    .about-grid{grid-template-columns:1fr}
+    header.hero{padding:80px 0 64px}
+    section{padding:64px 0}
+  }
+</style>
+</head>
+<body>
+
+<!-- ======= NAV ======= -->
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Hivera home">
+      <svg class="hex-logo" viewBox="0 0 60 68" aria-hidden="true">
+        <defs>
+          <linearGradient id="hexg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6C3FE7"/><stop offset="1" stop-color="#A063F7"/>
+          </linearGradient>
+        </defs>
+        <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="url(#hexg)" stroke-width="4"/>
+        <path d="M30 20 41 26.5v13L30 46 19 39.5v-13Z" fill="#F5B942"/>
+      </svg>
+      <span class="brand-name">Hivera</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">What we build</a>
+      <a href="#work">Live demos</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======= HERO ======= -->
+<header class="hero" id="top">
+  <svg class="hex-field" aria-hidden="true" width="100%" height="100%">
+    <defs>
+      <pattern id="hexpat" width="56" height="97" patternUnits="userSpaceOnUse" patternTransform="scale(1.1)">
+        <path d="M28 0 56 16v32L28 64 0 48V16Z M28 64 56 80v32L28 128 0 112V80Z"
+              fill="none" stroke="#2B2740" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#hexpat)"/>
+  </svg>
+  <div class="wrap" style="position:relative">
+    <span class="eyebrow">Hivera · Business Platform Studio</span>
+    <h1>Platforms that work <span class="grad">like a hive.</span></h1>
+    <p class="lede">
+      We design and build the software that runs service businesses — admin dashboards,
+      dispatch systems and field technician portals that keep every part of your team
+      moving in sync. And you don't have to take our word for it: try our work live,
+      right here on this site.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#work">Explore live demos</a>
+      <a class="btn btn-ghost" href="#contact">Start a project</a>
+    </div>
+  </div>
+</header>
+
+<!-- ======= SERVICES ======= -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What we build</span>
+      <h2>One platform, every role in your company.</h2>
+      <p>Service businesses run on coordination. We build the three portals that make it happen — each one tuned to the person using it.</p>
+    </div>
+    <div class="cells">
+      <div class="cell reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/><rect x="18" y="24" width="24" height="4" rx="2" fill="#6C3FE7"/><rect x="18" y="32" width="16" height="4" rx="2" fill="#9D96B8"/><rect x="18" y="40" width="20" height="4" rx="2" fill="#9D96B8"/></svg>
+        <h3>Admin dashboards</h3>
+        <p>Full visibility over jobs, revenue, customers and staff. Reports that answer questions before you ask them.</p>
+      </div>
+      <div class="cell reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#A063F7" stroke-width="3"/><circle cx="30" cy="34" r="11" fill="none" stroke="#A063F7" stroke-width="3"/><circle cx="30" cy="34" r="3.5" fill="#B9A6F5"/></svg>
+        <h3>Dispatch portals</h3>
+        <p>Assign the right technician to the right job in seconds. Live status, scheduling and routing in one screen.</p>
+      </div>
+      <div class="cell reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#B9A6F5" stroke-width="3"/><rect x="22" y="20" width="16" height="26" rx="3" fill="none" stroke="#B9A6F5" stroke-width="3"/><circle cx="30" cy="41" r="2" fill="#B9A6F5"/></svg>
+        <h3>Technician portals</h3>
+        <p>Mobile-first tools for the field: job details, customer info, status updates and proof of work — no phone calls needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FEATURED PROJECT / EMULATOR ======= -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Live demos</span>
+      <h2>Don't scroll screenshots. Drive the real thing.</h2>
+      <p>Every project on this page runs live inside the frame below — switch roles and explore it exactly the way our clients' teams do every day.</p>
+    </div>
+
+    <div class="reveal">
+      <span class="project-tag">Featured project — Field Service Platform</span>
+      <div class="emulator" style="margin-top:14px">
+        <div class="emu-bar">
+          <div class="emu-dots"><span></span><span></span><span></span></div>
+          <div class="emu-url" id="emuUrl">demo.hivera.app/acme-services</div>
+          <div class="role-tabs" role="tablist" aria-label="Choose portal">
+            <button class="role-tab active" data-role="admin" role="tab" aria-selected="true">Admin</button>
+            <button class="role-tab" data-role="dispatch" role="tab" aria-selected="false">Dispatch</button>
+            <button class="role-tab" data-role="tech" role="tab" aria-selected="false">Technician</button>
+          </div>
+        </div>
+        <div class="emu-screen" id="emuScreen">
+          <!-- When the real demo is deployed, replace the placeholder below with:
+               <iframe src="https://demo.hivera.app/?role=admin" title="Hivera live demo" loading="lazy"></iframe>
+               and switch the src per role in script. -->
+          <div class="emu-placeholder">
+            <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true">
+              <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/>
+              <path d="M30 20 41 26.5v13L30 46 19 39.5v-13Z" fill="#F5B942"/>
+            </svg>
+            <h3 id="phTitle">Admin portal demo</h3>
+            <p id="phText">The live sandbox is being prepared. Soon you'll be able to explore the full admin dashboard right here — real interface, safe demo data.</p>
+          </div>
+        </div>
+      </div>
+      <div class="proj-meta">
+        <span class="chip">React</span>
+        <span class="chip">Node.js</span>
+        <span class="chip">Role-based access</span>
+        <span class="chip">Real-time dispatch</span>
+        <span class="chip">Built for a 24/7 service company</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= ABOUT ======= -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">About</span>
+      <h2>Small studio. Hive-level output.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p><strong>Hivera is the studio of [Your Name]</strong> — a developer who builds complete business platforms end to end: frontend, backend, and everything between.</p>
+        <p>The name comes from how the best service companies operate: like a hive. Every member has a clear role, information flows without friction, and the whole system produces more than the sum of its parts. That's the standard we build software to.</p>
+        <p>We work closely, ship fast, and stay involved after launch. When you work with Hivera, you talk directly to the person writing the code.</p>
+      </div>
+      <div class="fact-card reveal">
+        <dl>
+          <div><dt>Founder</dt><dd>[Your Name]</dd></div>
+          <div><dt>Focus</dt><dd>Platforms for service businesses</dd></div>
+          <div><dt>Stack</dt><dd>React · Node.js · SQL & NoSQL</dd></div>
+          <div><dt>Based in</dt><dd>[Your City]</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CONTACT ======= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <span class="eyebrow" style="justify-content:center">Contact</span>
+      <h2>Have a business that needs a platform?</h2>
+      <p>Tell us how your company works today — we'll show you what it could look like running on software built just for it.</p>
+      <div class="cta-row" style="justify-content:center">
+        <a class="btn btn-primary" href="mailto:hello@hivera.app">hello@hivera.app</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>© 2026 Hivera. All rights reserved.</span>
+    <span><a href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:hello@hivera.app">Email</a></span>
+  </div>
+</footer>
+
+<script>
+  // Role tab switching (placeholder text now; swap to iframe src switching when demo is live)
+  const roleCopy = {
+    admin:    ["Admin portal demo",      "The live sandbox is being prepared. Soon you'll be able to explore the full admin dashboard right here — real interface, safe demo data."],
+    dispatch: ["Dispatch portal demo",   "Assign jobs, watch statuses update and manage the schedule — the live dispatch sandbox will be embedded here."],
+    tech:     ["Technician portal demo", "See exactly what a field technician sees on their phone — the mobile portal sandbox will run here."]
+  };
+  const urlMap = {
+    admin: "demo.hivera.app/acme-services/admin",
+    dispatch: "demo.hivera.app/acme-services/dispatch",
+    tech: "demo.hivera.app/acme-services/tech"
+  };
+  document.querySelectorAll('.role-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.role-tab').forEach(b => {
+        b.classList.remove('active'); b.setAttribute('aria-selected','false');
+      });
+      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+      const r = btn.dataset.role;
+      document.getElementById('phTitle').textContent = roleCopy[r][0];
+      document.getElementById('phText').textContent  = roleCopy[r][1];
+      document.getElementById('emuUrl').textContent  = urlMap[r];
+      // When live: document.querySelector('.emu-screen iframe').src = "https://demo.hivera.app/?role=" + r;
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
