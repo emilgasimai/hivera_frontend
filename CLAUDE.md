@@ -165,3 +165,9 @@ The backend (form submission handling, and eventually the live demo backend) wil
 - Tailwind CDN (already included, Preflight disabled) is available to use whenever it's genuinely useful — e.g. dropping in a pre-built component from Uiverse/21st.dev/ReactBits without hand-converting every class. No need to ask permission each time.
 - When using Tailwind for a component, map brand colors/fonts through tailwind.config (already set up) rather than hardcoding Tailwind's default palette — this rule doesn't change.
 - Don't rewrite existing hand-written CSS sections into Tailwind just for consistency's sake — only new/imported components default to Tailwind when it's convenient.
+
+## Deployment
+- The site is **live** at https://hivera-frontend.vercel.app — Vercel project `hivera-frontend`, linked to the GitHub repo and auto-deploying from `main`. A push to `main` is a deploy.
+- **Deploy automatically after every substantive change — commit and push without asking first.** Do not wait for a separate "deploy" instruction.
+- Exceptions where you still stop and ask: the work is half-finished or experimental, it is explicitly waiting on my decision, or it would publish something sensitive (e.g. internal pricing docs, real client data).
+- After every deploy, verify it actually went live (don't assume the push succeeded) and report the commit hash plus what changed.
