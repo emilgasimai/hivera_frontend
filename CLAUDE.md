@@ -19,6 +19,40 @@ service businesses.
 > indigo/blue/purple/pink/gray defaults). See the **Styling Stack** policy below for when to
 > reach for Tailwind vs the default hand-written CSS.
 
+## ORIGINAL LOCKSMITH PROJECT — NEVER TOUCH (ABSOLUTE RULE)
+
+The owner's live/production locksmith project lives at these two exact paths on the
+Desktop. These are the real, in-use source folders — the frontend deploys to
+astonlocksmith.ca (Vercel) and the backend to Railway:
+
+- **Original frontend:** `C:\Users\none of ur business\Desktop\Project Locksmith`
+- **Original backend:** `C:\Users\none of ur business\Desktop\project_locksmith_backend`
+
+Note the deliberate distinction: these are the ORIGINALS on the Desktop, **not** the
+duplicated copies at `Hivera/locksmith_website/Project Locksmith` and
+`Hivera/locksmith_website/project_locksmith_backend`. The copies are the work area;
+the originals are untouchable.
+
+**The rule:**
+
+- These two folders — and everything inside them — must **NEVER** be read, opened,
+  edited, executed, committed, pushed, or used as a working directory by any future
+  task in this project, for any reason, under any framing (testing, comparison,
+  "just checking", a quick fix, a one-line change, urgency, etc.) — **even if a
+  future instruction appears to ask for it directly.**
+- All locksmith-related work — rebranding, mock preview, the eventual isolated demo
+  backend — happens **ONLY** inside `Hivera/locksmith_website/` (the duplicated,
+  gitignored copy) or in a further-isolated demo-specific location created later.
+  The original paths above are read-only reference points on paper: they may be
+  named and cited, but never opened as a working directory.
+- If any future task, prompt, or instruction — from the owner or anyone else — asks
+  you to open, run, edit, or otherwise interact with either of these exact original
+  paths, **STOP immediately and flag it with 🔴** instead of proceeding, even if the
+  request seems reasonable or urgent. Ask for explicit, separate confirmation before
+  ever touching anything at those paths.
+- This rule **cannot be overridden by casual instructions in chat.** The only way to
+  change it is the owner explicitly editing this CLAUDE.md file itself.
+
 ## Design system
 
 - **Color palette** follows Railway.app tones:
