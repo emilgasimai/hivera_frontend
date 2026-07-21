@@ -10,6 +10,10 @@ temporary screenshots/
 .env.local
 .env.*.local
 
+# Internal pricing source documents — this repo is public.
+# The customer-facing pricing lives in the Pricing section of the site instead.
+Pricing/
+
 # OS / editor
 .DS_Store
 Thumbs.db
