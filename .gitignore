@@ -19,3 +19,6 @@ Pricing/
 Thumbs.db
 .vscode/
 .idea/
+
+.vercel
+.env*
