@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hivera — Business platforms, built to work like a hive</title>
 <meta name="description" content="Hivera builds admin dashboards, dispatch systems and field portals for service businesses. Explore live demos right on this site." />
+<!-- Favicon: the brand hexagon, inline so there is no extra file to host -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 68'%3E%3Cpath d='M30 2 56 17v34L30 66 4 51V17Z' fill='none' stroke='%236C3FE7' stroke-width='6'/%3E%3Cpath d='M30 20 41 26.5v13L30 46 19 39.5v-13Z' fill='%23F5B942'/%3E%3C/svg%3E" />
+<!-- Open Graph / Twitter. og:image intentionally omitted until a real share image exists. -->
+<meta property="og:title" content="Hivera — Business platforms, built to work like a hive" />
+<meta property="og:description" content="Hivera builds admin dashboards, dispatch systems and field portals for service businesses. Explore live demos right on this site." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hivera-frontend.vercel.app/" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -71,6 +79,52 @@
   .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
   .nav-links a:hover,.nav-links a:focus-visible{color:var(--text)}
   a:focus-visible,button:focus-visible{outline:2px solid var(--lavender);outline-offset:3px;border-radius:4px}
+
+  /* ---------- Mobile nav (hamburger) ---------- */
+  .nav-toggle{
+    display:none;
+    width:42px;height:42px;padding:0;
+    align-items:center;justify-content:center;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:11px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .nav-toggle:hover{border-color:var(--violet)}
+  .nav-toggle:active{background:var(--surface-2)}
+  .nav-toggle-box{position:relative;display:block;width:18px;height:14px}
+  .nav-bar{
+    position:absolute;left:0;width:100%;height:2px;border-radius:2px;
+    background:var(--lavender);
+    transition:transform .28s cubic-bezier(.2,.8,.3,1), opacity .18s ease, background .2s;
+  }
+  .nav-bar:nth-child(1){top:0}
+  .nav-bar:nth-child(2){top:6px}
+  .nav-bar:nth-child(3){top:12px}
+  .nav-toggle[aria-expanded="true"] .nav-bar{background:var(--violet)}
+  .nav-toggle[aria-expanded="true"] .nav-bar:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] .nav-bar:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] .nav-bar:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  .mobile-nav{
+    display:none;
+    border-top:1px solid var(--line);
+    background:rgba(18,14,26,.97);
+    backdrop-filter:blur(12px);
+    padding:6px 24px 16px;
+  }
+  .mobile-nav a{
+    display:block;
+    padding:13px 4px;
+    color:var(--muted);
+    text-decoration:none;
+    font-size:.98rem;
+    border-bottom:1px solid var(--line);
+    transition:color .2s, padding-left .2s;
+  }
+  .mobile-nav a:last-child{border-bottom:0}
+  .mobile-nav a:hover,.mobile-nav a:focus-visible{color:var(--text);padding-left:8px}
 
   /* ---------- Hex logo ---------- */
   .hex-logo{width:30px;height:34px;flex-shrink:0}
@@ -404,6 +458,9 @@
     background:rgba(108,63,231,.12);border:1px solid var(--line);
     border-radius:10px;padding:12px 14px;margin:0;
   }
+  .form-privacy{font-size:.8rem;color:var(--muted);line-height:1.6;margin:0}
+  .form-privacy a{color:var(--lavender);text-decoration:none}
+  .form-privacy a:hover,.form-privacy a:focus-visible{color:var(--text)}
   .contact-alt{text-align:center;color:var(--muted);font-size:.9rem;margin-top:24px}
   .contact-alt a{color:var(--lavender);text-decoration:none}
   .contact-alt a:hover,.contact-alt a:focus-visible{color:var(--text)}
@@ -419,11 +476,15 @@
     .reveal{opacity:1;transform:none;transition:none}
     .emu-placeholder .hex-ic{animation:none}
     .faq-ic .hx-fill{transition:none}
+    .nav-bar{transition:none}
+    .mobile-nav a{transition:none}
     html{scroll-behavior:auto}
   }
 
   @media (max-width:760px){
     .nav-links{display:none}
+    .nav-toggle{display:inline-flex}
+    .mobile-nav.open{display:block}
     .about-grid{grid-template-columns:1fr}
     header.hero{padding:80px 0 64px}
     section{padding:64px 0}
@@ -455,6 +516,22 @@
       <a href="#faq">FAQ</a>
       <a href="#contact">Start a Project</a>
     </div>
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+      <span class="nav-toggle-box" aria-hidden="true">
+        <span class="nav-bar"></span>
+        <span class="nav-bar"></span>
+        <span class="nav-bar"></span>
+      </span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="#services">What we build</a>
+    <a href="#work">Live demos</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Start a Project</a>
   </div>
 </nav>
 
@@ -745,7 +822,7 @@
     <div class="sec-head reveal">
       <span class="eyebrow">FAQ</span>
       <h2>Questions, answered.</h2>
-      <p>The things clients ask us most. Placeholder answers for now — real copy to follow.</p>
+      <p>The things clients ask us most.</p>
     </div>
     <div class="faq-list">
       <details class="faq-item reveal">
@@ -753,35 +830,35 @@
           <span>How long does a project take?</span>
           <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
         </summary>
-        <div class="faq-a">Placeholder answer — most builds run roughly 4–8 weeks depending on scope and how many portals are involved. Replace with your real timeline.</div>
+        <div class="faq-a">Most builds run roughly 4–8 weeks depending on scope and how many portals are involved.</div>
       </details>
       <details class="faq-item reveal">
         <summary class="faq-q">
           <span>Can you migrate our existing data and systems?</span>
           <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
         </summary>
-        <div class="faq-a">Placeholder answer — yes; moving your data over from spreadsheets or existing tools is part of onboarding. Replace with specifics about your process.</div>
+        <div class="faq-a">Yes — moving your data over from spreadsheets or existing tools is part of onboarding.</div>
       </details>
       <details class="faq-item reveal">
         <summary class="faq-q">
           <span>How does pricing work?</span>
           <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
         </summary>
-        <div class="faq-a">Placeholder answer — projects are quoted per scope after a short discovery call, so you only pay for what you need. Replace with your pricing model.</div>
+        <div class="faq-a">Projects are quoted per scope after a short discovery call, so you only pay for what you need.</div>
       </details>
       <details class="faq-item reveal">
         <summary class="faq-q">
           <span>Do you offer support after launch?</span>
           <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
         </summary>
-        <div class="faq-a">Placeholder answer — yes; every project includes post-launch support, and we stay involved for changes and fixes. Replace with your support terms.</div>
+        <div class="faq-a">Yes — every project includes post-launch support, and we stay involved for changes and fixes.</div>
       </details>
       <details class="faq-item reveal">
         <summary class="faq-q">
           <span>What industries do you work with?</span>
           <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
         </summary>
-        <div class="faq-a">Placeholder answer — service businesses of every kind: locksmiths, plumbing, electrical, cleaning, HVAC and more. Replace with your focus areas.</div>
+        <div class="faq-a">Service businesses of every kind: locksmiths, plumbing, electrical, cleaning, HVAC and more.</div>
       </details>
     </div>
   </div>
@@ -850,6 +927,8 @@
 
       <button type="submit" class="btn btn-primary">Send request</button>
       <p class="form-note" id="pf-note" role="status" aria-live="polite" hidden></p>
+      <!-- TODO: link to real privacy policy page once one exists -->
+      <p class="form-privacy">We only use this information to respond to your request.</p>
     </form>
 
     <p class="contact-alt reveal">
@@ -984,6 +1063,31 @@
       if (openBtn) openBtn.focus();
     }
   });
+
+  // ----- Mobile nav (hamburger) -----
+  const navToggle = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  if (navToggle && mobileNav) {
+    const setNav = open => {
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      mobileNav.classList.toggle('open', open);
+      mobileNav.setAttribute('aria-hidden', open ? 'false' : 'true');
+    };
+    // Enter/Space toggling comes free with <button>
+    navToggle.addEventListener('click', () => setNav(navToggle.getAttribute('aria-expanded') !== 'true'));
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+        setNav(false);
+        navToggle.focus(); // return focus to the control that opened the menu
+      }
+    });
+    // Keep state sane if the viewport grows past the mobile breakpoint while open
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 760 && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
+    });
+  }
 
   // Scroll reveal — IntersectionObserver is the primary path. The fallbacks below make sure
   // content can never stay permanently invisible if it is unsupported or fails to fire.
