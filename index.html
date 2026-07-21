@@ -131,34 +131,20 @@
   }
   /* padding lives on the inner wrapper so max-height:0 collapses fully */
   .mobile-nav-inner{padding:6px 24px 18px}
-  /* Scrim: dims and blurs the rest of the page while the menu is open, so the
-     content showing below the panel stops competing for attention. Starts below
-     the header so the close button stays reachable. Tapping it closes the menu. */
-  .nav-backdrop{
-    position:fixed;
-    inset:64px 0 0 0;
-    z-index:998;
-    background:rgba(19,17,28,.6);
-    backdrop-filter:blur(10px) saturate(.9);
-    -webkit-backdrop-filter:blur(10px) saturate(.9);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .3s ease;
-  }
-  .nav-backdrop.open{opacity:1;pointer-events:auto}
-  @media (min-width:761px){ .nav-backdrop{display:none} }
+  @media (min-width:761px){ .mobile-nav{display:none} }
   @media (min-width:761px){ .mobile-nav{display:none} }
   .mobile-nav a{
     display:block;
-    padding:13px 4px;
+    padding:16px 4px;
+    text-align:center;
     color:var(--muted);
     text-decoration:none;
-    font-size:.98rem;
+    font-size:1.12rem;
     border-bottom:1px solid var(--line);
-    transition:color .2s, padding-left .2s;
+    transition:color .2s;
   }
   .mobile-nav a:last-child{border-bottom:0}
-  .mobile-nav a:hover,.mobile-nav a:focus-visible{color:var(--text);padding-left:8px}
+  .mobile-nav a:hover,.mobile-nav a:focus-visible{color:var(--text)}
 
   /* ---------- Hex logo ---------- */
   .hex-logo{width:30px;height:34px;flex-shrink:0}
@@ -512,7 +498,6 @@
     .faq-ic .hx-fill{transition:none}
     .nav-bar{transition:none}
     .mobile-nav{transition:none}
-    .nav-backdrop{transition:none}
     .mobile-nav a{transition:none}
     html{scroll-behavior:auto}
   }
@@ -565,7 +550,6 @@
 <!-- The mobile menu lives outside <nav> on purpose: the nav's backdrop-filter
      makes it a containing block for fixed-position children, which would anchor
      these to the 64px bar instead of the viewport. -->
-<div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="mobile-nav-inner">
     <a href="#services">What we build</a>
@@ -1109,16 +1093,13 @@
   // ----- Mobile nav (hamburger) -----
   const navToggle = document.getElementById('navToggle');
   const mobileNav = document.getElementById('mobileNav');
-  const navBackdrop = document.getElementById('navBackdrop');
   if (navToggle && mobileNav) {
     const setNav = open => {
       navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       mobileNav.classList.toggle('open', open);
       mobileNav.setAttribute('aria-hidden', open ? 'false' : 'true');
-      if (navBackdrop) navBackdrop.classList.toggle('open', open);
     };
-    if (navBackdrop) navBackdrop.addEventListener('click', () => setNav(false));
     // Enter/Space toggling comes free with <button>
     navToggle.addEventListener('click', () => setNav(navToggle.getAttribute('aria-expanded') !== 'true'));
     mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
