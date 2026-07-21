@@ -8,6 +8,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- Tailwind (utility classes for new components). Preflight disabled so it doesn't reset the existing hand-written CSS. Brand palette mapped so no default Tailwind colors are used. -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    corePlugins: { preflight: false },
+    theme: {
+      extend: {
+        colors: {
+          bg:'#13111C', surface:'#1A1723', 'surface-2':'#211D2E', line:'#2B2740',
+          violet:'#6C3FE7', 'violet-deep':'#5B32C7', fuchsia:'#A063F7', honey:'#F5B942',
+          lavender:'#B9A6F5', text:'#F2F0F7', muted:'#9D96B8'
+        },
+        fontFamily: {
+          sora:['Sora','sans-serif'], inter:['Inter','sans-serif'], mono:['JetBrains Mono','monospace']
+        }
+      }
+    }
+  };
+</script>
 <style>
   :root{
     --bg:#13111C;
@@ -22,6 +41,8 @@
     --text:#F2F0F7;
     --muted:#9D96B8;
     --radius:14px;
+    --shadow-card:0 2px 4px rgba(0,0,0,.28), 0 14px 30px -12px rgba(108,63,231,.28);
+    --shadow-float:0 4px 10px rgba(0,0,0,.34), 0 34px 62px -20px rgba(108,63,231,.45);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -58,10 +79,10 @@
   header.hero{position:relative;overflow:hidden;padding:110px 0 90px}
   .hex-field{
     position:absolute;inset:0;
-    opacity:.5;
+    opacity:.8;
     pointer-events:none;
-    mask-image:radial-gradient(ellipse 75% 90% at 70% 10%, #000 30%, transparent 75%);
-    -webkit-mask-image:radial-gradient(ellipse 75% 90% at 70% 10%, #000 30%, transparent 75%);
+    mask-image:radial-gradient(ellipse 88% 105% at 68% 6%, #000 46%, transparent 90%);
+    -webkit-mask-image:radial-gradient(ellipse 88% 105% at 68% 6%, #000 46%, transparent 90%);
   }
   .eyebrow{
     font-family:'JetBrains Mono',monospace;
@@ -112,18 +133,43 @@
   .sec-head p{color:var(--muted)}
 
   /* ---------- Services ---------- */
-  .cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .cells{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
   .cell{
+    position:relative;z-index:1;
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:var(--radius);
     padding:26px 24px;
-    transition:border-color .2s, transform .2s;
+    box-shadow:var(--shadow-card);
+    transition:border-color .2s, transform .2s, box-shadow .2s;
   }
-  .cell:hover{border-color:var(--violet);transform:translateY(-3px)}
+  .cell:hover{border-color:var(--violet);transform:translateY(-3px);box-shadow:var(--shadow-float)}
   .cell .hex-ic{width:38px;height:42px;margin-bottom:16px}
   .cell h3{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:8px}
   .cell p{color:var(--muted);font-size:.92rem}
+  /* Hex watermark — the shape itself carries the brand identity */
+  .cell::after,.fact-card::after,.price-card::after{
+    content:"";position:absolute;right:14px;bottom:12px;width:44px;height:50px;pointer-events:none;opacity:.05;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 68"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="%23B9A6F5" stroke-width="4"/></svg>') no-repeat center/contain;
+  }
+  /* Coordinated system: the three portals link as one hive; Dispatch is the hub (desktop) */
+  @media (min-width:900px){
+    .cells::before{
+      content:"";position:absolute;z-index:0;pointer-events:none;
+      top:47px;left:24%;right:24%;height:2px;border-radius:2px;
+      background:linear-gradient(90deg,transparent,rgba(108,63,231,.5),transparent);
+    }
+    .cell--hub{transform:translateY(-14px);border-color:#3a2f63;box-shadow:var(--shadow-float)}
+    .cell--hub:hover{transform:translateY(-17px)}
+    .cell--hub::after{
+      content:"";position:absolute;top:61px;left:-16px;right:auto;bottom:auto;width:15px;height:17px;opacity:1;z-index:2;pointer-events:none;
+      background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 68"><path d="M30 4 54 18v32L30 64 6 50V18Z" fill="%2313111C" stroke="%236C3FE7" stroke-width="6"/></svg>') no-repeat center/contain;
+    }
+    .cell--hub::before{
+      content:"";position:absolute;top:61px;right:-16px;left:auto;width:15px;height:17px;z-index:2;pointer-events:none;
+      background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 68"><path d="M30 4 54 18v32L30 64 6 50V18Z" fill="%2313111C" stroke="%236C3FE7" stroke-width="6"/></svg>') no-repeat center/contain;
+  }
+  }
 
   /* ---------- Featured project / emulator ---------- */
   .project-tag{
@@ -135,7 +181,7 @@
     border:1px solid var(--line);
     border-radius:18px;
     overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    box-shadow:var(--shadow-float);
   }
   .emu-bar{
     display:flex;align-items:center;gap:14px;
@@ -178,7 +224,13 @@
     display:flex;align-items:center;justify-content:center;
   }
   .emu-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .emu-placeholder{text-align:center;padding:24px;max-width:46ch}
+  .emu-skeleton{position:absolute;inset:0;width:100%;height:100%;opacity:.9;pointer-events:none}
+  /* Brighten the wireframe so the frame reads as a dashboard, not an empty box */
+  .emu-skeleton [stroke="#2B2740"]{stroke:#B9A6F5;stroke-opacity:.3}
+  .emu-skeleton [fill="#2B2740"],.emu-skeleton [fill="#211D2E"]{fill:#B9A6F5;fill-opacity:.22}
+  .emu-skeleton [fill="#6C3FE7"]{opacity:.55}
+  .emu-skeleton polyline{opacity:.85;stroke-width:3}
+  .emu-placeholder{position:relative;z-index:2;text-align:center;padding:24px;max-width:46ch;background:radial-gradient(ellipse 92% 88% at 50% 48%, rgba(19,17,28,.76) 38%, transparent 76%);border-radius:18px}
   .emu-placeholder .hex-ic{width:52px;height:58px;margin:0 auto 18px;animation:pulse 3s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
   .emu-placeholder h3{font-family:'Sora',sans-serif;font-weight:600;margin-bottom:8px}
@@ -196,8 +248,10 @@
   .about-grid p{color:var(--muted)}
   .about-grid strong{color:var(--text);font-weight:600}
   .fact-card{
+    position:relative;
     background:var(--surface);border:1px solid var(--line);
     border-radius:var(--radius);padding:24px;
+    box-shadow:var(--shadow-card);
   }
   .fact-card dl{display:grid;gap:14px}
   .fact-card dt{
@@ -223,12 +277,148 @@
   footer a{color:var(--muted)}
   footer a:hover{color:var(--text)}
 
+  /* ---------- Pricing ---------- */
+  .price-toggle-wrap{display:flex;justify-content:center;margin-bottom:34px}
+  .price-toggle{
+    display:inline-flex;gap:6px;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:11px;padding:5px;
+  }
+  .price-tab{
+    font-family:'Sora',sans-serif;font-size:.85rem;font-weight:600;
+    color:var(--muted);background:transparent;
+    border:1px solid transparent;border-radius:8px;
+    padding:8px 18px;cursor:pointer;
+    transition:color .2s, background .2s, border-color .2s;
+  }
+  .price-tab:hover{color:var(--text)}
+  .price-tab.active{
+    color:#fff;
+    background:linear-gradient(92deg,var(--violet-deep),var(--violet));
+    border-color:transparent;
+  }
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;align-items:start}
+  .price-card{
+    position:relative;display:flex;flex-direction:column;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:28px 24px;
+    box-shadow:var(--shadow-card);
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .price-card:hover{border-color:var(--violet);transform:translateY(-3px);box-shadow:var(--shadow-float)}
+  .price-card.featured{border-color:var(--violet);box-shadow:0 20px 60px rgba(108,63,231,.22)}
+  .price-badge{
+    position:absolute;top:-11px;left:24px;
+    font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;background:linear-gradient(92deg,var(--violet-deep),var(--violet));
+    border-radius:99px;padding:4px 11px;
+  }
+  .price-name{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:14px;color:var(--text)}
+  .price-amount{display:flex;align-items:baseline;gap:6px}
+  .price-figure{font-family:'Sora',sans-serif;font-weight:800;font-size:2.1rem;letter-spacing:-.02em;color:var(--text)}
+  .price-period{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--muted)}
+  .price-sub{color:var(--muted);font-size:.82rem;margin-top:6px;min-height:1.1em}
+  .price-cta{width:100%;justify-content:center;margin:18px 0 20px}
+  .price-features{list-style:none;display:grid;gap:10px}
+  .price-features li{position:relative;padding-left:26px;color:var(--muted);font-size:.92rem;line-height:1.5}
+  .price-features li::before{
+    content:"";position:absolute;left:0;top:.05em;width:15px;height:17px;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 68"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="%236C3FE7" stroke-width="4"/><path d="M21 34l6 6 12-13" fill="none" stroke="%23B9A6F5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center/contain;
+  }
+  .price-features li.price-inherit{padding-left:0;color:var(--text);font-weight:600;font-size:.82rem}
+  .price-features li.price-inherit::before{display:none}
+  .price-note{max-width:760px;margin:30px auto 0;text-align:center;color:var(--muted);font-size:.8rem;line-height:1.6}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{display:grid;gap:12px;max-width:780px}
+  .faq-item{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .faq-item[open]{border-color:var(--violet)}
+  .faq-q{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:19px 22px;
+    font-family:'Sora',sans-serif;font-weight:600;font-size:1rem;color:var(--text);
+  }
+  .faq-q::-webkit-details-marker{display:none}
+  .faq-q:hover{color:var(--lavender)}
+  .faq-q:focus-visible{outline:2px solid var(--lavender);outline-offset:-2px;border-radius:var(--radius)}
+  .faq-ic{flex-shrink:0;width:20px;height:22px;color:var(--lavender)}
+  .faq-ic .hx-fill{transition:opacity .25s ease}
+  .faq-item[open] .faq-ic{color:var(--violet)}
+  .faq-item[open] .faq-ic .hx-fill{opacity:.85}
+  .faq-a{padding:0 22px 20px;color:var(--muted);font-size:.95rem;line-height:1.7;max-width:70ch}
+
+  /* ---------- Project form ---------- */
+  .project-form{
+    max-width:660px;margin:0 auto;
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 0%, rgba(160,99,247,.08), transparent 70%),
+      var(--surface);
+    border:1px solid var(--line);border-radius:20px;
+    padding:32px;display:grid;gap:18px;
+    box-shadow:var(--shadow-float);
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .field{display:grid;gap:7px}
+  .field>label,.project-form legend{font-size:.85rem;font-weight:500;color:var(--text);padding:0}
+  .field .opt{color:var(--muted);font-weight:400}
+  .project-form input,
+  .project-form select,
+  .project-form textarea{
+    width:100%;font-family:'Inter',sans-serif;font-size:.95rem;color:var(--text);
+    background:var(--bg);border:1px solid var(--line);border-radius:10px;
+    padding:11px 13px;box-shadow:inset 0 1px 2px rgba(0,0,0,.25);
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .project-form textarea{resize:vertical;min-height:120px;line-height:1.6}
+  .project-form input::placeholder,
+  .project-form textarea::placeholder{color:#6f6890}
+  .project-form select{cursor:pointer}
+  .project-form input:focus,
+  .project-form select:focus,
+  .project-form textarea:focus{
+    outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(108,63,231,.22);
+  }
+  .project-form input:focus-visible,
+  .project-form select:focus-visible,
+  .project-form textarea:focus-visible{outline:2px solid var(--lavender);outline-offset:2px}
+  .project-form fieldset{border:0;padding:0;margin:0;display:grid;gap:9px}
+  .checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px}
+  .check{
+    display:flex;align-items:center;gap:10px;cursor:pointer;
+    background:var(--bg);border:1px solid var(--line);border-radius:10px;
+    padding:11px 13px;font-size:.9rem;color:var(--text);transition:border-color .2s;
+  }
+  .check:hover{border-color:var(--violet)}
+  .check input{accent-color:var(--violet);width:16px;height:16px;flex-shrink:0}
+  .check input:focus-visible{outline:2px solid var(--lavender);outline-offset:2px}
+  .project-form button[type=submit]{justify-self:start;margin-top:4px}
+  .form-note{
+    font-size:.9rem;color:var(--lavender);
+    background:rgba(108,63,231,.12);border:1px solid var(--line);
+    border-radius:10px;padding:12px 14px;margin:0;
+  }
+  .contact-alt{text-align:center;color:var(--muted);font-size:.9rem;margin-top:24px}
+  .contact-alt a{color:var(--lavender);text-decoration:none}
+  .contact-alt a:hover,.contact-alt a:focus-visible{color:var(--text)}
+  @media (max-width:560px){
+    .form-row{grid-template-columns:1fr}
+    .project-form{padding:24px}
+  }
+
   /* ---------- Reveal on scroll ---------- */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
     .emu-placeholder .hex-ic{animation:none}
+    .faq-ic .hx-fill{transition:none}
     html{scroll-behavior:auto}
   }
 
@@ -260,8 +450,10 @@
     <div class="nav-links">
       <a href="#services">What we build</a>
       <a href="#work">Live demos</a>
+      <a href="#pricing">Pricing</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Start a Project</a>
     </div>
   </div>
 </nav>
@@ -272,7 +464,7 @@
     <defs>
       <pattern id="hexpat" width="56" height="97" patternUnits="userSpaceOnUse" patternTransform="scale(1.1)">
         <path d="M28 0 56 16v32L28 64 0 48V16Z M28 64 56 80v32L28 128 0 112V80Z"
-              fill="none" stroke="#2B2740" stroke-width="1"/>
+              fill="none" stroke="#2B2740" stroke-width="1.5"/>
       </pattern>
     </defs>
     <rect width="100%" height="100%" fill="url(#hexpat)"/>
@@ -306,16 +498,79 @@
         <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/><rect x="18" y="24" width="24" height="4" rx="2" fill="#6C3FE7"/><rect x="18" y="32" width="16" height="4" rx="2" fill="#9D96B8"/><rect x="18" y="40" width="20" height="4" rx="2" fill="#9D96B8"/></svg>
         <h3>Admin dashboards</h3>
         <p>Full visibility over jobs, revenue, customers and staff. Reports that answer questions before you ask them.</p>
+        <!-- Info tooltip (Tailwind, brand palette). Opens on hover, keyboard focus, and click. -->
+        <div class="info relative inline-block mt-4 group">
+          <button type="button" class="info-trigger relative inline-flex items-center gap-2 px-4 py-2 text-xs font-sora font-semibold text-lavender bg-surface-2 border border-line rounded-lg hover:text-text hover:border-violet transition-colors duration-200" aria-expanded="false" aria-controls="info-admin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4" aria-hidden="true"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            More info
+          </button>
+          <div id="info-admin" role="tooltip" class="info-tip invisible opacity-0 translate-y-2 absolute bottom-full left-0 mb-3 w-[min(16rem,calc(100vw-2.5rem))] z-30 transition-[opacity,transform,visibility] duration-300 ease-out group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0">
+            <div class="relative p-4 bg-surface/95 backdrop-blur-md rounded-2xl border border-line shadow-[0_0_30px_rgba(108,63,231,0.18)]">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-violet/20"><svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-lavender" aria-hidden="true"><path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill-rule="evenodd"/></svg></span>
+                <h4 class="text-sm font-sora font-semibold text-text">Admin dashboard</h4>
+              </div>
+              <p class="text-sm text-muted leading-relaxed">A real-time view of jobs, revenue, customers and staff — with reports and role-based access, all in one place.</p>
+              <div class="flex items-center gap-2 mt-2 text-xs text-muted">
+                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-lavender" aria-hidden="true"><path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"/></svg>
+                <span>Included in the top two tiers</span>
+              </div>
+              <span class="absolute -bottom-1.5 left-6 w-3 h-3 bg-surface rotate-45 border-r border-b border-line"></span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="cell reveal">
+      <div class="cell cell--hub reveal">
         <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#A063F7" stroke-width="3"/><circle cx="30" cy="34" r="11" fill="none" stroke="#A063F7" stroke-width="3"/><circle cx="30" cy="34" r="3.5" fill="#B9A6F5"/></svg>
         <h3>Dispatch portals</h3>
         <p>Assign the right technician to the right job in seconds. Live status, scheduling and routing in one screen.</p>
+        <!-- Info tooltip (Tailwind, brand palette). Opens on hover, keyboard focus, and click. -->
+        <div class="info relative inline-block mt-4 group">
+          <button type="button" class="info-trigger relative inline-flex items-center gap-2 px-4 py-2 text-xs font-sora font-semibold text-lavender bg-surface-2 border border-line rounded-lg hover:text-text hover:border-violet transition-colors duration-200" aria-expanded="false" aria-controls="info-dispatch">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4" aria-hidden="true"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            More info
+          </button>
+          <div id="info-dispatch" role="tooltip" class="info-tip invisible opacity-0 translate-y-2 absolute bottom-full left-0 mb-3 w-[min(16rem,calc(100vw-2.5rem))] z-30 transition-[opacity,transform,visibility] duration-300 ease-out group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0">
+            <div class="relative p-4 bg-surface/95 backdrop-blur-md rounded-2xl border border-line shadow-[0_0_30px_rgba(108,63,231,0.18)]">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-violet/20"><svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-lavender" aria-hidden="true"><path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill-rule="evenodd"/></svg></span>
+                <h4 class="text-sm font-sora font-semibold text-text">Dispatch portal</h4>
+              </div>
+              <p class="text-sm text-muted leading-relaxed">Assign the right technician to the right job in seconds — live status, scheduling and routing on a single screen.</p>
+              <div class="flex items-center gap-2 mt-2 text-xs text-muted">
+                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-lavender" aria-hidden="true"><path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"/></svg>
+                <span>Included in the top tier</span>
+              </div>
+              <span class="absolute -bottom-1.5 left-6 w-3 h-3 bg-surface rotate-45 border-r border-b border-line"></span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="cell reveal">
         <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#B9A6F5" stroke-width="3"/><rect x="22" y="20" width="16" height="26" rx="3" fill="none" stroke="#B9A6F5" stroke-width="3"/><circle cx="30" cy="41" r="2" fill="#B9A6F5"/></svg>
         <h3>Technician portals</h3>
         <p>Mobile-first tools for the field: job details, customer info, status updates and proof of work — no phone calls needed.</p>
+        <!-- Info tooltip (Tailwind, brand palette). Opens on hover, keyboard focus, and click. -->
+        <div class="info relative inline-block mt-4 group">
+          <button type="button" class="info-trigger relative inline-flex items-center gap-2 px-4 py-2 text-xs font-sora font-semibold text-lavender bg-surface-2 border border-line rounded-lg hover:text-text hover:border-violet transition-colors duration-200" aria-expanded="false" aria-controls="info-tech">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4" aria-hidden="true"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            More info
+          </button>
+          <div id="info-tech" role="tooltip" class="info-tip invisible opacity-0 translate-y-2 absolute bottom-full left-0 mb-3 w-[min(16rem,calc(100vw-2.5rem))] z-30 transition-[opacity,transform,visibility] duration-300 ease-out group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0">
+            <div class="relative p-4 bg-surface/95 backdrop-blur-md rounded-2xl border border-line shadow-[0_0_30px_rgba(108,63,231,0.18)]">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-violet/20"><svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-lavender" aria-hidden="true"><path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill-rule="evenodd"/></svg></span>
+                <h4 class="text-sm font-sora font-semibold text-text">Technician portal</h4>
+              </div>
+              <p class="text-sm text-muted leading-relaxed">Mobile-first field tools: job details, customer info, status updates and proof of work — no phone calls needed.</p>
+              <div class="flex items-center gap-2 mt-2 text-xs text-muted">
+                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-lavender" aria-hidden="true"><path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"/></svg>
+                <span>Included in the top tier</span>
+              </div>
+              <span class="absolute -bottom-1.5 left-6 w-3 h-3 bg-surface rotate-45 border-r border-b border-line"></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -346,6 +601,35 @@
           <!-- When the real demo is deployed, replace the placeholder below with:
                <iframe src="https://demo.hivera.app/?role=admin" title="Hivera live demo" loading="lazy"></iframe>
                and switch the src per role in script. -->
+          <svg class="emu-skeleton" viewBox="0 0 800 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none">
+            <rect x="24" y="24" width="150" height="412" rx="10" stroke="#2B2740"/>
+            <rect x="40" y="86" width="118" height="20" rx="6" fill="#6C3FE7" opacity=".18"/>
+            <rect x="44" y="48" width="90" height="10" rx="5" fill="#2B2740"/>
+            <rect x="44" y="92" width="110" height="8" rx="4" fill="#211D2E"/>
+            <rect x="44" y="116" width="96" height="8" rx="4" fill="#211D2E"/>
+            <rect x="44" y="140" width="104" height="8" rx="4" fill="#211D2E"/>
+            <rect x="44" y="164" width="80" height="8" rx="4" fill="#211D2E"/>
+            <rect x="198" y="24" width="578" height="46" rx="10" stroke="#2B2740"/>
+            <rect x="218" y="40" width="120" height="12" rx="6" fill="#2B2740"/>
+            <circle cx="748" cy="47" r="12" stroke="#2B2740"/>
+            <rect x="198" y="90" width="182" height="88" rx="10" stroke="#2B2740"/>
+            <rect x="396" y="90" width="182" height="88" rx="10" stroke="#2B2740"/>
+            <rect x="594" y="90" width="182" height="88" rx="10" stroke="#2B2740"/>
+            <rect x="218" y="112" width="70" height="9" rx="4" fill="#211D2E"/>
+            <rect x="218" y="132" width="110" height="16" rx="6" fill="#6C3FE7" opacity=".22"/>
+            <rect x="416" y="112" width="70" height="9" rx="4" fill="#211D2E"/>
+            <rect x="416" y="132" width="96" height="16" rx="6" fill="#211D2E"/>
+            <rect x="614" y="112" width="70" height="9" rx="4" fill="#211D2E"/>
+            <rect x="614" y="132" width="104" height="16" rx="6" fill="#211D2E"/>
+            <rect x="198" y="198" width="366" height="238" rx="10" stroke="#2B2740"/>
+            <polyline points="222,392 268,350 314,368 360,300 406,326 452,262 498,286 540,240" stroke="#6C3FE7" stroke-width="2.5" opacity=".5"/>
+            <polyline points="222,410 268,384 314,398 360,360 406,378 452,332 498,352 540,318" stroke="#B9A6F5" stroke-width="2" opacity=".35"/>
+            <rect x="580" y="198" width="196" height="238" rx="10" stroke="#2B2740"/>
+            <rect x="602" y="360" width="26" height="56" rx="4" fill="#6C3FE7" opacity=".25"/>
+            <rect x="640" y="330" width="26" height="86" rx="4" fill="#6C3FE7" opacity=".3"/>
+            <rect x="678" y="300" width="26" height="116" rx="4" fill="#6C3FE7" opacity=".22"/>
+            <rect x="716" y="344" width="26" height="72" rx="4" fill="#6C3FE7" opacity=".28"/>
+          </svg>
           <div class="emu-placeholder">
             <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true">
               <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/>
@@ -364,6 +648,69 @@
         <span class="chip">Built for a 24/7 service company</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ======= PRICING ======= -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;max-width:none">
+      <span class="eyebrow" style="justify-content:center">Pricing</span>
+      <h2>Simple pricing for a platform that grows with you.</h2>
+      <p style="margin:0 auto;max-width:58ch">Start with a website, add the admin dashboard when you're ready, or run the full dispatch-and-technician platform. Pay monthly and we host and manage everything — or pay once and own it outright.</p>
+    </div>
+
+    <div class="price-toggle-wrap reveal">
+      <div class="price-toggle" role="tablist" aria-label="Choose pricing model">
+        <button class="price-tab active" data-mode="monthly" role="tab" aria-selected="true">Monthly</button>
+        <button class="price-tab" data-mode="onetime" role="tab" aria-selected="false">One-time project</button>
+      </div>
+    </div>
+
+    <div class="price-grid reveal">
+      <article class="price-card">
+        <h3 class="price-name" data-name>Starter</h3>
+        <div class="price-amount"><span class="price-figure" data-figure>$150</span><span class="price-period" data-period>/ month</span></div>
+        <p class="price-sub" data-sub>+ $1,500 one-time setup</p>
+        <a class="btn btn-primary price-cta" href="#contact">Start a project</a>
+        <ul class="price-features" data-features>
+          <li>Custom mobile-friendly website</li>
+          <li>Professional business email setup</li>
+          <li>Online booking / request form</li>
+          <li>Hosting, security &amp; automated backups</li>
+          <li>Ongoing support &amp; minor updates</li>
+        </ul>
+      </article>
+
+      <article class="price-card featured">
+        <span class="price-badge">Most popular</span>
+        <h3 class="price-name" data-name>Professional</h3>
+        <div class="price-amount"><span class="price-figure" data-figure>$300</span><span class="price-period" data-period>/ month</span></div>
+        <p class="price-sub" data-sub>+ $3,000 one-time setup</p>
+        <a class="btn btn-primary price-cta" href="#contact">Start a project</a>
+        <ul class="price-features" data-features>
+          <li class="price-inherit">Everything in Starter, plus:</li>
+          <li>Admin dashboard (full content control)</li>
+          <li>Client &amp; job management system</li>
+          <li>Priority support (24–48h response)</li>
+        </ul>
+      </article>
+
+      <article class="price-card">
+        <h3 class="price-name" data-name>Complete</h3>
+        <div class="price-amount"><span class="price-figure" data-figure>$400</span><span class="price-period" data-period>/ month</span></div>
+        <p class="price-sub" data-sub>+ $5,000 one-time setup</p>
+        <a class="btn btn-primary price-cta" href="#contact">Start a project</a>
+        <ul class="price-features" data-features>
+          <li class="price-inherit">Everything in Professional, plus:</li>
+          <li>Dispatch portal (job assignment &amp; tracking)</li>
+          <li>Technician portal (role-based logins)</li>
+          <li>Real-time job status updates</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="price-note reveal" id="pricingNote">All prices in CAD, plus applicable tax (HST). Setup billed 50% at project start, 50% on delivery; monthly billing begins at launch. No lock-in — cancel with 30 days' notice. Optional add-ons and custom quotes available.</p>
   </div>
 </section>
 
@@ -392,18 +739,125 @@
   </div>
 </section>
 
-<!-- ======= CONTACT ======= -->
+<!-- ======= FAQ ======= -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered.</h2>
+      <p>The things clients ask us most. Placeholder answers for now — real copy to follow.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary class="faq-q">
+          <span>How long does a project take?</span>
+          <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
+        </summary>
+        <div class="faq-a">Placeholder answer — most builds run roughly 4–8 weeks depending on scope and how many portals are involved. Replace with your real timeline.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary class="faq-q">
+          <span>Can you migrate our existing data and systems?</span>
+          <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
+        </summary>
+        <div class="faq-a">Placeholder answer — yes; moving your data over from spreadsheets or existing tools is part of onboarding. Replace with specifics about your process.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary class="faq-q">
+          <span>How does pricing work?</span>
+          <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
+        </summary>
+        <div class="faq-a">Placeholder answer — projects are quoted per scope after a short discovery call, so you only pay for what you need. Replace with your pricing model.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary class="faq-q">
+          <span>Do you offer support after launch?</span>
+          <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
+        </summary>
+        <div class="faq-a">Placeholder answer — yes; every project includes post-launch support, and we stay involved for changes and fixes. Replace with your support terms.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary class="faq-q">
+          <span>What industries do you work with?</span>
+          <svg class="faq-ic" viewBox="0 0 24 24" aria-hidden="true"><path class="hx-out" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path class="hx-fill" d="M12 2.6 20 7.1v9.8l-8 4.5-8-4.5V7.1Z" fill="currentColor" opacity="0"/></svg>
+        </summary>
+        <div class="faq-a">Placeholder answer — service businesses of every kind: locksmiths, plumbing, electrical, cleaning, HVAC and more. Replace with your focus areas.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CONTACT / START A PROJECT ======= -->
 <section id="contact">
   <div class="wrap">
-    <div class="contact-box reveal">
-      <span class="eyebrow" style="justify-content:center">Contact</span>
+    <div class="sec-head reveal" style="text-align:center;max-width:none">
+      <span class="eyebrow" style="justify-content:center">Start a Project</span>
       <h2>Have a business that needs a platform?</h2>
-      <p>Tell us how your company works today — we'll show you what it could look like running on software built just for it.</p>
-      <div class="cta-row" style="justify-content:center">
-        <a class="btn btn-primary" href="mailto:hello@hivera.app">hello@hivera.app</a>
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </div>
+      <p style="margin:0 auto;max-width:54ch">Tell us how your company works today — we'll show you what it could look like running on software built just for it.</p>
     </div>
+
+    <!-- TODO: connect to backend endpoint -->
+    <form class="project-form reveal" id="projectForm" aria-label="Start a project">
+      <div class="form-row">
+        <div class="field">
+          <label for="pf-name">Full name</label>
+          <input id="pf-name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe" />
+        </div>
+        <div class="field">
+          <label for="pf-email">Email</label>
+          <input id="pf-email" name="email" type="email" autocomplete="email" required placeholder="jane@company.com" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pf-business">Business type</label>
+        <select id="pf-business" name="business_type" required>
+          <option value="" disabled selected>Select your business type…</option>
+          <option>Locksmith</option>
+          <option>Plumbing</option>
+          <option>Electrical</option>
+          <option>Cleaning</option>
+          <option>HVAC</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>What you need</legend>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="needs" value="admin" /> <span>Admin Dashboard</span></label>
+          <label class="check"><input type="checkbox" name="needs" value="dispatch" /> <span>Dispatch System</span></label>
+          <label class="check"><input type="checkbox" name="needs" value="technician" /> <span>Technician Portal</span></label>
+          <label class="check"><input type="checkbox" name="needs" value="all" /> <span>All of these</span></label>
+          <label class="check"><input type="checkbox" name="needs" value="unsure" /> <span>Not sure yet</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="pf-desc">Project description</label>
+        <textarea id="pf-desc" name="description" required placeholder="Tell us a bit about your business and what you're hoping to build…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="pf-budget">Estimated budget <span class="opt">(optional)</span></label>
+        <select id="pf-budget" name="budget">
+          <option value="" selected>Not sure</option>
+          <option value="$">$</option>
+          <option value="$$">$$</option>
+          <option value="$$$">$$$</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send request</button>
+      <p class="form-note" id="pf-note" role="status" aria-live="polite" hidden></p>
+    </form>
+
+    <p class="contact-alt reveal">
+      Prefer to reach out directly?
+      <a href="mailto:hello@hivera.app">hello@hivera.app</a>
+      ·
+      <a href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </p>
   </div>
 </section>
 
@@ -440,11 +894,123 @@
     });
   });
 
-  // Scroll reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: .12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // ----- Start a Project form (front-end only for now) -----
+  // TODO: connect to backend endpoint
+  const projectForm = document.getElementById('projectForm');
+  if (projectForm) {
+    projectForm.addEventListener('submit', (e) => {
+      e.preventDefault(); // no backend yet — see TODO above
+      // TODO: connect to backend endpoint — POST the collected form data to your API here.
+      const note = document.getElementById('pf-note');
+      note.hidden = false;
+      note.textContent = "Thanks! This form isn't connected to a backend yet — it'll be wired up soon.";
+    });
+  }
+
+  // ----- Pricing toggle (Monthly / One-time) -----
+  const pricingData = {
+    monthly: [
+      {name:'Starter', figure:'$150', period:'/ month', sub:'+ $1,500 one-time setup',
+       features:['Custom mobile-friendly website','Professional business email setup','Online booking / request form','Hosting, security & automated backups','Ongoing support & minor updates']},
+      {name:'Professional', figure:'$300', period:'/ month', sub:'+ $3,000 one-time setup',
+       features:['Everything in Starter, plus:','Admin dashboard (full content control)','Client & job management system','Priority support (24–48h response)']},
+      {name:'Complete', figure:'$400', period:'/ month', sub:'+ $5,000 one-time setup',
+       features:['Everything in Professional, plus:','Dispatch portal (job assignment & tracking)','Technician portal (role-based logins)','Real-time job status updates']}
+    ],
+    onetime: [
+      {name:'Website Package', figure:'$3,500', period:'one-time', sub:'You own the source code',
+       features:['Custom mobile-friendly website','Professional business email setup','Online booking / request form','Full source code ownership','Deploy to your own hosting','30-day post-launch bug-fix warranty']},
+      {name:'Business Package', figure:'$7,500', period:'one-time', sub:'You own the source code',
+       features:['Everything in Website Package, plus:','Admin dashboard (full content control)','Client & job management system','Team training session']},
+      {name:'Enterprise Package', figure:'$12,500', period:'one-time', sub:'You own the source code',
+       features:['Everything in Business Package, plus:','Dispatch portal (job assignment & tracking)','Technician portal (role-based logins)','Real-time job status updates']}
+    ]
+  };
+  const pricingNotes = {
+    monthly: "All prices in CAD, plus applicable tax (HST). Setup billed 50% at project start, 50% on delivery; monthly billing begins at launch. No lock-in — cancel with 30 days' notice. Optional add-ons and custom quotes available.",
+    onetime: "All prices in CAD, plus applicable tax (HST). Payment 40% at start, 40% at mid-project review, 20% on delivery. Typical delivery 3–6 weeks. Optional maintenance: Basic Care $150/mo or Full Care $300/mo. Add-ons and custom quotes available."
+  };
+  const priceCards = document.querySelectorAll('.price-card');
+  const priceNoteEl = document.getElementById('pricingNote');
+  function renderPricing(mode){
+    (pricingData[mode] || []).forEach((tier, i) => {
+      const card = priceCards[i];
+      if (!card) return;
+      card.querySelector('[data-name]').textContent = tier.name;
+      card.querySelector('[data-figure]').textContent = tier.figure;
+      card.querySelector('[data-period]').textContent = tier.period;
+      card.querySelector('[data-sub]').textContent = tier.sub;
+      card.querySelector('[data-features]').innerHTML = tier.features.map(f => {
+        const inherit = /^Everything in/.test(f);
+        return '<li' + (inherit ? ' class="price-inherit"' : '') + '>' + f + '</li>';
+      }).join('');
+    });
+    if (priceNoteEl) priceNoteEl.textContent = pricingNotes[mode] || '';
+    document.querySelectorAll('.price-tab').forEach(t => {
+      const on = t.dataset.mode === mode;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  document.querySelectorAll('.price-tab').forEach(tab => {
+    tab.addEventListener('click', () => renderPricing(tab.dataset.mode));
+  });
+  if (priceCards.length) renderPricing('monthly');
+
+  // ----- Info tooltips: hover/focus handled by CSS; click pins open (touch + keyboard friendly) -----
+  const openClasses = ['!visible', '!opacity-100', '!translate-y-0'];
+  function setInfoOpen(btn, open){
+    const tip = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!tip) return;
+    openClasses.forEach(c => tip.classList.toggle(c, open));
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function closeAllInfo(){
+    document.querySelectorAll('.info-trigger[aria-expanded="true"]').forEach(b => setInfoOpen(b, false));
+  }
+  document.querySelectorAll('.info-trigger').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+      closeAllInfo();
+      setInfoOpen(btn, willOpen);
+    });
+  });
+  document.addEventListener('click', closeAllInfo);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openBtn = document.querySelector('.info-trigger[aria-expanded="true"]');
+      closeAllInfo();
+      if (openBtn) openBtn.focus();
+    }
+  });
+
+  // Scroll reveal — IntersectionObserver is the primary path. The fallbacks below make sure
+  // content can never stay permanently invisible if it is unsupported or fails to fire.
+  const revealItems = document.querySelectorAll('.reveal');
+  const revealAll = () => revealItems.forEach(el => el.classList.add('in'));
+
+  if (!('IntersectionObserver' in window)) {
+    revealAll(); // no observer support: show everything rather than hide it
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    revealItems.forEach(el => io.observe(el));
+
+    // Safety net: after 2s, anything already on screen should have been revealed. If it
+    // has not, the observer is not doing its job — reveal everything instead of leaving
+    // content stuck invisible. When the observer works normally this is a no-op, so the
+    // scroll-triggered animation is preserved for everything below the fold.
+    setTimeout(() => {
+      const stuck = Array.prototype.filter.call(revealItems, el => {
+        if (el.classList.contains('in')) return false;
+        const r = el.getBoundingClientRect();
+        return r.top < window.innerHeight && r.bottom > 0;
+      });
+      if (stuck.length) revealAll();
+    }, 2000);
+  }
 </script>
 </body>
 </html>

@@ -11,6 +11,13 @@ service businesses.
 > The **CSS/framework approach is flexible**: the current `hivera-index.html` is a simple
 > starting scaffold using hand-written inline CSS, but Tailwind or another approach is
 > fine as we build the site's core out together — just keep the palette and fonts consistent.
+>
+> **Tailwind is now loaded** (CDN in `<head>`) with **Preflight disabled** (`corePlugins.preflight = false`)
+> so it does not reset the existing hand-written CSS, and the **brand palette + fonts are mapped in
+> `tailwind.config`**. When you use Tailwind, map brand tokens (`bg-violet`, `text-lavender`,
+> `border-line`, `font-sora`, …) and **never use the default Tailwind palette** (no
+> indigo/blue/purple/pink/gray defaults). See the **Styling Stack** policy below for when to
+> reach for Tailwind vs the default hand-written CSS.
 
 ## Design system
 
@@ -35,7 +42,9 @@ service businesses.
   - `work` — **live demos**: emulator frame with Admin / Dispatch / Technician role tabs.
     Currently a placeholder; will later embed a real demo via `iframe`.
   - `about`
-  - `contact`
+  - `faq` — accordion FAQ (placeholder Q&A for now, real copy to follow)
+  - `contact` — **Start a Project** lead-intake form (front-end only; submit handler is a
+    placeholder marked `<!-- TODO: connect to backend endpoint -->`) plus a direct email/LinkedIn line
   - `footer`
 - Placeholders to be filled later:
   - `[Your Name]`
@@ -133,3 +142,26 @@ settings above override these wherever they conflict.)_
 
 ## Language
 - Chat with me in Turkish; keep all code, comments, and commit messages in English.
+
+## Warnings & Flags
+- Whenever a change I'm asked to make could cause a real problem — accessibility issue, broken responsive layout, performance cost, conflicting with the existing design system, browser compatibility issue, or anything that contradicts a rule already in this file — flag it clearly in chat before or while making the change, prefixed with 🔴 "!" so it stands out. Briefly state the risk and the safer alternative if there is one. Still make the change if I confirm I want it anyway, unless it violates the Client Privacy rule.
+- Do not silently "fix" or skip something I asked for — flag it, explain, then proceed as instructed.
+
+## Site Purpose (Important — Not a Builder Tool)
+This is NOT a tool-building product (like Retool). It is a real business website with three functions:
+1. Portfolio — showcases real client projects (starting with a locksmith company's platform) with an embedded live demo visitors can explore.
+2. Customer service — an FAQ section plus a contact channel.
+3. Lead intake — a "Start a Project" form where potential clients request custom software.
+The backend (form submission handling, and eventually the live demo backend) will be built separately by the owner and connected later. For now, build the frontend/UI only — leave the form's submit action as a placeholder clearly marked for backend connection.
+
+## Screenshot Policy
+- Do NOT take screenshots by default after every change — this costs unnecessary tokens/credits.
+- Only set up the local server and take screenshots when I explicitly ask for visual verification (e.g. "take a screenshot" or "verify this visually").
+- For routine changes, describe what changed in text instead.
+- (This supersedes the general "Screenshot Workflow" and "Reference Images" screenshot-every-round defaults in the Studio Frontend Rules above.)
+
+## Styling Stack
+- The site's default styling is hand-written CSS using the existing custom properties (--violet, --surface, --radius, etc.) in :root.
+- Tailwind CDN (already included, Preflight disabled) is available to use whenever it's genuinely useful — e.g. dropping in a pre-built component from Uiverse/21st.dev/ReactBits without hand-converting every class. No need to ask permission each time.
+- When using Tailwind for a component, map brand colors/fonts through tailwind.config (already set up) rather than hardcoding Tailwind's default palette — this rule doesn't change.
+- Don't rewrite existing hand-written CSS sections into Tailwind just for consistency's sake — only new/imported components default to Tailwind when it's convenient.
