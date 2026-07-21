@@ -1,6 +1,6 @@
 // Minimal, dependency-free static dev server for the Hivera site.
 // Usage: node serve.mjs   ->   http://localhost:3000
-// Serves the project root; "/" defaults to hivera-index.html.
+// Serves the project root; "/" defaults to index.html.
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize, dirname } from 'node:path';
@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
-const DEFAULT_FILE = 'hivera-index.html';
+const DEFAULT_FILE = 'index.html';
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',

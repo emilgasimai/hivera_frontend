@@ -8,7 +8,7 @@ service businesses.
 > Hivera-specific settings (below, in this top section) and the full Studio Frontend
 > Rules (further down). Where they conflict, **the Hivera-specific settings win** — most
 > importantly the fixed **palette and fonts** (do not change them without asking).
-> The **CSS/framework approach is flexible**: the current `hivera-index.html` is a simple
+> The **CSS/framework approach is flexible**: the current `index.html` is a simple
 > starting scaffold using hand-written inline CSS, but Tailwind or another approach is
 > fine as we build the site's core out together — just keep the palette and fonts consistent.
 >
@@ -34,7 +34,7 @@ service businesses.
 ## Structure
 
 - The site is currently a **single file** (HTML + CSS + JS inline). The file is named
-  `hivera-index.html` in the project root. Keep it working as-is for now.
+  `index.html` in the project root. Keep it working as-is for now.
 - Sections, in order:
   - `nav`
   - `hero`
@@ -58,7 +58,7 @@ service businesses.
 - **Do not change the color palette or fonts** without asking.
 - The emulator section will later load a live demo of a field-service platform (separate
   frontend + backend repos). **Keep the iframe swap point intact** — see the comment inside
-  `.emu-screen` in `hivera-index.html`:
+  `.emu-screen` in `index.html`:
   ```html
   <!-- When the real demo is deployed, replace the placeholder below with:
        <iframe src="https://demo.hivera.app/?role=admin" title="Hivera live demo" loading="lazy"></iframe>
