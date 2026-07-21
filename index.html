@@ -107,13 +107,31 @@
   .nav-toggle[aria-expanded="true"] .nav-bar:nth-child(2){opacity:0}
   .nav-toggle[aria-expanded="true"] .nav-bar:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
+  /* Overlay panel: fixed under the header so opening it never pushes the page
+     down, animated with max-height + opacity over a translucent blurred base. */
   .mobile-nav{
-    display:none;
-    border-top:1px solid var(--line);
-    background:rgba(18,14,26,.97);
-    backdrop-filter:blur(12px);
-    padding:6px 24px 16px;
+    position:fixed;
+    top:64px;left:0;right:0;
+    z-index:999;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    pointer-events:none;
+    background:rgba(19,17,28,.88);
+    backdrop-filter:blur(18px) saturate(1.1);
+    -webkit-backdrop-filter:blur(18px) saturate(1.1);
+    border-bottom:1px solid var(--line);
+    transition:max-height .45s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
   }
+  .mobile-nav.open{
+    max-height:calc(100vh - 64px);
+    opacity:1;
+    pointer-events:auto;
+    overflow-y:auto;
+  }
+  /* padding lives on the inner wrapper so max-height:0 collapses fully */
+  .mobile-nav-inner{padding:6px 24px 18px}
+  @media (min-width:761px){ .mobile-nav{display:none} }
   .mobile-nav a{
     display:block;
     padding:13px 4px;
@@ -477,6 +495,7 @@
     .emu-placeholder .hex-ic{animation:none}
     .faq-ic .hx-fill{transition:none}
     .nav-bar{transition:none}
+    .mobile-nav{transition:none}
     .mobile-nav a{transition:none}
     html{scroll-behavior:auto}
   }
@@ -484,7 +503,6 @@
   @media (max-width:760px){
     .nav-links{display:none}
     .nav-toggle{display:inline-flex}
-    .mobile-nav.open{display:block}
     .about-grid{grid-template-columns:1fr}
     header.hero{padding:80px 0 64px}
     section{padding:64px 0}
@@ -526,12 +544,14 @@
     </button>
   </div>
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <a href="#services">What we build</a>
-    <a href="#work">Live demos</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#about">About</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Start a Project</a>
+    <div class="mobile-nav-inner">
+      <a href="#services">What we build</a>
+      <a href="#work">Live demos</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Start a Project</a>
+    </div>
   </div>
 </nav>
 
