@@ -1,0 +1,1277 @@
+﻿*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#1A1A1A;color:#EDEDED;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;overflow-wrap:break-word}
+
+/* ── Custom scrollbar — dark track, neon-cyan thumb on hover (site-wide) ── */
+html{scrollbar-width:thin;scrollbar-color:#3a3a3e transparent}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:#141416}
+::-webkit-scrollbar-thumb{background:#3a3a3e;border-radius:7px;border:2px solid #141416;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:#27E0F5;box-shadow:0 0 8px rgba(39,224,245,.5)}
+::-webkit-scrollbar-corner{background:#141416}
+
+/* ── Navigation font (industrial control-panel feel) ── */
+.nav-link{font-family:'Space Grotesk',sans-serif;color:#EDEDED;}
+
+/* Fluid type scale */
+.t-h1{font-size:clamp(34px,5vw,74px);line-height:.86;letter-spacing:-.025em}
+.t-h2{font-size:clamp(28px,4.5vw,52px);line-height:.95;letter-spacing:-.005em}
+.t-h3{font-size:clamp(18px,2.2vw,28px);line-height:1;letter-spacing:.01em}
+.t-phone-xl{font-size:clamp(28px,4.6vw,52px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.t-phone-md{font-size:clamp(20px,3.2vw,30px);line-height:1;letter-spacing:.02em;white-space:nowrap}
+.t-num-xl{font-size:clamp(40px,6vw,90px);line-height:.9;letter-spacing:-.02em}
+.t-num-lg{font-size:clamp(32px,5vw,68px);line-height:.9;letter-spacing:-.02em}
+.t-num-md{font-size:clamp(28px,4vw,52px);line-height:1;letter-spacing:-.02em}
+.t-body-lg{font-size:clamp(14px,1.5vw,18px);line-height:1.5}
+.t-body{font-size:clamp(13px,1.3vw,15px);line-height:1.55}
+.t-cap{font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.t-cap-sm{font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+
+/* Caution stripe pattern — HIDDEN */
+.caution-stripe{
+  display:none !important;
+}
+.hivis-stripe{
+  background-image:repeating-linear-gradient(135deg,#27E0F5 0 10px,#1cb8c9 10px 20px);
+}
+
+/* Hazard tag */
+.hazard{
+  display:inline-block;padding:4px 10px;border:2px solid currentColor;
+  font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;line-height:1;
+}
+/* Info-box header icon: larger cyan glyph anchored to the card's top-right corner. */
+.box-card{position:relative}
+.box-hd-ico{position:absolute;top:14px;right:14px;width:28px;height:28px;color:#27E0F5;opacity:.9}
+
+/* Interactive states */
+a, button { transition: transform .15s cubic-bezier(.2,.7,.3,1.4), background-color .15s ease, color .15s ease, border-color .15s ease, opacity .15s ease; }
+a:focus-visible, button:focus-visible { outline:2px solid #27E0F5; outline-offset:2px; }
+.btn-hivis:hover { background:#1cb8c9; }
+.btn-hivis:active { transform:translateY(1px); }
+.nav-link:hover { color:#27E0F5; }
+
+/* Outlined dark/cyan messaging buttons (WhatsApp / SMS) */
+.btn-msg-outline{
+  padding:20px 24px;
+  background:#1A1A1A;
+  color:#27E0F5;
+  border:1px solid #27E0F5;
+  text-decoration:none;
+  font-size:18px;
+  letter-spacing:.06em;
+  transition: background-color .2s ease, color .2s ease, transform .15s cubic-bezier(.2,.7,.3,1.4);
+}
+.btn-msg-outline:hover,
+.btn-msg-outline:focus-visible,
+.btn-msg-outline:active{ background:#27E0F5; color:#1A1A1A; }
+.btn-msg-outline:active{ transform:translateY(1px); }
+
+/* ── Five Trades section — full-bleed background ── */
+#services{
+  position:relative;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  overflow:hidden;
+  isolation:isolate;
+}
+#services::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url('brand_assets/concrete.webp');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.svc-bg-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  /* Tone matched to the site background (#1A1A1A = rgb 26,26,26) so the section
+     no longer reads as a near-black "black box". The concrete grain stays faintly
+     visible through the 0.80 tint; top/bottom edges fade to solid #1A1A1A so the
+     band blends seamlessly into the neighbouring sections. */
+  background:
+    linear-gradient(180deg,#1A1A1A 0%, rgba(26,26,26,0) 13%, rgba(26,26,26,0) 87%, #1A1A1A 100%),
+    rgba(26,26,26,0.80);
+}
+.svc-content-wrap{position:relative;z-index:2;}
+
+/* ── Services carousel ── */
+.svc-carousel{position:relative;}
+.svc-track{
+  display:flex;gap:16px;overflow-x:auto;overscroll-behavior-x:contain;scroll-behavior:smooth;
+  padding-top:8px;padding-bottom:48px;margin-bottom:-48px;
+  cursor:grab;
+  user-select:none;-webkit-user-select:none;-ms-user-select:none;
+  /* pan-x for horizontal carousel scroll, pan-y so a mostly-vertical
+     finger drag scrolls the page instead of getting trapped on a card. */
+  touch-action:pan-x pan-y;
+}
+.svc-track.dragging{scroll-behavior:auto;cursor:grabbing;}
+/* Make the cards feel like part of the draggable surface — grab on hover,
+   grabbing while a drag is in progress. The pointer-up handler still lets
+   non-drag clicks fall through to the card link. */
+.svc-card,.svc-card *{cursor:grab;}
+.svc-track.dragging .svc-card,.svc-track.dragging .svc-card *{cursor:grabbing;}
+.svc-slide{flex:0 0 auto;width:min(300px,82vw);}
+@media(min-width:1024px){ .svc-track{gap:20px;} .svc-slide{width:340px;} }
+/* What We Do — soft neumorphic (chilly-dragon-inspired): rounded corners +
+   dual-direction soft shadow (light top-left, dark bottom-right). Two shadow
+   layers only, transform/box-shadow transitions → cheap to paint across 8 cards. */
+.svc-card{position:relative;display:block;height:470px;text-decoration:none;color:#EDEDED;
+  background:#242427;border:1px solid rgba(237,237,237,.16);overflow:hidden;
+  border-radius:24px !important;
+  box-shadow:-8px -8px 18px rgba(255,255,255,.022), 10px 12px 26px -6px rgba(0,0,0,.6);
+  transition:transform .2s cubic-bezier(.2,.7,.3,1.4),border-color .2s ease,box-shadow .25s ease;}
+.svc-card:hover{border-color:#27E0F5;transform:translateY(-4px);
+  box-shadow:-6px -6px 16px rgba(255,255,255,.03), 0 18px 36px -12px rgba(39,224,245,.5), 14px 16px 30px -6px rgba(0,0,0,.62);}
+.svc-card:focus-visible{outline:2px solid #27E0F5;outline-offset:3px;}
+.svc-photo{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,#2a2a28 0 8px,#1f1f1d 8px 16px);transition:transform .45s cubic-bezier(.2,.7,.3,1);}
+.svc-card:hover .svc-photo{transform:scale(1.07);}
+.svc-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,15,16,0) 0%,rgba(15,15,16,.5) 46%,rgba(15,15,16,.96) 100%);}
+/* Cards with real photos: cover/center on the photo layer + diagonal overlay */
+.svc-card.has-photo .svc-photo{background-size:cover;background-position:center;}
+.svc-card.has-photo .svc-overlay{background:linear-gradient(to top left,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.0) 100%);}
+/* Corner chips — dark glassy pills with a cyan edge so they read as part of the
+   soft neumorphic card rather than stickers laid on top. Inset 12px so they sit
+   inside the card's 24px rounded corners. */
+.svc-num{position:absolute;top:12px;left:12px;z-index:2;padding:5px 11px;
+  background:rgba(15,15,16,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  color:#27E0F5;border:1px solid rgba(39,224,245,.45);border-radius:10px !important;
+  font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);}
+.svc-tag{position:absolute;top:12px;right:12px;z-index:2;padding:5px 11px;
+  background:rgba(15,15,16,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  color:#27E0F5;border:1px solid rgba(39,224,245,.25);border-radius:10px !important;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.13em;}
+.svc-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px 24px;}
+.svc-desc{font-size:13.5px;line-height:1.5;color:#cdcdcd;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.svc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid rgba(237,237,237,.2);}
+.svc-cta-link{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;}
+.svc-arrow-ico{display:inline-block;transition:transform .2s cubic-bezier(.2,.7,.3,1.4);}
+.svc-card:hover .svc-arrow-ico{transform:translateX(5px);}
+.svc-card.svc-cta{background:#27E0F5;color:#1A1A1A;}
+.svc-card.svc-cta:hover{border-color:#EDEDED;box-shadow:0 16px 34px -16px rgba(39,224,245,.85);}
+.svc-arrow{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#1A1A1A;border:2px solid #3a3a3e;color:#27E0F5;cursor:pointer;flex-shrink:0;
+  transition:transform .15s cubic-bezier(.2,.7,.3,1.4),border-color .15s ease,background-color .15s ease,opacity .15s ease;}
+.svc-arrow:hover:not(:disabled){border-color:#27E0F5;background:#202023;}
+.svc-arrow:active:not(:disabled){transform:translateY(1px);}
+.svc-arrow:disabled{opacity:.3;cursor:not-allowed;}
+.svc-dots{display:flex;gap:8px;justify-content:center;margin-top:24px;}
+.svc-dot{width:26px;height:5px;background:#3a3a3e;border:none;padding:0;cursor:pointer;transition:background-color .2s ease,width .2s ease;}
+.svc-dot:hover{background:#5a5a5e;}
+.svc-dot.active{background:#27E0F5;width:42px;}
+
+/* Pulse */
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.35} }
+.pulse-dot { animation:pulse-dot 1.6s ease-in-out infinite; }
+
+/* ── MENU lock-toggle button (mobile) ── */
+.menu-lock-btn{
+  position:relative;z-index:5;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 17px 7px 9px;
+  background:#2c2c34;            /* dark by default */
+  color:#27E0F5;                 /* cyan lock + text by default */
+  border:none;cursor:pointer;
+  border-radius:999px !important;
+  font-family:'Archivo Black',sans-serif;font-size:14px;letter-spacing:.06em;
+  box-shadow:0 4px 11px -6px rgba(0,0,0,.6);
+  overflow:visible;
+  transition:transform .15s cubic-bezier(.2,.7,.3,1.4),
+             box-shadow .25s ease, background-color .24s ease, color .2s ease;
+}
+.menu-lock-btn.lock-open{ background:#27E0F5;color:#1A1A1A; }   /* active → cyan button, dark content */
+.menu-lock-btn:active{ transform:translateY(1px); }
+.menu-lock-btn:focus-visible{ outline:2px solid #27E0F5;outline-offset:3px; }
+/* hover — cyan-filled highlight + glow */
+.menu-lock-btn:hover{
+  background:#27E0F5;color:#1A1A1A;
+  box-shadow:0 0 22px rgba(39,224,245,.62), 0 0 9px rgba(39,224,245,.55),
+             0 4px 11px -6px rgba(0,0,0,.6);
+}
+/* click bloom — fires once per tap, then fades away (never persistent) */
+.menu-lock-btn::after{
+  content:"";position:absolute;inset:-45%;
+  border-radius:999px;pointer-events:none;z-index:-1;opacity:0;
+  background:radial-gradient(closest-side, rgba(39,224,245,.72), rgba(39,224,245,0) 78%);
+}
+@keyframes bloomPulse{
+  0%  { opacity:0;   transform:scale(.55); }
+  28% { opacity:.95; transform:scale(.95); }
+  100%{ opacity:0;   transform:scale(1.5); }
+}
+.menu-lock-btn.lk-bloom::after{ animation:bloomPulse .62s ease-out; }
+.menu-lock-ico{ width:24px;height:31px;flex-shrink:0;transition:opacity .22s ease; }
+.menu-lock-ico svg{ width:100%;height:100%;display:block;overflow:visible; }
+.menu-lock-txt{ line-height:1;padding-top:2px; }
+
+/* padlock — shackle unlocks (left leg hinged to body), lock falls & vanishes mid-air; swings on hover */
+.lk-swing{ transform-box:view-box;transform-origin:17px 13px; }
+.lk-shackle{ transform-box:view-box;transform-origin:11px 20px; }
+@keyframes lkSwing{
+  0%,100%{ transform:rotate(0deg); }
+  25%{ transform:rotate(7deg); }
+  75%{ transform:rotate(-7deg); }
+}
+@keyframes lkUnlock{
+  0%   { transform:rotate(0deg); }
+  100% { transform:rotate(-44deg); }
+}
+@keyframes lkFall{
+  0%   { transform:translateY(0); }
+  100% { transform:translateY(32px); }
+}
+.menu-lock-btn:hover:not(.lock-open) .lk-swing{ animation:lkSwing 1.4s ease-in-out infinite; }
+.lock-open .lk-shackle{ animation:lkUnlock .28s cubic-bezier(.34,1.3,.6,1) forwards; }
+.lock-open .lk-drop{ animation:lkFall .52s cubic-bezier(.55,0,.85,.55) .16s forwards; }
+/* lock fades out mid-fall — gone before it lands; fades back in on close */
+.menu-lock-btn.lock-open .menu-lock-ico{ opacity:0;transition:opacity .22s ease .3s; }
+
+/* Mobile menu — fixed overlay (sibling of #header, NOT a child) so its
+   backdrop-filter is not nullified by the header's own backdrop-filter
+   creating a compositing isolation when scrolled. */
+.mobile-menu{
+  position:fixed;top:64px;left:0;right:0;
+  z-index:999;
+  max-height:0;overflow:hidden;
+  transition:max-height .45s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
+  opacity:0;
+  pointer-events:none;
+}
+.mobile-menu.open{max-height:520px;opacity:1;pointer-events:auto;}
+
+/* The hamburger + drawer are mobile/tablet only; the inline nav takes over at
+   ≥1024px. Tailwind's lg:hidden loses the cascade tie because .menu-lock-btn
+   sets display:inline-flex and styles.css loads after tailwind.css — so enforce
+   the hidden state here (where source order wins). */
+@media (min-width:1024px){
+  .menu-lock-btn{ display:none !important; }
+  .mobile-menu{ display:none !important; }
+}
+
+/* Hide scrollbars on horizontal scroll */
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{scrollbar-width:none}
+
+/* Logo container */
+.logo-img{height:48px;width:auto;display:block}
+@media (max-width: 640px){ .logo-img{height:38px} }
+
+/* Header — full-width, flush bar (NOT a floating pill). STATIC by design:
+   size, background colour and opacity are identical at every scroll position —
+   no shrink / transparency / float-on-scroll plugin. */
+#header{
+  position:sticky;top:0;z-index:1000;width:100%;
+  background:rgba(26,26,26,.85);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+}
+/* The bar background stays full-width; its content aligns with the rest of the
+   site (same 1180px container as the top bar / hero). Standard (compact) sizes
+   live here; desktop enlarges them at the top of the page (see below). */
+#headerContent{height:64px;max-width:1180px;margin-left:auto;margin-right:auto;
+  transition:height .3s cubic-bezier(.2,.7,.3,1);}
+#header .logo-img{height:40px;transition:height .3s cubic-bezier(.2,.7,.3,1);}
+#header .nav-link{border-radius:9px !important;transition:font-size .3s cubic-bezier(.2,.7,.3,1);}
+#header nav .nav-link:hover{background:#2f2f33;}
+#header .btn-hivis{border-radius:9px !important;
+  transition:font-size .3s cubic-bezier(.2,.7,.3,1),padding .3s cubic-bezier(.2,.7,.3,1);}
+
+/* Desktop: header sits a bit LARGER at the very top of the page, then shrinks
+   back to the standard (compact) size once the user scrolls — .scrolled is
+   toggled by app.js at scrollY > 10. Mobile keeps the standard size always. */
+@media (min-width:768px){
+  #headerContent{height:84px;}
+  #header .logo-img{height:52px;}
+  #header .nav-link{font-size:15px !important;}
+  #header .btn-hivis{font-size:14px !important;padding:12px 22px !important;}
+  #header.scrolled #headerContent{height:64px;}
+  #header.scrolled .logo-img{height:40px;}
+  #header.scrolled .nav-link{font-size:14px !important;}
+  #header.scrolled .btn-hivis{font-size:13px !important;padding:10px 18px !important;}
+}
+
+/* Neon wordmark logo (replaces the header logo image): outlined cyan letters
+   with a glow, in the display font. Larger at the top, shrinks with .scrolled. */
+.neon-logo{
+  display:inline-flex;flex-direction:column;align-items:flex-start;
+  font-family:'Archivo Black',sans-serif;text-transform:uppercase;line-height:.92;
+  -webkit-user-select:none;user-select:none;
+}
+.neon-logo-main,.neon-logo-sub{
+  color:transparent;transition:font-size .3s cubic-bezier(.2,.7,.3,1);
+}
+.neon-logo-main{
+  font-size:24px;letter-spacing:.04em;
+  -webkit-text-stroke:1.4px #4fe9ff;
+  text-shadow:0 0 3px rgba(39,224,245,.95),0 0 9px rgba(39,224,245,.7),
+              0 0 18px rgba(39,224,245,.45),0 0 34px rgba(39,224,245,.22);
+}
+.neon-logo-sub{
+  font-size:11px;letter-spacing:.30em;margin-top:3px;
+  -webkit-text-stroke:.8px #4fe9ff;
+  text-shadow:0 0 3px rgba(39,224,245,.95),0 0 7px rgba(39,224,245,.6),
+              0 0 14px rgba(39,224,245,.32);
+}
+@media (min-width:768px){
+  .neon-logo-main{font-size:30px;}
+  .neon-logo-sub{font-size:13px;}
+  #header.scrolled .neon-logo-main{font-size:24px;}
+  #header.scrolled .neon-logo-sub{font-size:11px;}
+  /* Desktop: drop the hot cyan neon. ACME stays brand cyan with just a faint
+     hint of glow; LOCKSMITH is filled off-white. Both far calmer than the old
+     4-layer neon. (Phones keep the full cyan neon — see max-width:767px below.) */
+  .neon-logo-main,.neon-logo-sub{ -webkit-text-stroke:0; }
+  .neon-logo-main{
+    color:#27E0F5;
+    text-shadow:0 0 5px rgba(39,224,245,.22), 0 0 2px rgba(39,224,245,.3);
+  }
+  .neon-logo-sub{
+    color:#EDEDED;
+    text-shadow:0 1px 1px rgba(0,0,0,.4);
+  }
+}
+/* Phones: match the desktop treatment exactly — solid cyan ACME + off-white
+   LOCKSMITH (NOT the hollow cyan neon outline, which read far too hot on a small
+   screen and didn't match desktop). */
+@media (max-width:767px){
+  .neon-logo-main,.neon-logo-sub{ -webkit-text-stroke:0; }
+  .neon-logo-main{
+    color:#27E0F5;
+    text-shadow:0 0 5px rgba(39,224,245,.22), 0 0 2px rgba(39,224,245,.3);
+  }
+  .neon-logo-sub{
+    color:#EDEDED;
+    text-shadow:0 1px 1px rgba(0,0,0,.4);
+  }
+}
+
+/* Elegant cyan divider beside the header wordmark. A thin line with faded ends
+   + a soft glow — deliberately shorter than the bar height. Shown on all sizes. */
+.logo-lockup{ display:flex;align-items:center;gap:14px; }
+.logo-divider{
+  display:block;width:2px;height:36px;flex-shrink:0;border-radius:2px;
+  background:linear-gradient(to bottom,
+    rgba(39,224,245,0) 0%, rgba(39,224,245,.85) 26%,
+    rgba(39,224,245,.85) 74%, rgba(39,224,245,0) 100%);
+  box-shadow:0 0 7px rgba(39,224,245,.4);
+}
+@media (min-width:1024px){
+  .logo-lockup{ gap:20px; }
+  .logo-divider{ height:46px; }
+  /* When the header shrinks on scroll, trim the divider to match. */
+  #header.scrolled .logo-divider{ height:36px; }
+}
+
+/* Brand wordmark echo below the WhatsApp/SMS buttons in the Reach-us grid.
+   Hidden on mobile/tablet (single-column, no empty space); shown only once the
+   2-column layout opens up at lg, where it fills the gap beside the form. */
+.reach-logo-wrap{ display:none; }
+@media (min-width:1024px){
+  /* Make the left column a flex column so the wordmark absorbs the leftover
+     height and the column bottom lines up with the taller "Send a note" form. */
+  .reach-left{ display:flex;flex-direction:column; }
+  .reach-logo-wrap{
+    display:flex;justify-content:center;align-items:center;
+    flex:1 1 auto;margin-top:22px;opacity:.82;
+  }
+  .reach-logo.neon-logo{ align-items:center;text-align:center;line-height:.9; }
+  .reach-logo .neon-logo-main{ font-size:62px;letter-spacing:.05em; }
+  .reach-logo .neon-logo-sub{ font-size:22px;letter-spacing:.40em;margin-top:8px; }
+}
+
+/* Neon scroll-progress line — full-width bottom edge of the header, grows
+   left→right as the page scrolls (0% at top → 100% at bottom). All screens. */
+#scrollProgress{
+  position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:#27E0F5;opacity:.6;
+  box-shadow:0 0 8px rgba(39,224,245,.5);
+  transition:width .1s linear;pointer-events:none;
+}
+
+#mobileMenu{
+  background:rgba(15,15,16,0.88);
+  -webkit-backdrop-filter:blur(18px) saturate(1.1);
+  backdrop-filter:blur(18px) saturate(1.1);
+}
+
+/* Service finder tile */
+/* Equal-height tiles across every row (the 2-line "Office / Commercial" no longer
+   makes its row taller than the others). */
+.finder-grid{grid-auto-rows:1fr;}
+.finder-tile{cursor:pointer;border:2px solid #3a3a3e;background:#1A1A1A;color:#EDEDED;height:100%;
+  transition:transform .15s cubic-bezier(.2,.7,.3,1.4),border-color .15s ease,background-color .15s ease,box-shadow .2s ease;}
+/* The "MORE" placeholder is mobile-only; keep the desktop 5-col row clean
+   (explicit rule because .finder-tile overrides the Tailwind md:hidden utility). */
+@media(min-width:768px){ .finder-tile--more{display:none;} }
+.finder-tile:hover:not(.active){border-color:#27E0F5;background:#202023;transform:translateY(-3px);
+  box-shadow:0 8px 20px -10px rgba(39,224,245,.65);}
+.finder-tile:hover:not(.active) svg{color:#27E0F5;}
+.finder-tile:active{transform:translateY(0);}
+.finder-tile.active{background:#27E0F5;color:#1A1A1A;border-color:#27E0F5;}
+
+/* "MORE" placeholder tile — pressed-in 3D look, slow breathing pulse.
+   Mobile-only (md:hidden in markup) so the desktop 5-col row stays clean. */
+.finder-tile--more{
+  cursor:default;background:#141416;border-color:#2a2a2e;color:#5a6770;
+  position:relative;overflow:hidden;
+  box-shadow:
+    inset 0 3px 8px rgba(0,0,0,.55),
+    inset 0 -1px 0 rgba(255,255,255,.03),
+    inset 0 0 0 1px rgba(255,255,255,.015);
+  animation:moreBreathe 7s cubic-bezier(.4,0,.4,1) infinite;
+}
+.finder-tile--more:hover,
+.finder-tile--more:active{
+  background:#141416;border-color:#2a2a2e;color:#5a6770;
+  transform:none;box-shadow:
+    inset 0 3px 8px rgba(0,0,0,.55),
+    inset 0 -1px 0 rgba(255,255,255,.03),
+    inset 0 0 0 1px rgba(255,255,255,.015);
+}
+.finder-tile--more svg{color:inherit;}
+.finder-tile--more .more-dots{display:flex;gap:5px;align-items:center;height:26px;}
+.finder-tile--more .more-dots span{
+  width:8px;height:8px;border-radius:50%;background:currentColor;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04);
+}
+.finder-tile--more .more-label{color:#5a6770;}
+@keyframes moreBreathe{
+  0%, 100%{
+    box-shadow:
+      inset 0 3px 8px rgba(0,0,0,.55),
+      inset 0 -1px 0 rgba(255,255,255,.03),
+      inset 0 0 0 1px rgba(255,255,255,.015),
+      inset 0 0 0 rgba(39,224,245,0);
+    color:#5a6770;
+  }
+  50%{
+    box-shadow:
+      inset 0 3px 10px rgba(0,0,0,.6),
+      inset 0 -1px 0 rgba(255,255,255,.03),
+      inset 0 0 0 1px rgba(255,255,255,.015),
+      inset 0 0 28px rgba(39,224,245,.18);
+    color:#8a9ba3;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .finder-tile--more{animation:none;}
+}
+
+/* Service list box — fixed footprint so it never jumps between categories */
+.service-list-box{display:flex;flex-direction:column;}
+.service-list-box #serviceList{overflow:hidden;transition:height .4s ease-in-out;}
+.service-list-box #serviceList li{transition:opacity .3s ease, transform .3s ease, filter .3s ease;}
+.service-list-box #serviceList li.service-item--extra{opacity:0;transform:translateY(-4px);transition:opacity .25s ease, transform .25s ease;}
+.service-list-box #serviceList.expanded li.service-item--extra{opacity:1;transform:translateY(0);filter:none;transition:opacity .35s ease .1s, transform .35s ease .1s, filter .35s ease .1s;}
+/* Blurred "peek" of the 5th service while collapsed — hints there's more behind the toggle.
+   A soft bottom mask fades the clip edge so it isn't a hard line. */
+.service-list-box #serviceList:not(.expanded) li.service-item--teaser{opacity:.55;filter:blur(1.2px);transform:none;pointer-events:none;}
+.service-list-box #serviceList.has-extra:not(.expanded){
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 30px),transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 calc(100% - 30px),transparent 100%);
+}
+.service-list-box #serviceToggle:hover{color:#EDEDED;}
+.service-list-box #serviceToggle:focus-visible{outline:2px solid #27E0F5;outline-offset:3px;}
+
+/* Credential tags hover lift */
+.cred-tag{transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;}
+.cred-tag:hover{transform:translateY(-4px);border-color:#27E0F5;box-shadow:0 12px 22px -10px rgba(39,224,245,.65);}
+
+/* Why Acme section */
+.why-section{background:#1A1A1A;color:#EDEDED;}
+.why-pulse-line{position:relative;height:2px;background:#27E0F5;margin-bottom:36px;}
+.acme-pulse{position:relative;animation:acmeHeartbeat 2.2s cubic-bezier(.4,0,.2,1) infinite;transform-origin:center;}
+.acme-q{display:inline-block;margin-left:14px;transform:rotate(28deg) translateY(8px);transform-origin:bottom left;color:#EDEDED;text-shadow:2px 4px 0 rgba(39,224,245,.35), 4px 8px 14px rgba(0,0,0,.5), 0 0 0px rgba(39,224,245,0);transition:transform .35s cubic-bezier(.2,.7,.3,1.4);animation:acmeQPulse 2.2s cubic-bezier(.4,0,.2,1) infinite;}
+.acme-q:hover{transform:rotate(34deg) translateY(10px) scale(1.05);}
+@keyframes acmeHeartbeat{
+  0%, 55%, 100% {transform:scale(1);    box-shadow:0 0 0 0 rgba(39,224,245,0);}
+  14% {transform:scale(1.025); box-shadow:0 0 10px 1px rgba(39,224,245,.45);}
+  22% {transform:scale(1);     box-shadow:0 0 4px 0 rgba(39,224,245,.15);}
+  34% {transform:scale(1.025); box-shadow:0 0 10px 1px rgba(39,224,245,.45);}
+  46% {transform:scale(1);     box-shadow:0 0 0 0 rgba(39,224,245,0);}
+}
+@keyframes acmeQPulse{
+  0%, 55%, 100% {text-shadow:2px 4px 0 rgba(39,224,245,.35), 4px 8px 14px rgba(0,0,0,.5),  0 0 0px rgba(39,224,245,0);}
+  14% {text-shadow:2px 4px 0 rgba(39,224,245,.9),  4px 8px 14px rgba(0,0,0,.55), 0 0 22px rgba(39,224,245,.55);}
+  22% {text-shadow:2px 4px 0 rgba(39,224,245,.15), 4px 8px 14px rgba(0,0,0,.45), 0 0 0px rgba(39,224,245,0);}
+  34% {text-shadow:2px 4px 0 rgba(39,224,245,.9),  4px 8px 14px rgba(0,0,0,.55), 0 0 22px rgba(39,224,245,.55);}
+  46% {text-shadow:2px 4px 0 rgba(39,224,245,.35), 4px 8px 14px rgba(0,0,0,.5),  0 0 0px rgba(39,224,245,0);}
+}
+@media (prefers-reduced-motion: reduce){ .acme-pulse{animation:none;} .acme-q{animation:none;} }
+
+/* Pulsing green dot on the 24/7 pill — sits on top-right corner of cyan box */
+.onroad-247{position:relative;}
+.onroad-dot{position:absolute;top:-23px;right:-25px;width:10px;height:10px;background:#5cd97a;border-radius:50%;box-shadow:0 0 8px rgba(92,217,122,.85), 0 0 2px rgba(0,0,0,.4);z-index:2;}
+/* On phones the heading wraps so "ON THE ROAD" sits on the line above the pill;
+   pull the dot tight to the pill's top-right so it clears both the ROAD text
+   above and the cyan box itself. */
+@media (max-width: 640px){
+  .onroad-dot{top:0px;right:-18px;width:9px;height:9px;}
+}
+.why-card{padding:28px 20px 26px;background:#242427;border:2px solid #2a2a2e;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
+  border-radius:18px !important;
+  box-shadow:0 2px 4px rgba(0,0,0,.4),0 12px 28px -8px rgba(0,0,0,.65),0 32px 56px -18px rgba(0,0,0,.5);
+  transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease;}
+.why-card:hover{border-color:#27E0F5;transform:translateY(-2px);box-shadow:0 3px 6px rgba(0,0,0,.5),0 18px 38px -8px rgba(0,0,0,.75),0 40px 64px -18px rgba(0,0,0,.6);}
+.why-icon{color:#27E0F5;display:flex;align-items:center;justify-content:center;width:100%;}
+.why-title{font-size:clamp(15px,1.6vw,17px);letter-spacing:.02em;line-height:1.15;color:#EDEDED;}
+.why-sub{font-size:13px;line-height:1.5;color:#EDEDED;opacity:.7;}
+@media (prefers-reduced-motion: reduce){
+  .why-pulse-beam{animation:none;display:none;}
+}
+
+/* Floating call button — pulsing beacon */
+@keyframes callRing{
+  0%  {transform:scale(1);opacity:.5;}
+  70% {opacity:0;}
+  100%{transform:scale(2);opacity:0;}
+}
+@keyframes fabBounce{
+  0%   {transform:translateY(0) scaleX(1) scaleY(1);          animation-timing-function:ease-in;}
+  14%  {transform:translateY(-20px) scaleX(.91) scaleY(1.12); animation-timing-function:ease-out;}
+  26%  {transform:translateY(0) scaleX(1.24) scaleY(.78);     animation-timing-function:ease-in;}
+  36%  {transform:translateY(-10px) scaleX(.95) scaleY(1.07); animation-timing-function:ease-out;}
+  47%  {transform:translateY(0) scaleX(1.1) scaleY(.9);       animation-timing-function:ease-in;}
+  54%  {transform:translateY(-5px);                           animation-timing-function:ease-out;}
+  62%  {transform:translateY(0) scaleX(1) scaleY(1);}
+  72%, 100%{transform:translateY(0) scaleX(1) scaleY(1);}
+}
+#callFab{
+  position:fixed;right:24px;bottom:84px;z-index:999;
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  background:#27E0F5;color:#1A1A1A;
+  border-radius:999px !important;
+  box-shadow:0 8px 22px -6px rgba(39,224,245,.7), 0 3px 10px -3px rgba(0,0,0,.6);
+  transition:transform .15s cubic-bezier(.2,.7,.3,1.4), background-color .15s ease;
+  animation:fabBounce 1.9s linear infinite;
+}
+#callFab:hover{animation:none;}
+#callFab:active{animation:none;}
+#callFab::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  border-radius:999px !important;background:#27E0F5;
+  animation:callRing 1.9s ease-out infinite;
+}
+#callFab:hover{background:#1cb8c9;transform:scale(1.07);}
+#callFab:active{transform:scale(.96);}
+#callFab:focus-visible{outline:2px solid #27E0F5;outline-offset:3px;}
+
+/* Top dispatch-stripe phone link — hidden on phones (the CALL NOW button in the
+   mobile menu + the floating call button cover this on small screens). */
+@media (max-width:639.98px){ .topbar-tel{ display:none !important; } }
+
+/* No-rounded — brutalist */
+*{border-radius:0 !important}
+
+/* ── Unified content-card surface ──────────────────────────────────────────
+   ONE card family across the page: soft low-contrast border + the same rounded
+   corners as the "Why Acme" / Three-Steps badges. Bright cyan (#27E0F5) and
+   bright white (#EDEDED) borders are reserved for buttons / interactive accents,
+   never static content boxes. The !important beats the brutalist radius reset
+   above and any inline border colour on the boxes themselves. */
+.u-card{
+  border:2px solid #2a2a2e !important;
+  border-radius:18px !important;
+}
+
+/* Section divider */
+.section-divider{border-top:3px solid #EDEDED;}
+
+/* Centered section headings (NO.0X labels removed). Headings center via inline
+   justify-content/text-align. Where a heading has a right-side control (carousel
+   arrows, "Leave a review"), pin it to the right on desktop so the title stays
+   truly centered; on mobile the control flows below and centers with the title. */
+@media (min-width:768px){
+  .sec-head--ctrl{position:relative;}
+  .sec-head--ctrl .sec-head-ctrl{position:absolute;right:0;bottom:12px;margin:0;}
+}
+
+/* Three Steps — moody-owl-inspired: static light-corner glow, glowing dot, soft depth.
+   Pure CSS (no JS / no mouse-tracking). Light source sits top-right. */
+.step-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px !important; /* match .why-card badge boxes */
+  background: linear-gradient(180deg,#27272b 0%, #1e1e21 100%);
+  border:2px solid #34343a;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.4),
+    0 16px 32px -12px rgba(0,0,0,.7),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .25s cubic-bezier(.2,.7,.3,1.15), box-shadow .25s ease, border-color .25s ease;
+}
+.step-card:hover{
+  transform:translateY(-2px);
+  border-color:#27E0F5;
+  box-shadow:
+    0 3px 6px rgba(0,0,0,.5),
+    0 22px 42px -12px rgba(0,0,0,.78),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.review-card{
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.4),
+    0 12px 28px -8px rgba(0,0,0,.65),
+    0 32px 56px -18px rgba(0,0,0,.5);
+  transition:transform .35s cubic-bezier(.2,.7,.3,1.15),
+             box-shadow .35s ease;
+}
+.review-card:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 3px 6px rgba(0,0,0,.5),
+    0 18px 38px -8px rgba(0,0,0,.75),
+    0 40px 64px -18px rgba(0,0,0,.6);
+}
+
+/* Form inputs — !important needed to beat Tailwind CDN preflight (runtime-injected) */
+input,textarea,select{
+  background:#1A1A1A;color:#EDEDED;border:2px solid #3a3a3e;
+  padding:14px 22px !important;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;width:100%;
+  transition:border-color .15s ease, background-color .15s ease;
+}
+textarea{padding:14px 22px !important;line-height:1.55;}
+/* Postal/zip input keeps its own padding (chunkier display font) */
+#zipInput{padding:14px 22px !important;}
+input::placeholder,textarea::placeholder{color:#6a6a6e;}
+input:hover,textarea:hover,select:hover{border-color:#55555a;}
+input:focus,textarea:focus,select:focus{border-color:#27E0F5;background:#202023;}
+input.invalid,textarea.invalid{border-color:#ff5d3b;background:rgba(255,93,59,.06);}
+.form-error{display:none;margin-top:7px;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#ff5d3b;font-weight:700;line-height:1.2;}
+.form-error.show{display:flex;align-items:center;gap:6px;}
+.form-error::before{content:"";display:inline-block;width:6px;height:6px;background:#ff5d3b;flex-shrink:0;}
+.form-success{display:none;margin-top:14px;padding:14px 18px;border:2px solid #5cd97a;background:rgba(92,217,122,.10);align-items:center;gap:12px;}
+.form-success.show{display:flex;}
+
+/* ── Site modals (Leave a Review) — brutalist, matches forms ── */
+.site-modal{
+  position:fixed;inset:0;z-index:6000;
+  display:flex;align-items:center;justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.78);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease;
+}
+.site-modal.is-open{opacity:1;pointer-events:auto;}
+.site-modal-box{
+  position:relative;width:100%;max-width:540px;max-height:calc(100vh - 36px);
+  overflow-y:auto;
+  background:#242427;border:3px solid #EDEDED;
+  padding:26px 26px 24px;
+  display:grid;gap:14px;
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.8);
+  transform:translateY(10px);
+  transition:transform .22s cubic-bezier(.2,.7,.3,1.2);
+}
+.site-modal.is-open .site-modal-box{transform:translateY(0);}
+.site-modal-title{font-size:clamp(22px,3vw,30px);line-height:1;letter-spacing:-.01em;}
+.site-modal-close{
+  position:absolute;top:10px;right:10px;width:38px;height:38px;
+  background:#1A1A1A;color:#EDEDED;border:2px solid #3a3a3e;
+  font-size:20px;line-height:1;cursor:pointer;padding:0 !important;
+  transition:border-color .15s ease, color .15s ease, transform .15s ease;
+}
+.site-modal-close:hover,.site-modal-close:focus-visible{border-color:#27E0F5;color:#27E0F5;}
+.site-modal-close:active{transform:translateY(1px);}
+
+/* Star rating picker (Leave a Review) */
+.rev-stars{display:flex;gap:6px;}
+.rev-star{
+  width:46px;height:46px;font-size:24px;line-height:1;cursor:pointer;
+  background:#1A1A1A;color:#3a3a3e;border:2px solid #3a3a3e;padding:0 !important;
+  transition:color .12s ease, border-color .12s ease, transform .12s ease;
+}
+.rev-star:hover,.rev-star:focus-visible{border-color:#27E0F5;}
+.rev-star:active{transform:translateY(1px);}
+.rev-star.on{color:#27E0F5;border-color:#27E0F5;background:rgba(39,224,245,.08);}
+.rev-thanks{display:grid;justify-items:center;text-align:center;gap:12px;padding:18px 6px 6px;}
+.rev-thanks[hidden]{display:none !important;}   /* author display beats the hidden attr otherwise */
+
+/* Static-position variant of .form-error used inside modals (no absolute) */
+#reviewFail{margin-top:2px;}
+
+/* Progress bar */
+.eta-bar{height:14px;background:#1A1A1A;position:relative;border:1px solid #3a3a3e;}
+.eta-fill{position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#27E0F5 0 10px,#1cb8c9 10px 20px);}
+
+/* Photo placeholder */
+.photo-slot{
+  position:relative;width:100%;
+  background-image:repeating-linear-gradient(45deg,#2a2a28 0 7px,#1f1f1d 7px 14px);
+  border:1px dashed rgba(154,154,154,.4);
+}
+.photo-slot .label{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;
+  font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.12em;color:#9a9a9a;text-align:center;
+  text-transform:uppercase;font-weight:600;
+}
+
+/* Smooth section scroll */
+html{scroll-behavior:smooth;}
+
+/* ── Unified call-button pulse ── */
+/* Radiating cyan ring via animated box-shadow — heartbeat style. */
+@keyframes callBoxPulse{
+  0%   {box-shadow: 0 0 0 0 rgba(39,224,245,.65);}
+  70%  {box-shadow: 0 0 0 22px rgba(39,224,245,0);}
+  100% {box-shadow: 0 0 0 0 rgba(39,224,245,0);}
+}
+.call-pulse:hover{animation:callBoxPulse 1.9s ease-out infinite;}
+.safe-pulse{position:relative;animation:acmeHeartbeat 2.2s cubic-bezier(.4,0,.2,1) infinite;transform-origin:center;}
+/* Hero button — always-on pulse, slightly stronger so it reads on mobile */
+@keyframes heroCallPulse{
+  0%   {box-shadow: 0 0 0 0 rgba(39,224,245,.7);}
+  70%  {box-shadow: 0 0 0 26px rgba(39,224,245,0);}
+  100% {box-shadow: 0 0 0 0 rgba(39,224,245,0);}
+}
+#heroCallBtn{animation:heroCallPulse 1.9s ease-out infinite;}
+#heroCallBtn:active{transform:translateY(1px);}
+#heroCallBtn:focus,#heroCallBtn:focus-visible{outline:none;}
+
+/* ── Credentials strip ── */
+.cred-strip{
+  display:grid;grid-template-columns:1fr;gap:18px;align-items:center;
+}
+@media(min-width:900px){
+  .cred-strip{grid-template-columns:auto 1fr auto;gap:32px;}
+}
+.cred-badge{display:flex;align-items:center;gap:12px;}
+.cred-shield{
+  width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  border:2px solid #27E0F5;background:#0f0f10;
+}
+.cred-pillars{
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  font-size:12px;letter-spacing:.24em;font-weight:700;color:#EDEDED;text-transform:uppercase;
+  padding:10px 14px;border-top:1px solid #3a3a3e;border-bottom:1px solid #3a3a3e;
+}
+@media(min-width:900px){
+  .cred-pillars{font-size:13px;}
+}
+.cred-dot{
+  width:5px;height:5px;background:#27E0F5;display:inline-block;flex-shrink:0;
+}
+.cred-lic{
+  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+}
+@media(min-width:900px){
+  .cred-lic{align-items:flex-end;}
+}
+
+/* ── Pricing card — info icon + tooltip ── */
+.price-info{
+  position:absolute;top:14px;right:14px;
+  width:24px;height:24px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:transparent;color:#27E0F5;
+  border:1.5px solid #27E0F5;
+  border-radius:999px !important;
+  cursor:help;padding:0;line-height:1;
+  transition:background-color .15s ease, color .15s ease, transform .15s cubic-bezier(.2,.7,.3,1.4);
+}
+.price-info:hover,.price-info:focus-visible{
+  background:#27E0F5;color:#1A1A1A;
+  box-shadow:0 0 12px -2px rgba(39,224,245,.55);
+}
+.price-info:focus-visible{outline:2px solid #27E0F5;outline-offset:2px;}
+.price-info-glyph{
+  font-family:'DM Sans',sans-serif;font-style:normal;font-weight:700;
+  font-size:13px;line-height:1;letter-spacing:0;display:block;
+  transform:translateY(-0.5px);
+}
+.price-info-tooltip{
+  position:absolute;top:calc(100% + 10px);right:0;
+  width:240px;padding:10px 12px;
+  background:#1A1A1A;color:#EDEDED;
+  border:1.5px solid #27E0F5;
+  font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.5;
+  font-style:normal;font-weight:400;letter-spacing:0;text-transform:none;
+  text-align:left;
+  opacity:0;pointer-events:none;
+  transform:translateY(-4px);
+  transition:opacity .18s ease, transform .18s ease;
+  z-index:60;
+  box-shadow:0 14px 30px -10px rgba(0,0,0,.75), 0 0 18px -6px rgba(39,224,245,.4);
+}
+.price-info-tooltip::before{
+  /* small cyan caret pointing up at the icon */
+  content:"";position:absolute;top:-7px;right:7px;
+  width:10px;height:10px;background:#1A1A1A;
+  border-top:1.5px solid #27E0F5;border-left:1.5px solid #27E0F5;
+  transform:rotate(45deg);
+}
+.price-info:hover .price-info-tooltip,
+.price-info:focus-visible .price-info-tooltip{
+  opacity:1;transform:translateY(0);pointer-events:auto;
+}
+
+/* ── Zone Check — "Use my location" + expanding map ── */
+.zone-loc-btn{
+  display:flex;width:100%;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;background:transparent;color:#27E0F5;
+  border:2px dashed #27E0F5;cursor:pointer;
+  font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease,transform .15s cubic-bezier(.2,.7,.3,1.4);
+}
+.zone-loc-btn:hover:not(:disabled){background:#27E0F5;color:#1A1A1A;border-style:solid;}
+.zone-loc-btn:active:not(:disabled){transform:translateY(1px);}
+.zone-loc-btn:disabled{opacity:.6;cursor:wait;border-style:solid;}
+.zone-loc-btn.loading svg{animation:zoneSpin 1.1s linear infinite;}
+@keyframes zoneSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+.zone-geo-status{
+  display:none;margin-top:10px;padding:9px 12px;
+  background:rgba(255,93,59,.08);border-left:3px solid #ff5d3b;
+  font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.04em;
+  color:#ff8d6e;line-height:1.45;
+}
+.zone-geo-status.show{display:block;}
+
+.zone-map-wrap{
+  max-height:0;opacity:0;margin-top:0;overflow:hidden;
+  transform:translateY(-8px) scaleY(.96);transform-origin:top center;
+  transition:max-height .6s cubic-bezier(.2,.7,.3,1),
+             transform .55s cubic-bezier(.2,.7,.3,1.15),
+             opacity .35s ease .05s,
+             margin-top .4s cubic-bezier(.2,.7,.3,1);
+}
+.zone-map-wrap.open{max-height:320px;opacity:1;margin-top:14px;transform:translateY(0) scaleY(1);}
+
+.zone-map-frame{
+  position:relative;height:170px;border:2px solid #27E0F5;
+  background:#0f0f10;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(39,224,245,.18), 0 6px 24px -10px rgba(39,224,245,.45);
+}
+.zone-map{position:absolute;inset:0;isolation:isolate;}
+.zone-map .leaflet-container{background:#0f0f10 !important;font-family:'Space Grotesk',sans-serif;}
+.zone-map .leaflet-control-attribution{
+  background:rgba(15,15,16,.75) !important;color:#6a6a6e !important;
+  font-size:9px !important;padding:1px 5px !important;
+  border-top:1px solid #27E0F5 !important;border-left:1px solid #27E0F5 !important;
+}
+.zone-map .leaflet-control-attribution a{color:#9a9a9a !important;}
+/* Carto dark tiles render cool — give them a subtle cyan duotone */
+.zone-map .leaflet-tile{filter:hue-rotate(155deg) saturate(.55) contrast(1.05) brightness(.92);}
+
+/* Corner crosshair guides — locksmith / industrial feel */
+.zone-map-frame::before,
+.zone-map-frame::after{
+  content:"";position:absolute;width:14px;height:14px;pointer-events:none;z-index:5;
+  border:2px solid #27E0F5;
+}
+.zone-map-frame::before{top:6px;left:6px;border-right:none;border-bottom:none;}
+.zone-map-frame::after{bottom:6px;right:6px;border-left:none;border-top:none;}
+
+/* Subtle scanline sweep — runs once when the map opens */
+.zone-map-scanline{
+  position:absolute;left:0;right:0;top:0;height:2px;z-index:6;pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(39,224,245,.85), transparent);
+  opacity:0;
+}
+.zone-map-wrap.open .zone-map-scanline{animation:zoneScan 1.4s cubic-bezier(.45,.05,.55,.95) .15s 1;}
+@keyframes zoneScan{
+  0%  {opacity:0;transform:translateY(0);}
+  20% {opacity:1;}
+  90% {opacity:1;}
+  100%{opacity:0;transform:translateY(170px);}
+}
+
+/* Custom cyan pin (Leaflet divIcon) */
+.zone-pin-wrap{background:transparent !important;border:none !important;}
+.zone-map-pin{
+  position:relative;width:18px;height:18px;
+  background:#27E0F5;border-radius:999px !important;
+  box-shadow:0 0 0 3px rgba(39,224,245,.30), 0 0 14px rgba(39,224,245,.7);
+}
+.zone-map-pin::before,
+.zone-map-pin::after{
+  content:"";position:absolute;inset:-5px;border-radius:999px !important;
+  border:2px solid #27E0F5;opacity:0;
+  animation:zonePinRing 2.2s ease-out infinite;
+}
+.zone-map-pin::after{animation-delay:1.1s;}
+@keyframes zonePinRing{
+  0%  {transform:scale(.4);opacity:.85;}
+  100%{transform:scale(2.6);opacity:0;}
+}
+
+/* District callout — overlays on the map's bottom edge (HUD-style) */
+.zone-district{
+  position:absolute;left:8px;right:8px;bottom:8px;z-index:1000;
+  display:flex;align-items:center;gap:9px;
+  padding:7px 11px;
+  background:rgba(15,15,16,.86);border:1.5px solid #27E0F5;
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  box-shadow:0 4px 14px -6px rgba(0,0,0,.7);
+}
+.zone-district .zone-district-tag{
+  font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:#27E0F5;
+}
+.zone-district .zone-district-name{
+  font-family:'Archivo Black',sans-serif;font-size:13px;letter-spacing:.02em;
+  color:#EDEDED;text-transform:uppercase;line-height:1;
+}
+
+/* ── "Send a Note" character counter ── */
+.note-counter{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;letter-spacing:.18em;font-weight:700;
+  text-transform:uppercase;color:#9a9a9a;
+  text-align:right;margin-top:-2px;
+  transition:color .18s ease;
+}
+.note-counter.warn{color:#f4c20a;}
+.note-counter.danger{color:#ff5d3b;}
+/* When over the limit, the textarea momentarily flashes its border */
+textarea#contactNote.note-shake{
+  animation:noteShake .28s cubic-bezier(.36,.07,.19,.97);
+  border-color:#ff5d3b !important;
+}
+@keyframes noteShake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-3px);}
+  50%{transform:translateX(3px);}
+  80%{transform:translateX(-2px);}
+}
+
+/* ── Send a Note — photo attach (drop zone + thumbnails) ── */
+#contactPhotos{display:none;}
+.photo-drop{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:18px 16px;cursor:pointer;text-align:center;
+  background:#1A1A1A;border:2px dashed #2f6d77;
+  transition:border-color .15s ease, background-color .15s ease, transform .12s ease;
+}
+.photo-drop:hover{border-color:#27E0F5;background:#202023;}
+.photo-drop:focus-visible{outline:2px solid #27E0F5;outline-offset:2px;border-color:#27E0F5;}
+.photo-drop.is-dragover{border-color:#27E0F5;background:rgba(39,224,245,.06);}
+.photo-drop.is-full{opacity:.55;cursor:not-allowed;border-style:solid;border-color:#3a3a3e;}
+.photo-drop.is-full:hover{background:#1A1A1A;}
+.photo-drop-ico{flex-shrink:0;}
+.photo-drop-main{font-size:13px;letter-spacing:.05em;color:#27E0F5;}
+.photo-drop-sub{font-size:10px;letter-spacing:.16em;color:#6a6a6e;font-weight:700;}
+
+.photo-previews{display:flex;flex-wrap:wrap;gap:10px;}
+.photo-previews:empty{display:none;}
+.photo-thumb{
+  position:relative;width:64px;height:64px;flex-shrink:0;
+  background:#1A1A1A;border:2px solid #3a3a3e;overflow:hidden;
+  animation:thumbIn .22s cubic-bezier(.2,.7,.3,1.2);
+}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-thumb-x{
+  position:absolute;top:2px;right:2px;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  background:#1A1A1A;color:#EDEDED;border:1.5px solid #EDEDED;
+  font-size:13px;line-height:1;cursor:pointer;padding:0 !important;
+  transition:background-color .14s ease, color .14s ease, border-color .14s ease, transform .12s ease;
+}
+.photo-thumb-x:hover,.photo-thumb-x:focus-visible{background:#ff5d3b;border-color:#ff5d3b;color:#1A1A1A;outline:none;}
+.photo-thumb-x:active{transform:scale(.9);}
+@keyframes thumbIn{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
+
+/* ── Toast / popup for char-limit warning ── */
+.note-toast{
+  position:fixed;left:50%;bottom:32px;
+  transform:translateX(-50%) translateY(20px);
+  z-index:10000;display:flex;align-items:center;gap:9px;
+  padding:11px 16px;
+  background:#1A1A1A;color:#ff5d3b;
+  border:2px solid #ff5d3b;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.10em;text-transform:uppercase;line-height:1.2;
+  box-shadow:0 14px 32px -10px rgba(0,0,0,.7),
+             0 0 22px -4px rgba(255,93,59,.55);
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease,
+             transform .26s cubic-bezier(.2,.7,.3,1.4);
+}
+.note-toast.show{
+  opacity:1;transform:translateX(-50%) translateY(0);
+}
+@media (max-width:480px){
+  .note-toast{
+    left:12px;right:12px;transform:translateX(0) translateY(20px);
+    bottom:24px;font-size:11px;padding:10px 12px;
+    text-align:left;
+  }
+  .note-toast.show{transform:translateX(0) translateY(0);}
+}
+
+/* ── Hero animated particle background ── */
+/* #home is the positioning context. `overflow` stays visible so the 100vw
+   particle layer is NOT clipped back to the section's 1180px max-width;
+   body has overflow-x:clip so the spillover never causes horizontal scroll.
+   The particle layer owns its own overflow:hidden for wrapping drift. */
+#home{position:relative;clip-path:inset(0 -200px -168px -200px);}
+#home > .hero-grid{position:relative;z-index:1;}
+.hero-particles{
+  position:absolute;top:0;left:50%;height:calc(100% + 220px);width:100vw;
+  transform:translateX(-50%);
+  z-index:0;pointer-events:none;overflow:hidden;
+  color:#27E0F5;       /* particles inherit currentColor */
+}
+.hero-particle{
+  position:absolute;top:0;left:0;
+  display:block;
+  will-change:transform;
+  /* Outer wrapper: JS sets transform per-frame for drift. Opacity is set
+     inline at spawn. Rotation lives on the inner .hero-particle-spin so the
+     two transforms compose without conflict. */
+}
+.hero-particle-spin{
+  width:100%;height:100%;
+  animation:heroParticleSpin linear infinite;
+  will-change:transform;
+  /* animation-duration and animation-direction are set inline at spawn */
+}
+@keyframes heroParticleSpin{ to { transform:rotate(360deg); } }
+.hero-particle svg{
+  display:block;width:100%;height:100%;
+  fill:currentColor;stroke:currentColor;
+}
+/* 30% of particles get a soft cyan pulse glow — independent of the JS
+   transform, so the two don't interfere. */
+@keyframes heroParticlePulse{
+  0%,100%{filter:drop-shadow(0 0 0 rgba(39,224,245,0));}
+  50%    {filter:drop-shadow(0 0 9px rgba(39,224,245,.55));}
+}
+.hero-particle.pulse{animation:heroParticlePulse 2.4s ease-in-out infinite;}
+@media (prefers-reduced-motion: reduce){
+  .hero-particles{display:none;}
+}
+
+/* ── Trust strip: animated particle bg with frosted-glass overlay ── */
+#trustParticles{z-index:0;}
+.trust-frost{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:rgba(15,15,16,.42);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  clip-path:inset(0);
+}
+.trust-content{position:relative;z-index:2;}
+
+/* ── Owner-operated section: full-viewport photo background ── */
+#about.about-section{
+  position:relative;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  min-height:500px;
+  background-color:#0a0a0a;
+  overflow:hidden;
+  isolation:isolate;
+}
+#about.about-section.bg-loaded::before{
+  background-image:url('brand_assets/door-handle.webp');
+}
+#about.about-section::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+.about-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:rgba(0,0,0,0.60);
+}
+.about-vignette{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+}
+.about-inner{
+  position:relative;z-index:3;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  min-height:500px;
+  text-align:left;
+}
+@media (max-width:640px){
+  #about.about-section{ min-height:400px; }
+  .about-inner{ min-height:400px; align-items:center; text-align:center; }
+  .about-vignette{background:radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.92) 100%);}
+  .about-overlay{background:rgba(0,0,0,0.68);}
+}
+/* background-attachment:fixed is broken/blurry on iOS Safari and Android
+   Chrome — disable it on any touch-primary (no-hover) device. */
+@media (hover:none) and (pointer:coarse){
+  #about.about-section::before{ background-attachment:scroll; }
+}
+
+/* ── Message-us floating button — left side of the screen ── */
+#msgFab{
+  position:fixed;left:24px;bottom:84px;z-index:999;
+}
+.msg-fab-btn{
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  background:#27E0F5;color:#1A1A1A;
+  border:none;cursor:pointer;
+  border-radius:999px !important;
+  box-shadow:0 8px 22px -6px rgba(39,224,245,.7), 0 3px 10px -3px rgba(0,0,0,.6);
+  transition:transform .15s cubic-bezier(.2,.7,.3,1.4), background-color .15s ease;
+  position:relative;
+}
+/* Synced cyan-ring pulse — same keyframes + duration as the phone FAB so
+   both beacons radiate in unison. */
+.msg-fab-btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  border-radius:999px !important;background:#27E0F5;
+  animation:callRing 1.9s ease-out infinite;
+}
+.msg-fab-btn:hover{background:#1cb8c9;transform:scale(1.07);}
+.msg-fab-btn:active{transform:scale(.96);}
+.msg-fab-btn:focus-visible{outline:2px solid #27E0F5;outline-offset:3px;}
+.msg-fab.open .msg-fab-btn{background:#1cb8c9;}
+.msg-fab-options{
+  position:absolute;bottom:calc(100% + 12px);left:0;
+  display:flex;flex-direction:column;gap:8px;
+  opacity:0;pointer-events:none;
+  transform:translateY(8px) scale(.94);
+  transform-origin:bottom right;
+  transition:opacity .2s ease, transform .25s cubic-bezier(.2,.7,.3,1.4);
+}
+.msg-fab.open .msg-fab-options{
+  opacity:1;pointer-events:auto;
+  transform:translateY(0) scale(1);
+}
+.msg-fab-opt{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  background:#1A1A1A;color:#27E0F5;
+  border:2px solid #27E0F5;text-decoration:none;
+  font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;line-height:1;white-space:nowrap;
+  box-shadow:0 8px 18px -6px rgba(0,0,0,.6), 0 0 12px -4px rgba(39,224,245,.4);
+  transition:background-color .15s ease, color .15s ease, transform .15s cubic-bezier(.2,.7,.3,1.4);
+}
+.msg-fab-opt:hover{background:#27E0F5;color:#1A1A1A;transform:translateX(4px);}
+.msg-fab-opt:active{transform:translateX(-2px);}
+.msg-fab-opt:focus-visible{outline:2px solid #27E0F5;outline-offset:3px;}
+.msg-fab-opt svg{flex-shrink:0;}
+
+/* ── Mobile-only hero overrides ── */
+@media (max-width: 640px){
+  /* Bolder, more commanding headline */
+  .t-h1{font-size:clamp(44px, 12vw, 56px); line-height:.88;}
+  /* Dispatch widget follows the hero copy with a normal gap (no forced
+     full-viewport spacer, which left a large empty band on phones). */
+  .hero-side{margin-top:20px;}
+}
+
+/* Bottom-CTA "Call dispatch" button: full-width + centred on phones/tablets,
+   natural width + left-aligned on desktop (the row goes side-by-side at lg). */
+#stopCallBtn{ align-items:flex-start; }
+@media (max-width:1023px){ #stopCallBtn{ width:100%; align-items:center; } }
+
+/* ───── Loading overlay (Lottie) ───── */
+#loadingOverlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  opacity:1;
+  transition:opacity .45s ease;
+}
+#loadingOverlay.is-hiding{ opacity:0; pointer-events:none; }
+#loadingOverlay.is-hidden{ display:none; }
+#loadingAnim{
+  width:100%;
+  max-width:420px;
+  aspect-ratio:1 / 1;
+  background:transparent;
+}
+/* (dev-only #testLoadingBtn styles removed for production) */
+
+/* ── EN / FR language toggle — sliding pill ── */
+.lang-toggle{
+  position:relative;
+  display:inline-grid;
+  grid-template-columns:1fr 1fr;     /* equal halves → slider always lands true */
+  align-items:stretch;
+  border:1px solid #27E0F5;
+  border-radius:999px;
+  background:rgba(39,224,245,.05);
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+/* the cyan indicator that slides between EN and FR */
+.lang-slider{
+  position:absolute;
+  top:2px; left:2px;
+  width:calc(50% - 2px);
+  height:calc(100% - 4px);
+  background:#27E0F5;
+  border-radius:999px;
+  transform:translateX(0);
+  transition:transform .24s cubic-bezier(.4,0,.2,1);  /* transform-only */
+  pointer-events:none;
+  z-index:0;
+}
+.lang-toggle[data-lang="fr"] .lang-slider{ transform:translateX(100%); }
+.lang-opt{
+  position:relative; z-index:1;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12px; font-weight:700; letter-spacing:.08em;
+  color:#27E0F5;
+  background:transparent; border:0;
+  padding:5px 13px; line-height:1;
+  cursor:pointer; border-radius:999px;
+  transition:color .2s ease, text-shadow .2s ease;
+}
+/* active option (the one the slider sits under) → dark text on cyan */
+.lang-toggle[data-lang="en"] .lang-opt[data-lang="en"],
+.lang-toggle[data-lang="fr"] .lang-opt[data-lang="fr"]{ color:#1A1A1A; }
+.lang-opt:focus-visible{ outline:2px solid #27E0F5; outline-offset:2px; }
+/* subtle glow on the INACTIVE option on hover */
+.lang-toggle[data-lang="en"] .lang-opt[data-lang="fr"]:hover,
+.lang-toggle[data-lang="fr"] .lang-opt[data-lang="en"]:hover{
+  text-shadow:0 0 9px rgba(39,224,245,.9);
+}
+/* Mobile menu variant — centered, slightly larger tap targets */
+.lang-toggle--mobile{ align-self:center; margin:2px 0 10px; }
+.lang-toggle--mobile .lang-opt{
+  font-size:13px; padding:7px 18px; min-height:34px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ── Language-switch fade (Fix 4): fade out → swap text → fade in (~300ms) ── */
+body{ transition:opacity .15s ease; }
+body.lang-switching{ opacity:0; }
+@media (prefers-reduced-motion: reduce){
+  body{ transition:none; }
+  .lang-slider{ transition:none; }
+}
+
+
+/* ── Footer legal links (Privacy · Terms · Warranty) ────────────────────────
+   Inline mono links in the footer meta row. Cyan on hover/focus, animated
+   underline (transform only) so they read as clickable without shouting. */
+.footer-legal a{
+  color:inherit; text-decoration:none; position:relative;
+  transition:color .18s cubic-bezier(.2,.7,.3,1);
+  outline:none;
+}
+.footer-legal a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-2px; height:1.5px;
+  background:#27E0F5; transform:scaleX(0); transform-origin:left center;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1);
+}
+.footer-legal a:hover,
+.footer-legal a:focus-visible{ color:#27E0F5; }
+.footer-legal a:hover::after,
+.footer-legal a:focus-visible::after{ transform:scaleX(1); }
+.footer-legal a:active{ opacity:.8; }

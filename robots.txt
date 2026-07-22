@@ -1,0 +1,11 @@
+# robots.txt — Hivera
+
+User-agent: *
+Allow: /
+
+# The embedded platform demo is a rebranded, fully mocked copy of a client
+# build. It exists to be explored inside the demo frame on the homepage, not to
+# rank as a site of its own: its marketing copy still mirrors the structure of
+# the real client site it came from, and an indexed duplicate would compete
+# with that client in search. Keep it out of the index.
+Disallow: /locksmith_website/

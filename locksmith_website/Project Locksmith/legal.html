@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index, follow"/>
+<title>Privacy, Terms &amp; Warranty — Acme Services</title>
+<meta name="description" content="Privacy Policy (PIPEDA), Terms of Service, and Work Guarantee for Acme Services — 24/7 mobile locksmith serving Toronto &amp; the GTA."/>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/brand_assets/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- API base URL + fetch helper (needed by content-patch.js for backend pull) -->
+<script src="config.js"></script>
+<!-- ⚠️ TEMPORARY MOCKED PREVIEW — fake data, no backend, no auth. Delete with demo-mock.js. Must stay AFTER config.js. -->
+<script src="demo-mock.js"></script>
+<!-- Single source of truth for business name / phone / email / domain. -->
+<script src="site-config.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0f0f10; --surface:#161618; --elevated:#1d1d20;
+    --ink:#EDEDED; --muted:#9a9a9a; --faint:#6f6f74;
+    --cyan:#27E0F5; --border:#2a2a2e; --hairline:#232327;
+  }
+  html{scroll-behavior:smooth}
+  /* Custom scrollbar — dark track, neon-cyan thumb on hover (site-wide). */
+  html{scrollbar-width:thin;scrollbar-color:#3a3a3e transparent}
+  ::-webkit-scrollbar{width:12px;height:12px}
+  ::-webkit-scrollbar-track{background:#141416}
+  ::-webkit-scrollbar-thumb{background:#3a3a3e;border-radius:7px;border:2px solid #141416;background-clip:padding-box}
+  ::-webkit-scrollbar-thumb:hover{background:#27E0F5;box-shadow:0 0 8px rgba(39,224,245,.5)}
+  ::-webkit-scrollbar-corner{background:#141416}
+  body{
+    background:
+      radial-gradient(1100px 520px at 18% -8%, rgba(39,224,245,.06), transparent 60%),
+      var(--bg);
+    color:var(--ink); font-family:'DM Sans',system-ui,sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  a{color:var(--cyan); text-decoration:none}
+  a:hover,a:focus-visible{text-decoration:underline}
+
+  /* ── Top bar ── */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:rgba(15,15,16,.86); backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .topbar-in{
+    max-width:860px; margin:0 auto; padding:14px 22px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .wordmark{display:flex; align-items:center; gap:11px; color:var(--ink); text-decoration:none}
+  .leg-wm-main{
+    font-family:'Archivo Black',sans-serif; font-size:20px; letter-spacing:.04em;
+    text-transform:uppercase; line-height:.92;
+    color:#27E0F5; text-shadow:0 0 5px rgba(39,224,245,.22),0 0 2px rgba(39,224,245,.3);
+  }
+  .leg-wm-sub{
+    font-family:'Archivo Black',sans-serif; font-size:9px; letter-spacing:.30em;
+    text-transform:uppercase; margin-top:3px; display:block;
+    color:#EDEDED; text-shadow:0 1px 1px rgba(0,0,0,.4);
+  }
+  .back{
+    font-family:'Space Grotesk',monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); display:inline-flex; align-items:center; gap:7px;
+    padding:8px 13px; border:1px solid var(--border); border-radius:999px;
+    transition:color .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .back:hover,.back:focus-visible{color:var(--cyan); border-color:rgba(39,224,245,.5); text-decoration:none; transform:translateX(-2px)}
+  .back svg{width:13px; height:13px}
+
+  /* ── Layout ── */
+  .wrap{max-width:860px; margin:0 auto; padding:42px 22px 90px}
+  .doc-head{padding-bottom:26px; border-bottom:2px solid var(--cyan); margin-bottom:8px}
+  .eyebrow{
+    font-family:'Space Grotesk',monospace; font-size:11px; letter-spacing:.26em;
+    text-transform:uppercase; color:var(--cyan); font-weight:600; margin-bottom:14px;
+  }
+  h1{font-family:'Archivo Black',sans-serif; font-size:clamp(30px,5.4vw,46px); line-height:1.02; letter-spacing:-.02em}
+  .updated{font-family:'Space Grotesk',monospace; font-size:12px; color:var(--faint); letter-spacing:.08em; margin-top:14px}
+
+  /* ── In-page nav ── */
+  .legal-nav{
+    display:flex; flex-wrap:wrap; gap:9px; margin:26px 0 4px;
+  }
+  .legal-nav a{
+    font-family:'Space Grotesk',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink); padding:9px 16px; border:1px solid var(--border); border-radius:8px;
+    background:var(--surface); transition:border-color .18s ease, color .18s ease, background .18s ease;
+  }
+  .legal-nav a:hover,.legal-nav a:focus-visible{
+    color:var(--cyan); border-color:rgba(39,224,245,.55); background:var(--elevated); text-decoration:none;
+  }
+
+  /* ── Sections ── */
+  section.legal{
+    margin-top:46px; padding-top:30px; border-top:1px solid var(--hairline);
+    scroll-margin-top:84px;
+  }
+  section.legal:first-of-type{border-top:none}
+  .sec-num{
+    font-family:'Space Grotesk',monospace; font-size:12px; letter-spacing:.2em;
+    color:var(--ink); font-weight:600; margin-bottom:8px; opacity:.7;
+  }
+  h2{font-family:'Archivo Black',sans-serif; font-size:clamp(22px,3.6vw,30px); letter-spacing:-.01em; margin-bottom:6px; color:var(--cyan)}
+  .lede{color:var(--muted); margin:10px 0 4px; font-size:15.5px}
+  h3{
+    font-family:'Space Grotesk',monospace; font-size:14px; font-weight:600;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--ink);
+    margin:26px 0 6px;
+  }
+  p{margin:10px 0; color:#d7d7d9; font-size:15.5px}
+  ul{margin:10px 0 10px; padding-left:0; list-style:none}
+  ul li{
+    position:relative; padding-left:22px; margin:8px 0; color:#d7d7d9; font-size:15.5px;
+  }
+  ul li::before{
+    content:""; position:absolute; left:4px; top:9px; width:6px; height:6px;
+    background:var(--cyan); border-radius:50%;
+  }
+  strong{color:var(--ink); font-weight:700}
+  ul li strong{color:var(--cyan)}
+  .callout{
+    margin:22px 0; padding:16px 20px;
+    background:rgba(39,224,245,.04);
+    border:1px solid rgba(39,224,245,.22);
+    border-radius:10px;
+    font-size:15px; color:#d7d7d9;
+    display:flex; gap:14px; align-items:center;
+  }
+  .callout-badge{
+    flex:none; width:24px; height:24px; line-height:23px; text-align:center;
+    font-size:13px; font-weight:900;
+    background:rgba(39,224,245,.12); border:1px solid rgba(39,224,245,.45);
+    border-radius:50%; color:var(--cyan); user-select:none;
+  }
+  .contact-card{
+    margin-top:22px; background:transparent;
+    border:1px solid rgba(39,224,245,.35); border-radius:10px;
+    overflow:hidden;
+  }
+  .k-outer{ padding:12px 20px 0; }
+  .k-inner{ display:inline-flex; flex-direction:column; max-width:100%; }
+  .k{
+    font-family:'Space Grotesk',monospace; font-size:10px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--ink); opacity:.8;
+  }
+  .k-line{
+    height:1.5px; margin-top:7px;
+    background:linear-gradient(to right,rgba(39,224,245,0) 0%,rgba(39,224,245,.85) 18%,rgba(39,224,245,.85) 82%,rgba(39,224,245,0) 100%);
+    box-shadow:0 0 5px rgba(39,224,245,.35);
+  }
+  .contact-card .row{display:flex; flex-wrap:wrap; gap:6px 18px; padding:14px 20px 16px; font-size:15px}
+
+  footer.legal-foot{
+    max-width:860px; margin:0 auto; padding:26px 22px 50px;
+    border-top:1px solid var(--hairline);
+    font-family:'Space Grotesk',monospace; font-size:11.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--faint);
+    display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between; align-items:center;
+  }
+  footer.legal-foot a{color:var(--faint)}
+  footer.legal-foot a:hover,footer.legal-foot a:focus-visible{color:var(--cyan)}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a class="wordmark" href="index.html" aria-label="Acme Services — home">
+        <span style="display:flex;flex-direction:column;align-items:flex-start;">
+          <span class="leg-wm-main">ACME</span>
+          <span class="leg-wm-sub">LOCKSMITH</span>
+        </span>
+      </a>
+      <span aria-hidden="true" style="display:block;width:2px;height:32px;flex-shrink:0;border-radius:2px;background:linear-gradient(to bottom,rgba(39,224,245,0) 0%,rgba(39,224,245,.85) 26%,rgba(39,224,245,.85) 74%,rgba(39,224,245,0) 100%);box-shadow:0 0 7px rgba(39,224,245,.4);"></span>
+    </div>
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="doc-head">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy, Terms &amp; Warranty</h1>
+    <div class="updated">Last updated: June 29, 2026</div>
+  </div>
+
+  <nav class="legal-nav" aria-label="Jump to section">
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#terms">Terms of Service</a>
+    <a href="#warranty">Work Guarantee</a>
+  </nav>
+
+  <!-- ════════════════ PRIVACY ════════════════ -->
+  <section class="legal" id="privacy">
+    <div class="sec-num">01 — Privacy</div>
+    <h2>Privacy Policy</h2>
+    <p class="lede"><span data-biz-name>Acme Services</span> is a mobile locksmith serving Toronto and the Greater Toronto Area. We respect your privacy and handle your personal information in accordance with Canada's <strong>Personal Information Protection and Electronic Documents Act (PIPEDA)</strong>. This policy explains what we collect, why we collect it, and the choices you have.</p>
+
+    <h3>What we collect</h3>
+    <p>When you call us, fill out a form, or send us a message, we may collect:</p>
+    <ul>
+      <li>Your <strong>name</strong> and <strong>phone number</strong>, so we can reach you about your job;</li>
+      <li>The <strong>postal code or address</strong> where you need service, so we can dispatch a technician to the right place;</li>
+      <li>The <strong>details of your request</strong> — the problem, the type of property or vehicle, and any notes you add;</li>
+      <li>Any <strong>photos</strong> you choose to send to help us understand the job.</li>
+    </ul>
+    <p>We ask only for what we need to quote, dispatch, and complete the work. You don't need to create an account to contact us.</p>
+
+    <h3>How we use it</h3>
+    <p>We use your information to respond to your request, confirm an estimate, dispatch a technician to your location, contact you about the job (including text/SMS updates such as "technician en route"), and keep a record of the work for our guarantee and for accounting.</p>
+
+    <h3>Your consent</h3>
+    <p>By contacting us or submitting a request, you consent to us collecting and using your information for the purposes above. You can withdraw your consent at any time — see <em>Your rights</em> below.</p>
+
+    <div class="callout">
+      <span class="callout-badge" aria-hidden="true">✓</span>
+      <span><strong>We never sell your information.</strong> We do not sell, rent, or trade your personal information, and we don't use it for third-party advertising.</span>
+    </div>
+
+    <h3>Who we share it with</h3>
+    <p>We share your information only with the technician assigned to your job and with the trusted service providers that help us operate — for example, secure hosting and messaging providers — who are required to protect it and use it only to provide those services. We may disclose information if required by law, or where necessary to establish or defend our legal rights.</p>
+
+    <h3>Photos are deleted automatically</h3>
+    <p>Photos you send through our contact form or that are attached to a job are <strong>automatically deleted from our system 24 hours after they're uploaded</strong>. We keep them only long enough to handle your request.</p>
+
+    <h3>How we protect it</h3>
+    <p>Your information is stored on secured systems, and access to our dispatch and customer records is password-protected and limited to authorized staff. While no method of transmission or storage is ever completely secure, we take reasonable measures to safeguard your information.</p>
+
+    <h3>How long we keep it</h3>
+    <p>We keep job records for as long as we need them to provide the service, honour our work guarantee, and meet our legal and accounting obligations. After that, we securely dispose of them.</p>
+
+    <h3>Cookies &amp; this website</h3>
+    <p>Our website stores small amounts of data in your browser (local storage) so it works properly — for example, your language preference and cached page content. We do not run third-party advertising or cross-site tracking. Our service-area map is loaded from a third-party map provider.</p>
+
+    <h3>Your rights</h3>
+    <p>Under PIPEDA, you may ask us to access the personal information we hold about you, correct it, withdraw your consent, or delete it. Email us at <a data-biz-email href="#">our contact address</a> and we'll respond within a reasonable time, generally within 30 days. If you have a concern we can't resolve, you may contact the Office of the Privacy Commissioner of Canada.</p>
+
+    <h3>Changes to this policy</h3>
+    <p>We may update this policy from time to time. The "Last updated" date at the top reflects the current version.</p>
+
+  </section>
+
+  <!-- ════════════════ TERMS ════════════════ -->
+  <section class="legal" id="terms">
+    <div class="sec-num">02 — Terms</div>
+    <h2>Terms of Service</h2>
+    <p class="lede">These terms govern your use of <span data-site-domain>our website</span> and your request for locksmith services from <span data-biz-name>Acme Services</span>. By using this site or requesting service, you agree to them.</p>
+
+    <h3>Our service</h3>
+    <p>We're a mobile locksmith serving Toronto and the GTA. This website lets you learn about our services, check whether you're in our service area, and request help. Submitting a request or calling us does not create a binding contract until we confirm that we can attend.</p>
+
+    <h3>Estimated response times</h3>
+    <p>Any arrival times or ETAs shown on this site or quoted to you are <strong>estimates, not guarantees</strong>. Traffic, weather, demand, and the complexity of the job can all affect timing.</p>
+
+    <h3>Proof of ownership or authorization</h3>
+    <p>For everyone's safety and security, we provide service only to the legal owner or an authorized occupant or agent. Before starting work, we may ask for government-issued photo ID and reasonable proof that you're entitled to access the property or vehicle, and we may decline a job if we can't reasonably confirm this.</p>
+
+    <h3>Pricing &amp; payment</h3>
+    <p>We give you an estimate before work begins, and we confirm the final price with you before we proceed. After-hours, emergency, or more complex jobs may carry additional fees, which we disclose up front. Payment is due on completion unless we agree otherwise, using the payment methods listed on our site.</p>
+
+    <h3>Cancellation</h3>
+    <p>You can cancel a request at no charge before a technician is dispatched. Once a technician has been dispatched or has arrived, a call-out fee may apply.</p>
+
+    <h3>Your responsibilities</h3>
+    <p>Please give us accurate information, be present (or send an authorized person) at the service location, and make sure it's safe for our technician to work.</p>
+
+    <h3>Limitation of liability</h3>
+    <p>We perform our work with reasonable care and skill. To the fullest extent permitted by law, <span data-biz-name>Acme Services</span> is not liable for indirect or consequential losses, for pre-existing damage or worn hardware, for hardware not supplied by us, or for issues arising from inaccurate information provided to us. Nothing in these terms limits any liability that cannot be limited under the laws of Ontario.</p>
+
+    <h3>Website content</h3>
+    <p>Content on this site is provided for general information and may change without notice. ETAs, pricing examples, and availability are indicative only.</p>
+
+    <h3>Governing law</h3>
+    <p>These terms are governed by the laws of the Province of Ontario and the federal laws of Canada that apply there.</p>
+
+    <div class="contact-card">
+      <div class="k-outer"><div class="k-inner"><span class="k">Questions about these terms</span><span class="k-line"></span></div></div>
+      <div class="row">
+        <span>Email: <a data-biz-email href="#">—</a></span>
+        <span>Phone: <a data-biz-phone data-biz-tel href="#">—</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ WARRANTY ════════════════ -->
+  <section class="legal" id="warranty">
+    <div class="sec-num">03 — Warranty</div>
+    <h2>Work Guarantee</h2>
+    <p class="lede">Every job is backed by our satisfaction guarantee. We stand behind our workmanship — if something we installed or serviced doesn't work the way it should because of our work, we'll come back and make it right.</p>
+
+    <ul>
+      <li><strong>Workmanship guaranteed.</strong> If a lock we rekeyed, repaired, or installed fails because of our installation or labour, we'll return and correct it at no additional labour cost.</li>
+      <li><strong>Parts &amp; hardware.</strong> Locks and hardware we supply are covered by the manufacturer's warranty, and we'll help you make a claim if you ever need to.</li>
+      <li><strong>Non-destructive entry.</strong> Wherever possible we open locks without damage. If drilling or replacement is the only option, we'll tell you first and get your okay before proceeding.</li>
+    </ul>
+
+    <h3>What isn't covered</h3>
+    <ul>
+      <li>Pre-existing damage, rust, or normal wear and tear;</li>
+      <li>Hardware you supplied yourself;</li>
+      <li>Misuse, or forced entry or tampering by someone else after we've finished.</li>
+    </ul>
+
+    <h3>How to make a claim</h3>
+    <p>Call us at <a data-biz-phone data-biz-tel href="#">—</a> or email <a data-biz-email href="#">—</a> with your job details, and we'll arrange a visit. This guarantee is in addition to any rights you have under applicable consumer-protection law.</p>
+  </section>
+</div>
+
+<footer class="legal-foot">
+  <span>© <span id="copyYear">2026</span> <span data-biz-name>Acme Services</span>. All rights reserved.</span>
+  <span>Toronto · GTA</span>
+  <span><a href="index.html">Back to site</a></span>
+</footer>
+
+<script src="content-patch.js"></script>
+<script>
+  (function () {
+    var C = window.SITE_CONFIG || {};
+    var name = C.name || 'Acme Services';
+    var email = C.email || '';
+    var phoneDisplay = (C.phone && C.phone.display) || '';
+    var phoneTel = (C.phone && C.phone.tel) || '';
+    var domain = (C.baseUrl || '').replace(/^https?:\/\//, '').replace(/\/+$/, '');
+
+    document.querySelectorAll('[data-biz-name]').forEach(function (el) { el.textContent = name; });
+    document.querySelectorAll('[data-biz-email]').forEach(function (el) {
+      el.textContent = email || 'our contact address';
+      if (el.tagName === 'A' && email) el.setAttribute('href', 'mailto:' + email);
+    });
+    document.querySelectorAll('[data-biz-phone]').forEach(function (el) {
+      el.textContent = phoneDisplay || '';
+      if (el.tagName === 'A' && phoneTel) el.setAttribute('href', 'tel:' + phoneTel);
+    });
+    document.querySelectorAll('[data-site-domain]').forEach(function (el) {
+      if (domain) el.textContent = domain;
+    });
+    var y = document.getElementById('copyYear');
+    if (y) y.textContent = String(new Date().getFullYear());
+    document.title = name + ' — Privacy, Terms & Warranty';
+  })();
+</script>
+</body>
+</html>

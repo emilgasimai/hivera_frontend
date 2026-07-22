@@ -1,0 +1,1010 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<!-- ── SEO: title + description below are NO-JS FALLBACKS. The authoritative
+     copy + all OG/Twitter/JSON-LD live in site-config.js → injected by seo.js. ── -->
+<title>Acme Services — 24/7 Emergency Locksmith Toronto & GTA</title>
+<meta name="description" content="Acme Services — fast, 24/7 mobile locksmith for Toronto &amp; the GTA. Emergency lockouts, car lockouts, rekeys, lock installation, commercial, automotive, safes and smart locks. Non-destructive entry, ~15-min response. Call (555) 010-1234."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://acmeservices.example/"/>
+<!-- ── Open Graph / Twitter: STATIC FALLBACKS for non-JS social scrapers
+     (Facebook, WhatsApp, iMessage, LinkedIn). seo.js re-derives these from
+     site-config.js for JS crawlers. Authoritative copy lives in site-config.js. ── -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Acme Services"/>
+<meta property="og:title" content="Acme Services — 24/7 Emergency Locksmith Toronto & GTA"/>
+<meta property="og:description" content="Fast, 24/7 mobile locksmith for Toronto &amp; the GTA. Emergency lockouts, car lockouts, rekeys, commercial, automotive, safes &amp; smart locks. Call (555) 010-1234."/>
+<meta property="og:url" content="https://acmeservices.example/"/>
+<meta property="og:image" content="https://acmeservices.example/brand_assets/og-image.jpg"/>
+<meta property="og:image:type" content="image/jpeg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Acme Services — 24/7 emergency locksmith, Toronto &amp; the GTA"/>
+<meta property="og:locale" content="en_CA"/>
+<meta property="og:locale:alternate" content="fr_CA"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Acme Services — 24/7 Emergency Locksmith Toronto & GTA"/>
+<meta name="twitter:description" content="Fast, 24/7 mobile locksmith for Toronto &amp; the GTA. Emergency lockouts, rekeys, automotive, safes &amp; smart locks."/>
+<meta name="twitter:image" content="https://acmeservices.example/brand_assets/og-image.jpg"/>
+<meta name="twitter:image:alt" content="Acme Services — 24/7 emergency locksmith, Toronto &amp; the GTA"/>
+<!-- Favicon / home-screen icon — unlocked padlock brand mark. SVG for modern
+     browsers, PNG fallback for older ones (Safari < 16). -->
+<!-- Favicon — root-absolute so it resolves on every URL. /favicon.ico (multi-size,
+     PNG-in-ICO) satisfies the automatic browser tab request; SVG for modern
+     browsers; apple-touch-icon for iOS home screen. -->
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/brand_assets/apple-touch-icon.png"/>
+<!-- ⭐ Single source of truth + SEO injector — load FIRST, synchronously -->
+<script src="site-config.js?v=3"></script>
+<script src="seo.js?v=3"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="tailwind.css"/>
+<link rel="stylesheet" id="leafletCss" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<link rel="stylesheet" href="styles.css?v=35"/>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- ───── LOADING OVERLAY (Lottie) ───── -->
+<div id="loadingOverlay" role="status" aria-live="polite" aria-label="Loading">
+  <div id="loadingAnim"></div>
+</div>
+
+<!-- (dev-only "Test Loading" button removed for production) -->
+
+<!-- ───── TOP STRIPE + DISPATCH BAR ───── -->
+<div class="bg-ink text-bg" style="background:#0f0f10;color:#EDEDED;border-top:3px solid #27E0F5;">
+  <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between font-mono t-cap-sm">
+    <div class="flex items-center gap-3 sm:gap-4">
+      <span class="inline-flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 bg-green pulse-dot" style="background:#5cd97a;border-radius:50%!important;"></span>
+        <span class="hidden xs:inline">ON-DUTY · 24/7</span>
+        <span class="xs:hidden">24/7</span>
+      </span>
+      <!-- TODO: re-add "LIC # — PENDING / number" once official license is obtained -->
+      <span class="opacity-60 hidden sm:inline">TORONTO · GTA</span>
+    </div>
+    <a href="tel:+15550101234" data-biz-tel class="text-hivis font-display flex items-center gap-2 hover:underline topbar-tel" style="font-size:14px;letter-spacing:.06em;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>
+      +1 (555) 010-1234
+    </a>
+  </div>
+</div>
+
+<!-- ───── HEADER ───── -->
+<header id="header">
+  <div id="headerContent" class="px-5 sm:px-6 flex items-center justify-between">
+    <div class="logo-lockup">
+      <a href="#home" class="flex items-center" aria-label="Acme Services — home">
+        <span class="neon-logo" aria-hidden="true">
+          <span class="neon-logo-main">ACME</span>
+          <span class="neon-logo-sub">LOCKSMITH</span>
+        </span>
+      </a>
+      <span class="logo-divider" aria-hidden="true"></span>
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-1">
+      <a href="#home" class="nav-link" data-nav data-nav-key="home" style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Home</a>
+      <a href="#services" class="nav-link" data-nav data-nav-key="services" style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Services</a>
+      <a href="#about" class="nav-link" data-nav data-nav-key="about" style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">About</a>
+      <a href="#reviews" class="nav-link" data-nav data-nav-key="reviews" style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Reviews</a>
+      <a href="#contact" class="nav-link" data-nav data-nav-key="contact" style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Contact</a>
+      <div class="lang-toggle ml-2" data-lang="en" role="group" aria-label="Language / Langue">
+        <span class="lang-slider" aria-hidden="true"></span>
+        <button type="button" class="lang-opt" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-opt" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <a href="tel:+15550101234" data-biz-tel class="btn-hivis call-pulse ml-2 inline-flex items-center gap-2" style="padding:10px 18px;background:#27E0F5;color:#1A1A1A;text-decoration:none;font-family:'Archivo Black',sans-serif;font-size:13px;letter-spacing:.04em;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>
+        CALL NOW
+      </a>
+    </nav>
+
+    <!-- Mobile/Tablet lock button -->
+    <button id="lockBtn" class="menu-lock-btn lg:hidden" aria-label="Toggle menu" aria-expanded="false">
+      <span class="menu-lock-ico">
+        <svg id="lockSvg" viewBox="0 0 34 40" fill="none" aria-hidden="true">
+          <defs>
+            <mask id="lkKeyhole">
+              <rect x="8" y="18" width="18" height="15" rx="4" fill="#fff"/>
+              <circle cx="17" cy="24.4" r="2.4" fill="#000"/>
+              <rect x="15.75" y="24.4" width="2.5" height="4.9" rx="1.25" fill="#000"/>
+            </mask>
+          </defs>
+          <g class="lk-drop">
+            <g class="lk-swing">
+              <path class="lk-shackle" d="M11 27 V13 a6 6 0 0 1 12 0 V19" stroke="currentColor" stroke-width="3.9" stroke-linecap="round" fill="none"/>
+              <rect x="8" y="18" width="18" height="15" rx="4" fill="currentColor" mask="url(#lkKeyhole)"/>
+            </g>
+          </g>
+        </svg>
+      </span>
+      <span class="menu-lock-txt">MENU</span>
+    </button>
+  </div>
+  <!-- Neon scroll-progress line (desktop only; width driven by app.js) -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+</header>
+
+<!-- Mobile menu — outside #header so its backdrop-filter survives the
+     parent's filter-induced compositing isolation when scrolled. -->
+<div id="mobileMenu" class="mobile-menu lg:hidden">
+  <nav class="flex flex-col px-4 sm:px-6 py-3 gap-1">
+    <div class="lang-toggle lang-toggle--mobile" data-lang="en" role="group" aria-label="Language / Langue">
+      <span class="lang-slider" aria-hidden="true"></span>
+      <button type="button" class="lang-opt" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" class="lang-opt" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
+    <a href="#home" class="mobile-link nav-link" data-nav-key="home" style="padding:12px 12px;font-weight:500;font-size:15px;letter-spacing:.01em;text-decoration:none;">Home</a>
+    <a href="#services" class="mobile-link nav-link" data-nav-key="services" style="padding:12px 12px;font-weight:500;font-size:15px;letter-spacing:.01em;text-decoration:none;">Services</a>
+    <a href="#about" class="mobile-link nav-link" data-nav-key="about" style="padding:12px 12px;font-weight:500;font-size:15px;letter-spacing:.01em;text-decoration:none;">About</a>
+    <a href="#reviews" class="mobile-link nav-link" data-nav-key="reviews" style="padding:12px 12px;font-weight:500;font-size:15px;letter-spacing:.01em;text-decoration:none;">Reviews</a>
+    <a href="#contact" class="mobile-link nav-link" data-nav-key="contact" style="padding:12px 12px;font-weight:500;font-size:15px;letter-spacing:.01em;text-decoration:none;">Contact</a>
+  </nav>
+</div>
+
+<!-- ───── HERO ───── -->
+<section id="home" class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-9 lg:py-9">
+  <!-- Animated particle background (locksmith icons) — pure decoration -->
+  <div id="heroParticles" class="hero-particles" aria-hidden="true"></div>
+  <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-10 hero-grid">
+    <div>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="hazard" style="color:#1A1A1A;background:#f4c20a;border-color:#1A1A1A;">EMERGENCY · 24/7</span>
+        <span class="hazard" style="color:#EDEDED;">TORONTO · GTA</span>
+      </div>
+      <h1 class="font-display t-h1 uppercase" style="text-wrap:balance;margin:0 0 16px;">
+        Your<br/>
+        Security<br/>
+        Is our<br/>
+        <span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;margin-right:6px;">Priority.</span>
+      </h1>
+      <p class="font-body t-body-lg" style="color:#9a9a9a;max-width:540px;margin-top:14px;">
+        Break-in Repair, Lockouts, Commercial, Residential, Apt/Condo, Cars, Safes, Lock Changes and Repairs, Burglary Repairs, UPVC Door &amp; Window Locks. Serving Toronto &amp; GTA since 2022.
+      </p>
+      <div class="mt-5 lg:mt-6">
+        <a id="heroCallBtn" href="tel:+15550101234" data-biz-tel class="btn-hivis call-pulse flex flex-col gap-1 items-center justify-center" style="padding:18px 28px;background:#27E0F5;color:#1A1A1A;text-decoration:none;min-height:84px;max-width:540px;">
+          <span class="font-mono t-cap" style="opacity:.85;font-size:11px;">TAP TO CALL</span>
+          <span class="font-display t-phone-md" data-biz-phone data-content-key="phone-number">(555) 010-1234</span>
+        </a>
+      </div>
+      <!-- Trust row -->
+      <div class="mt-5 flex flex-wrap gap-5 items-center">
+        <div class="flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span class="font-mono t-cap" style="font-weight:600;">24/7 Dispatch</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span class="font-mono t-cap" style="font-weight:600;">14 Min Avg ETA</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2.2"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/></svg>
+          <span class="font-mono t-cap" style="font-weight:600;">Non-Destructive Entry</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: ETA + zone check -->
+    <div class="hero-side flex flex-col gap-4">
+      <!-- ETA widget (compact) -->
+      <div style="position:relative;overflow:hidden;border:2px solid #27E0F5;padding:14px 18px;">
+        <div class="trust-frost" aria-hidden="true"></div>
+        <div class="caution-stripe" style="position:absolute;top:-6px;left:0;right:0;height:6px;z-index:2;"></div>
+        <div style="position:relative;z-index:2;">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-2">
+              <span class="pulse-dot" style="width:9px;height:9px;background:#5cd97a;box-shadow:0 0 0 3px rgba(92,217,122,.25);"></span>
+              <span class="font-mono t-cap-sm" style="font-weight:700;">LIVE · DISPATCH OPEN</span>
+            </div>
+            <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-size:9px;"><span id="techs">4</span> ON ROAD</span>
+          </div>
+          <div class="flex items-baseline gap-2 mt-0.5">
+            <div class="font-display" style="font-size:clamp(48px,8.4vw,78px);line-height:.85;color:#27E0F5;letter-spacing:-.04em;" id="eta">14</div>
+            <div class="font-display uppercase" style="font-size:clamp(16px,2.4vw,24px);line-height:1;letter-spacing:.02em;">MIN</div>
+            <div class="font-body hidden sm:block" style="font-size:11.5px;color:#9a9a9a;flex:1;padding-left:12px;padding-bottom:4px;letter-spacing:.04em;line-height:1.35;">to your door, anywhere in Toronto & GTA</div>
+          </div>
+          <div class="eta-bar mt-2" style="height:10px;">
+            <div class="eta-fill" id="etaFill" style="width:70%;"></div>
+          </div>
+          <div class="flex justify-between mt-1 font-mono" style="font-size:9px;color:#9a9a9a;letter-spacing:.16em;">
+            <span>FASTEST · 11 MIN</span>
+            <span>NIGHT MAX · 24 MIN</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zone check (moved here, under the ETA indicator) -->
+      <form id="zipForm" style="position:relative;overflow:hidden;border:2px solid #EDEDED;">
+        <div class="trust-frost" aria-hidden="true"></div>
+        <div class="flex justify-between items-center px-4 sm:px-5 py-3" style="position:relative;z-index:2;background:#27E0F5;color:#1A1A1A;">
+          <div class="font-display uppercase" style="font-size:16px;letter-spacing:.04em;">ZONE CHECK</div>
+          <div class="font-mono t-cap-sm" style="opacity:.7;">BY POSTAL</div>
+        </div>
+        <div class="p-5" style="position:relative;z-index:2;">
+          <div class="font-body t-body mb-3" style="color:#9a9a9a;">We dispatch across Toronto & GTA. Enter your postal code.</div>
+          <div class="flex">
+            <input id="zipInput" data-format="postal" placeholder="A0A 0A0" maxlength="7" autocomplete="postal-code" inputmode="text" autocapitalize="characters" spellcheck="false" style="flex:1;min-width:0;border-right:none;font-family:'Archivo Black',sans-serif;font-size:clamp(18px,2.4vw,24px);letter-spacing:.08em;padding:14px 18px;text-transform:uppercase;"/>
+            <button type="submit" class="btn-hivis font-display uppercase shrink-0" style="padding:0 20px;background:#27E0F5;color:#1A1A1A;border:2px solid #EDEDED;font-size:14px;letter-spacing:.06em;cursor:pointer;">Check</button>
+          </div>
+          <div id="zipResult"></div>
+          <div class="font-mono t-cap-sm mt-2.5" style="color:#9a9a9a;opacity:.7;">Format: A0A 0A0 · Try M5V 1A1 · L4W 0E1</div>
+
+          <!-- Use-my-location action -->
+          <button id="useMyLocBtn" type="button" class="zone-loc-btn mt-3.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+            <span class="zone-loc-label">USE MY LOCATION</span>
+          </button>
+          <div id="zoneGeoStatus" class="zone-geo-status" role="status" aria-live="polite"></div>
+
+          <!-- Inline expanding map -->
+          <div id="zoneMapWrap" class="zone-map-wrap" aria-hidden="true">
+            <div class="zone-map-frame">
+              <div id="zoneMap" class="zone-map"></div>
+              <div class="zone-map-scanline" aria-hidden="true"></div>
+              <div id="zoneDistrict" class="zone-district" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ───── TRUST STRIP ───── -->
+<section id="trustStrip" style="position:relative;overflow:hidden;border-top:3px solid #27E0F5;">
+  <div class="trust-frost" aria-hidden="true"></div>
+  <div class="trust-content max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-9 grid grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-0">
+    <div class="lg:border-r border-rule px-0 lg:pr-6 flex flex-col items-center lg:items-start">
+      <div class="font-display t-num-lg counter" data-target="4" style="color:#27E0F5;">4</div>
+      <div class="font-display mt-1.5" style="font-size:14px;letter-spacing:.06em;">YRS / TORONTO</div>
+      <div class="font-mono t-cap-sm mt-1" style="color:#9a9a9a;">EST. 2022</div>
+    </div>
+    <div class="lg:border-r border-rule px-0 lg:px-6 flex flex-col items-center lg:items-start">
+      <!-- TODO: integrate real Google rating + review count via Google Places API once live -->
+      <div class="font-display t-num-lg counter" data-target="100" data-suffix="%" style="color:#27E0F5;">100%</div>
+      <div class="font-display mt-1.5" style="font-size:14px;letter-spacing:.06em;">SATISFACTION</div>
+      <div class="font-mono t-cap-sm mt-1" style="color:#9a9a9a;">GUARANTEED WORK</div>
+    </div>
+    <div class="lg:border-r border-rule px-0 lg:px-6 flex flex-col items-center lg:items-start">
+      <div class="font-display t-num-lg counter" data-target="15" style="color:#27E0F5;">15</div>
+      <div class="font-display mt-1.5" style="font-size:14px;letter-spacing:.06em;">M MEDIAN ETA</div>
+      <div class="font-mono t-cap-sm mt-1" style="color:#9a9a9a;">24/7 DISPATCH</div>
+    </div>
+    <div class="px-0 lg:pl-6 flex flex-col items-center lg:items-start">
+      <div class="font-display t-num-lg counter" data-target="6000" data-suffix="+" data-format="comma" style="color:#27E0F5;">6,000+</div>
+      <div class="font-display mt-1.5" style="font-size:14px;letter-spacing:.06em;">JOBS COMPLETED</div>
+      <div class="font-mono t-cap-sm mt-1" style="color:#9a9a9a;">AND COUNTING</div>
+    </div>
+  </div><!-- /trust-content -->
+</section>
+
+<!-- ───── SERVICE FINDER + ZIP ───── -->
+<section class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+  <!-- Section heading -->
+  <div class="flex items-end gap-4 pb-3 mb-7" style="border-bottom:3px solid #EDEDED;justify-content:center;text-align:center;">
+    <div class="flex gap-4 sm:gap-3 items-end">
+      <div>
+        <div class="font-mono t-cap" style="opacity:.6;">Triage</div>
+        <h2 class="font-display t-h2 uppercase mt-1">What's <span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">locked?</span></h2>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-5">
+    <!-- Finder card -->
+    <div class="u-card" style="background:#242427;overflow:hidden;">
+      <div class="flex justify-between items-center px-4 sm:px-5 py-3" style="background:#1A1A1A;color:#27E0F5;border-bottom:2px solid #27E0F5;">
+        <div class="font-display uppercase" style="font-size:18px;letter-spacing:.04em;color:#27E0F5;">SERVICE FINDER</div>
+        <div class="font-mono t-cap-sm" style="opacity:.7;color:#9a9a9a;">STEP 1 OF 1</div>
+      </div>
+      <div class="p-5 sm:p-6">
+        <div class="font-body t-body" style="color:#9a9a9a;margin-bottom:12px;">What did you lock yourself out of?</div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5 finder-grid">
+          <button class="finder-tile active" data-finder="home">
+            <div class="px-3 py-3.5 flex flex-col gap-2.5 items-start">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 9.77806V16.2C19 17.8801 19 18.7202 18.673 19.3619C18.3854 19.9264 17.9265 20.3854 17.362 20.673C16.7202 21 15.8802 21 14.2 21H9.8C8.11984 21 7.27976 21 6.63803 20.673C6.07354 20.3854 5.6146 19.9264 5.32698 19.3619C5 18.7202 5 17.8801 5 16.2V9.7774M21 12L15.5668 5.96393C14.3311 4.59116 13.7133 3.90478 12.9856 3.65138C12.3466 3.42882 11.651 3.42887 11.0119 3.65153C10.2843 3.90503 9.66661 4.59151 8.43114 5.96446L3 12M14 12C14 13.1045 13.1046 14 12 14C10.8954 14 10 13.1045 10 12C10 10.8954 10.8954 9.99996 12 9.99996C13.1046 9.99996 14 10.8954 14 12Z"/></svg>
+              <div class="font-display uppercase" style="font-size:13px;letter-spacing:.04em;">House / Apt</div>
+            </div>
+          </button>
+          <button class="finder-tile" data-finder="car">
+            <div class="px-3 py-3.5 flex flex-col gap-2.5 items-start">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 12a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3m11 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3"/><path d="m20.77 9.16l-1.37-4.1a2.99 2.99 0 0 0-2.85-2.05H7.44a3 3 0 0 0-2.85 2.05l-1.37 4.1c-.72.3-1.23 1.02-1.23 1.84v5c0 .74.41 1.38 1 1.72V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-2h12v2c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-2.28a2 2 0 0 0 1-1.72v-5c0-.83-.51-1.54-1.23-1.84ZM7.44 5h9.12a1 1 0 0 1 .95.68L18.62 9H5.39L6.5 5.68A1 1 0 0 1 7.45 5ZM4 16v-5h16v5z"/></svg>
+              <div class="font-display uppercase" style="font-size:13px;letter-spacing:.04em;">Car / Truck</div>
+            </div>
+          </button>
+          <button class="finder-tile" data-finder="office">
+            <div class="px-3 py-3.5 flex flex-col gap-2.5 items-start">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 4C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H12H13C13.5523 20 14 19.5523 14 19V5C14 4.44772 13.5523 4 13 4H5ZM5 22H12H13H19C20.6569 22 22 20.6569 22 19V9C22 7.34315 20.6569 6 19 6H16V5C16 3.34315 14.6569 2 13 2H5C3.34315 2 2 3.34315 2 5V19C2 20.6569 3.34315 22 5 22ZM19 20H15.8293C15.9398 19.6872 16 19.3506 16 19V8H19C19.5523 8 20 8.44772 20 9V19C20 19.5523 19.5523 20 19 20ZM7 14H5V16H7V14ZM8 14H10V16H8V14ZM13 14H11V16H13V14ZM17 14H19V16H17V14ZM19 10H17V12H19V10ZM5 10H7V12H5V10ZM10 10H8V12H10V10ZM11 10H13V12H11V10ZM7 6H5V8H7V6ZM8 6H10V8H8V6ZM13 6H11V8H13V6Z"/></svg>
+              <div class="font-display uppercase" style="font-size:13px;letter-spacing:.04em;line-height:1.15;">Office /<br><span style="font-size:11px;">Commercial</span></div>
+            </div>
+          </button>
+          <button class="finder-tile" data-finder="safe">
+            <div class="px-3 py-3.5 flex flex-col gap-2.5 items-start">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9426 1.25H12.0574C14.3658 1.24999 16.1748 1.24998 17.5863 1.43975C19.031 1.63399 20.1711 2.03933 21.0659 2.93414C21.9607 3.82895 22.366 4.96897 22.5603 6.41371C22.75 7.82519 22.75 9.63423 22.75 11.9426V12.0574C22.75 14.3658 22.75 16.1748 22.5603 17.5863C22.366 19.031 21.9607 20.1711 21.0659 21.0659C20.1711 21.9607 19.031 22.366 17.5863 22.5603C16.1748 22.75 14.3658 22.75 12.0574 22.75H11.9426C9.63423 22.75 7.82519 22.75 6.41371 22.5603C4.96897 22.366 3.82895 21.9607 2.93414 21.0659C2.03933 20.1711 1.63399 19.031 1.43975 17.5863C1.24998 16.1748 1.24999 14.3658 1.25 12.0574V11.9426C1.24999 9.63423 1.24998 7.82519 1.43975 6.41371C1.63399 4.96897 2.03933 3.82895 2.93414 2.93414C3.82895 2.03933 4.96897 1.63399 6.41371 1.43975C7.82519 1.24998 9.63423 1.24999 11.9426 1.25ZM6.61358 2.92637C5.33517 3.09825 4.56445 3.42514 3.9948 3.9948C3.42514 4.56445 3.09825 5.33517 2.92637 6.61358C2.75159 7.91356 2.75 9.62178 2.75 12C2.75 14.3782 2.75159 16.0864 2.92637 17.3864C3.09825 18.6648 3.42514 19.4355 3.9948 20.0052C4.56445 20.5749 5.33517 20.9018 6.61358 21.0736C7.91356 21.2484 9.62178 21.25 12 21.25C14.3782 21.25 16.0864 21.2484 17.3864 21.0736C18.6648 20.9018 19.4355 20.5749 20.0052 20.0052C20.5749 19.4355 20.9018 18.6648 21.0736 17.3864C21.2484 16.0864 21.25 14.3782 21.25 12C21.25 9.62178 21.2484 7.91356 21.0736 6.61358C20.9018 5.33517 20.5749 4.56445 20.0052 3.9948C19.4355 3.42514 18.6648 3.09825 17.3864 2.92637C16.0864 2.75159 14.3782 2.75 12 2.75C9.62178 2.75 7.91356 2.75159 6.61358 2.92637ZM6 6.25C6.41421 6.25 6.75 6.58579 6.75 7L6.75 17C6.75 17.4142 6.41421 17.75 6 17.75C5.58579 17.75 5.25 17.4142 5.25 17L5.25 7C5.25 6.58579 5.58579 6.25 6 6.25ZM9.46967 7.46967C9.76256 7.17678 10.2374 7.17678 10.5303 7.46967L11.932 8.8713C12.5248 8.47866 13.2357 8.25 14 8.25C14.7643 8.25 15.4752 8.47866 16.068 8.8713L17.4697 7.46967C17.7626 7.17678 18.2374 7.17678 18.5303 7.46967C18.8232 7.76256 18.8232 8.23744 18.5303 8.53033L17.1287 9.93196C17.5213 10.5248 17.75 11.2357 17.75 12C17.75 12.7643 17.5213 13.4752 17.1287 14.068L18.5303 15.4697C18.8232 15.7626 18.8232 16.2374 18.5303 16.5303C18.2374 16.8232 17.7626 16.8232 17.4697 16.5303L16.068 15.1287C15.4752 15.5213 14.7643 15.75 14 15.75C13.2357 15.75 12.5248 15.5213 11.932 15.1287L10.5303 16.5303C10.2374 16.8232 9.76256 16.8232 9.46967 16.5303C9.17678 16.2374 9.17678 15.7626 9.46967 15.4697L10.8713 14.068C10.4787 13.4752 10.25 12.7643 10.25 12C10.25 11.2357 10.4787 10.5248 10.8713 9.93196L9.46967 8.53033C9.17678 8.23744 9.17678 7.76256 9.46967 7.46967ZM14 9.75C12.7574 9.75 11.75 10.7574 11.75 12C11.75 13.2426 12.7574 14.25 14 14.25C15.2426 14.25 16.25 13.2426 16.25 12C16.25 10.7574 15.2426 9.75 14 9.75Z"/></svg>
+              <div class="font-display uppercase" style="font-size:13px;letter-spacing:.04em;">Safe</div>
+            </div>
+          </button>
+          <button class="finder-tile" data-finder="security">
+            <div class="px-3 py-3.5 flex flex-col gap-2.5 items-start">
+              <svg width="26" height="26" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248 136a8 8 0 0 0-8 8v16h-44.69L177 141.66l50.34-50.35a16 16 0 0 0 0-22.62l-56-56a16 16 0 0 0-22.63 0L2.92 158.94A10 10 0 0 0 10 176h39.37l35.32 35.31a16 16 0 0 0 22.62 0L165.66 153L184 171.31a15.86 15.86 0 0 0 11.31 4.69H240v16a8 8 0 0 0 16 0v-48a8 8 0 0 0-8-8M160 24l12.69 12.69L49.37 160H24.46ZM96 200l-32-32L184 48l32 32Z"/></svg>
+              <div class="font-display uppercase" style="font-size:13px;letter-spacing:.04em;">Security</div>
+            </div>
+          </button>
+          <button class="finder-tile finder-tile--more md:hidden" type="button" aria-label="More services coming soon" tabindex="-1">
+            <div class="px-3 py-3.5 flex flex-col gap-2.5 items-start">
+              <span class="more-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <div class="font-display uppercase more-label" style="font-size:13px;letter-spacing:.04em;">More</div>
+            </div>
+          </button>
+        </div>
+        <!-- Service list (replaces dispatch plan) -->
+        <div class="service-list-box u-card" style="margin-top:22px;padding:18px 20px;background:#242427;position:relative;overflow:hidden;">
+          <div class="caution-stripe" style="position:absolute;top:0;left:0;right:0;height:4px;"></div>
+          <div class="pt-1.5 mb-3">
+            <div class="font-mono t-cap-sm" style="color:#27E0F5;">▸ WHAT WE DO HERE</div>
+            <div class="font-display uppercase mt-1" id="planLabel" style="font-size:clamp(20px,2.4vw,28px);letter-spacing:.02em;line-height:1;">House / Apt</div>
+          </div>
+          <ul id="serviceList" class="list-none p-0 m-0 grid gap-2"></ul>
+          <button type="button" id="serviceToggle" class="font-mono mt-3" style="display:none;background:transparent;border:0;color:#27E0F5;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 0;cursor:pointer;font-weight:700;">+ Show All Services</button>
+          <!-- Trust-bar/details block removed (Group 2). Payment info relocated to the "All Payments Accepted" section near the footer. -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero photo + guarantee (photo moved here, sized to match the finder card) -->
+    <div class="flex flex-col gap-4">
+      <div class="relative flex-1 overflow-hidden">
+        <div class="photo-slot" data-bg="upscaledimages/residental.webp" style="height:100%;min-height:240px;background-size:cover;background-position:center;background-repeat:no-repeat;border:0;"></div>
+        <!-- Bottom-up dark gradient for caption legibility -->
+        <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0) 65%);"></div>
+        <!-- Top-left chip -->
+        <div class="absolute top-3 left-3">
+          <span class="hazard" style="color:#1A1A1A;background:#27E0F5;border-color:#1A1A1A;">VETTED TECH</span>
+        </div>
+        <!-- Bottom caption -->
+        <div class="absolute left-4 right-4 bottom-4">
+          <!-- TODO: re-add "Licensed · Bonded · Insured" caption once official license is obtained -->
+          <div class="font-mono t-cap-sm" style="color:#27E0F5;font-weight:700;letter-spacing:.22em;">TORONTO · GTA · 24/7</div>
+          <div class="font-display uppercase mt-1.5" style="font-size:clamp(18px,2.2vw,24px);line-height:1.05;letter-spacing:-.005em;color:#EDEDED;">Background-<span style="color:#27E0F5;">checked</span>.<br/>On <span style="color:#27E0F5;">call</span>.</div>
+        </div>
+      </div>
+      <!-- Transparent Pricing box removed (Group 2): deleted on mobile; on desktop the photo above (flex-1) expands to fill this column. -->
+    </div>
+  </div>
+</section>
+
+<!-- ───── SERVICES (carousel) ───── -->
+<section id="services" class="section-divider">
+  <div class="svc-bg-overlay" aria-hidden="true"></div>
+  <div class="svc-content-wrap max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+  <div class="flex items-end gap-4 pb-3 mb-7 sec-head--ctrl" style="border-bottom:3px solid #EDEDED;justify-content:center;text-align:center;">
+    <div class="flex gap-4 sm:gap-3 items-end">
+      <div>
+        <div class="font-mono t-cap" style="opacity:.6;">Service catalogue</div>
+        <h2 class="font-display t-h2 uppercase mt-1">What <span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">we</span> do</h2>
+      </div>
+    </div>
+    <div class="hidden md:flex gap-2 shrink-0 pb-1 sec-head-ctrl">
+      <button type="button" class="svc-arrow" data-svc-dir="prev" aria-label="Previous services">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button type="button" class="svc-arrow" data-svc-dir="next" aria-label="Next services">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="svc-carousel">
+    <div class="svc-track no-scrollbar" id="svcTrack">
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="upscaledimages/24emergency.webp"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">01</div>
+          <div class="svc-tag">~15 MIN</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2.2"><path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">24/7 Emergency Lockouts</h3>
+            <p class="font-body svc-desc">Home, office, car. 15-minute average response across Toronto &amp; GTA.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="upscaledimages/residental.webp"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">02</div>
+          <div class="svc-tag">SAME DAY</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 9.77806V16.2C19 17.8801 19 18.7202 18.673 19.3619C18.3854 19.9264 17.9265 20.3854 17.362 20.673C16.7202 21 15.8802 21 14.2 21H9.8C8.11984 21 7.27976 21 6.63803 20.673C6.07354 20.3854 5.6146 19.9264 5.32698 19.3619C5 18.7202 5 17.8801 5 16.2V9.7774M21 12L15.5668 5.96393C14.3311 4.59116 13.7133 3.90478 12.9856 3.65138C12.3466 3.42882 11.651 3.42887 11.0119 3.65153C10.2843 3.90503 9.66661 4.59151 8.43114 5.96446L3 12M14 12C14 13.1045 13.1046 14 12 14C10.8954 14 10 13.1045 10 12C10 10.8954 10.8954 9.99996 12 9.99996C13.1046 9.99996 14 10.8954 14 12Z"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">Residential Rekey &amp; Install</h3>
+            <p class="font-body svc-desc">Rekey existing locks, install deadbolts, smart locks, mortise sets.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="upscaledimages/commercial.webp"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">03</div>
+          <div class="svc-tag">SAME DAY</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#27E0F5" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 4C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H12H13C13.5523 20 14 19.5523 14 19V5C14 4.44772 13.5523 4 13 4H5ZM5 22H12H13H19C20.6569 22 22 20.6569 22 19V9C22 7.34315 20.6569 6 19 6H16V5C16 3.34315 14.6569 2 13 2H5C3.34315 2 2 3.34315 2 5V19C2 20.6569 3.34315 22 5 22ZM19 20H15.8293C15.9398 19.6872 16 19.3506 16 19V8H19C19.5523 8 20 8.44772 20 9V19C20 19.5523 19.5523 20 19 20ZM7 14H5V16H7V14ZM8 14H10V16H8V14ZM13 14H11V16H13V14ZM17 14H19V16H17V14ZM19 10H17V12H19V10ZM5 10H7V12H5V10ZM10 10H8V12H10V10ZM11 10H13V12H11V10ZM7 6H5V8H7V6ZM8 6H10V8H8V6ZM13 6H11V8H13V6Z"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">Commercial &amp; Business</h3>
+            <p class="font-body svc-desc">Master key systems, panic bars, high-security restricted keyways.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="brand_assets/carkey.jpg"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">04</div>
+          <div class="svc-tag">~15 MIN</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#27E0F5" aria-hidden="true"><path d="M6.5 12a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3m11 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3"/><path d="m20.77 9.16l-1.37-4.1a2.99 2.99 0 0 0-2.85-2.05H7.44a3 3 0 0 0-2.85 2.05l-1.37 4.1c-.72.3-1.23 1.02-1.23 1.84v5c0 .74.41 1.38 1 1.72V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-2h12v2c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-2.28a2 2 0 0 0 1-1.72v-5c0-.83-.51-1.54-1.23-1.84ZM7.44 5h9.12a1 1 0 0 1 .95.68L18.62 9H5.39L6.5 5.68A1 1 0 0 1 7.45 5ZM4 16v-5h16v5z"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">Automotive</h3>
+            <p class="font-body svc-desc">Car/truck lockouts, key programming, key cuts, ignition repair, protected vehicles and semi trailers.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="upscaledimages/padlock.webp"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">05</div>
+          <div class="svc-tag">BY APPT</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2.2"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">Smart Locks &amp; Access</h3>
+            <p class="font-body svc-desc">Z-Wave, keypad, biometric. Integration with existing security.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="upscaledimages/safe.webp"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">06</div>
+          <div class="svc-tag">SAME DAY</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#27E0F5" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9426 1.25H12.0574C14.3658 1.24999 16.1748 1.24998 17.5863 1.43975C19.031 1.63399 20.1711 2.03933 21.0659 2.93414C21.9607 3.82895 22.366 4.96897 22.5603 6.41371C22.75 7.82519 22.75 9.63423 22.75 11.9426V12.0574C22.75 14.3658 22.75 16.1748 22.5603 17.5863C22.366 19.031 21.9607 20.1711 21.0659 21.0659C20.1711 21.9607 19.031 22.366 17.5863 22.5603C16.1748 22.75 14.3658 22.75 12.0574 22.75H11.9426C9.63423 22.75 7.82519 22.75 6.41371 22.5603C4.96897 22.366 3.82895 21.9607 2.93414 21.0659C2.03933 20.1711 1.63399 19.031 1.43975 17.5863C1.24998 16.1748 1.24999 14.3658 1.25 12.0574V11.9426C1.24999 9.63423 1.24998 7.82519 1.43975 6.41371C1.63399 4.96897 2.03933 3.82895 2.93414 2.93414C3.82895 2.03933 4.96897 1.63399 6.41371 1.43975C7.82519 1.24998 9.63423 1.24999 11.9426 1.25ZM6.61358 2.92637C5.33517 3.09825 4.56445 3.42514 3.9948 3.9948C3.42514 4.56445 3.09825 5.33517 2.92637 6.61358C2.75159 7.91356 2.75 9.62178 2.75 12C2.75 14.3782 2.75159 16.0864 2.92637 17.3864C3.09825 18.6648 3.42514 19.4355 3.9948 20.0052C4.56445 20.5749 5.33517 20.9018 6.61358 21.0736C7.91356 21.2484 9.62178 21.25 12 21.25C14.3782 21.25 16.0864 21.2484 17.3864 21.0736C18.6648 20.9018 19.4355 20.5749 20.0052 20.0052C20.5749 19.4355 20.9018 18.6648 21.0736 17.3864C21.2484 16.0864 21.25 14.3782 21.25 12C21.25 9.62178 21.2484 7.91356 21.0736 6.61358C20.9018 5.33517 20.5749 4.56445 20.0052 3.9948C19.4355 3.42514 18.6648 3.09825 17.3864 2.92637C16.0864 2.75159 14.3782 2.75 12 2.75C9.62178 2.75 7.91356 2.75159 6.61358 2.92637ZM6 6.25C6.41421 6.25 6.75 6.58579 6.75 7L6.75 17C6.75 17.4142 6.41421 17.75 6 17.75C5.58579 17.75 5.25 17.4142 5.25 17L5.25 7C5.25 6.58579 5.58579 6.25 6 6.25ZM9.46967 7.46967C9.76256 7.17678 10.2374 7.17678 10.5303 7.46967L11.932 8.8713C12.5248 8.47866 13.2357 8.25 14 8.25C14.7643 8.25 15.4752 8.47866 16.068 8.8713L17.4697 7.46967C17.7626 7.17678 18.2374 7.17678 18.5303 7.46967C18.8232 7.76256 18.8232 8.23744 18.5303 8.53033L17.1287 9.93196C17.5213 10.5248 17.75 11.2357 17.75 12C17.75 12.7643 17.5213 13.4752 17.1287 14.068L18.5303 15.4697C18.8232 15.7626 18.8232 16.2374 18.5303 16.5303C18.2374 16.8232 17.7626 16.8232 17.4697 16.5303L16.068 15.1287C15.4752 15.5213 14.7643 15.75 14 15.75C13.2357 15.75 12.5248 15.5213 11.932 15.1287L10.5303 16.5303C10.2374 16.8232 9.76256 16.8232 9.46967 16.5303C9.17678 16.2374 9.17678 15.7626 9.46967 15.4697L10.8713 14.068C10.4787 13.4752 10.25 12.7643 10.25 12C10.25 11.2357 10.4787 10.5248 10.8713 9.93196L9.46967 8.53033C9.17678 8.23744 9.17678 7.76256 9.46967 7.46967ZM14 9.75C12.7574 9.75 11.75 10.7574 11.75 12C11.75 13.2426 12.7574 14.25 14 14.25C15.2426 14.25 16.25 13.2426 16.25 12C16.25 10.7574 15.2426 9.75 14 9.75Z"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">Safes — Open, Move, Install</h3>
+            <p class="font-body svc-desc">Combination recovery, electronic safe opening, in-floor installs.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card has-photo" href="#contact">
+          <div class="svc-photo" data-bg="upscaledimages/securitycamera.webp"></div>
+          <div class="svc-overlay"></div>
+          <div class="svc-num">07</div>
+          <div class="svc-tag">SAME DAY</div>
+          <div class="svc-body">
+            <svg width="32" height="32" viewBox="0 0 256 256" style="color:#27E0F5;" aria-hidden="true"><path fill="currentColor" d="M248 136a8 8 0 0 0-8 8v16h-44.69L177 141.66l50.34-50.35a16 16 0 0 0 0-22.62l-56-56a16 16 0 0 0-22.63 0L2.92 158.94A10 10 0 0 0 10 176h39.37l35.32 35.31a16 16 0 0 0 22.62 0L165.66 153L184 171.31a15.86 15.86 0 0 0 11.31 4.69H240v16a8 8 0 0 0 16 0v-48a8 8 0 0 0-8-8M160 24l12.69 12.69L49.37 160H24.46ZM96 200l-32-32L184 48l32 32Z"/></svg>
+            <h3 class="font-display uppercase" style="font-size:22px;line-height:1.05;letter-spacing:.01em;margin:14px 0 8px;text-wrap:balance;">Security Systems</h3>
+            <p class="font-body svc-desc">Camera installation, access control, and full security system setup for homes and businesses.</p>
+            <div class="svc-foot">
+              <span class="svc-cta-link">Book it <span class="svc-arrow-ico">&rarr;</span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="svc-slide">
+        <a class="svc-card svc-cta" href="tel:+15550101234" data-biz-tel>
+          <div class="svc-num" style="background:#1A1A1A;color:#EDEDED;">HELP</div>
+          <div class="svc-body" style="top:0;display:flex;flex-direction:column;justify-content:center;">
+            <h3 class="font-display uppercase" style="font-size:clamp(24px,3.4vw,30px);line-height:.98;margin:0;">Not sure which? We'll figure it out.</h3>
+            <p class="font-body" style="font-size:14px;line-height:1.5;margin:12px 0 20px;">One phone call. Ninety seconds of triage — we'll tell you the fix and how long it'll take.</p>
+            <span class="font-display" style="font-size:24px;letter-spacing:.02em;"><span data-biz-phone data-content-key="phone-number">(555) 010-1234</span> <span class="svc-arrow-ico">&rarr;</span></span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="svc-dots" id="svcDots"></div>
+  </div><!-- /svc-content-wrap -->
+</section>
+
+<!-- ───── PROCESS ───── -->
+<section class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+  <div class="flex items-end gap-4 pb-3 mb-7" style="border-bottom:3px solid #EDEDED;justify-content:center;text-align:center;">
+    <div class="flex gap-4 sm:gap-3 items-end">
+      <div>
+        <div class="font-mono t-cap" style="opacity:.6;">Procedure</div>
+        <h2 class="font-display t-h2 uppercase mt-1">Three <span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">steps</span></h2>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="step-card relative p-6 pt-5">
+      <div class="caution-stripe absolute top-0 left-0 right-0" style="height:6px"></div>
+      <div class="font-display t-num-xl mt-3" style="color:#27E0F5;">01</div>
+      <div class="font-display uppercase mt-3" style="font-size:22px;letter-spacing:.02em;">Call dispatch</div>
+      <p class="font-body t-body mt-2" style="color:#9a9a9a;">24/7 live operator. Response initiated immediately.</p>
+    </div>
+    <div class="step-card relative p-6 pt-5">
+      <div class="caution-stripe absolute top-0 left-0 right-0" style="height:6px"></div>
+      <div class="font-display t-num-xl mt-3" style="color:#27E0F5;">02</div>
+      <div class="font-display uppercase mt-3" style="font-size:22px;letter-spacing:.02em;">Tech routed</div>
+      <p class="font-body t-body mt-2" style="color:#9a9a9a;">Nearest certified technician dispatched to your location.</p>
+    </div>
+    <div class="step-card relative p-6 pt-5">
+      <div class="caution-stripe absolute top-0 left-0 right-0" style="height:6px"></div>
+      <div class="font-display t-num-xl mt-3" style="color:#27E0F5;">03</div>
+      <div class="font-display uppercase mt-3" style="font-size:22px;letter-spacing:.02em;">You are <span class="safe-pulse" style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">safe</span></div>
+      <p class="font-body t-body mt-2" style="color:#9a9a9a;">On-site assessment, transparent quote, job complete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───── ABOUT ───── -->
+<section id="about" class="about-section section-divider" data-bg-class="bg-loaded">
+  <div class="about-overlay" aria-hidden="true"></div>
+  <div class="about-vignette" aria-hidden="true"></div>
+  <div class="about-inner max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+    <div class="max-w-[760px]">
+      <div class="flex flex-row items-end gap-2 md:gap-3 pb-3 mb-6" style="border-bottom:3px solid #EDEDED;justify-content:center;text-align:center;">
+        <div>
+          <div class="font-mono t-cap" style="opacity:.6;">The shop</div>
+          <h2 class="font-display t-h2 uppercase mt-1">ON THE ROAD <span class="onroad-247" style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;position:relative;">24/7<span class="pulse-dot onroad-dot" aria-hidden="true"></span></span></h2>
+        </div>
+      </div>
+      <p class="font-body" style="font-size:clamp(15px,1.7vw,17px);line-height:1.55;margin:0 0 14px;">
+        Our technicians are experienced and supported by a dedicated dispatch operator. Every vehicle and every technician is ready to provide reliable service, backed by the experience and trust earned from thousands of families across Toronto. The technician who arrives at your door has passed a security check, completed training, and is trusted by thousands of Toronto families.
+      </p>
+      <div class="flex gap-2 flex-wrap mt-8 justify-start">
+        <!-- TODO: re-add "Licensed · LIC # · Bonded · Insured" credential tags once official license is obtained -->
+        <span class="hazard cred-tag" style="color:#EDEDED;background:#242427;">TORONTO</span>
+        <span class="hazard cred-tag" style="color:#EDEDED;background:#242427;">ETOBICOKE</span>
+        <span class="hazard cred-tag" style="color:#EDEDED;background:#242427;">MISSISSAUGA</span>
+        <span class="hazard cred-tag" style="color:#EDEDED;background:#242427;">VAUGHAN</span>
+        <span class="hazard cred-tag" style="color:#1A1A1A;background:#27E0F5;border-color:#1A1A1A;">ALL GTA</span>
+      </div>
+    </div>
+    <!-- TODO: add logo/brand asset here when ready -->
+  </div>
+</section>
+
+<!-- ───── WHY ACME ───── -->
+<section id="why" class="why-section section-divider">
+  <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 relative">
+    <div class="why-pulse-line" aria-hidden="true"></div>
+    <div class="flex items-end gap-4 pb-3 mb-9" style="justify-content:center;text-align:center;">
+      <div class="flex gap-4 sm:gap-3 items-end">
+        <div>
+          <div class="font-mono t-cap" style="opacity:.6;">Why us</div>
+          <h2 class="font-display t-h2 uppercase mt-1">Why <span class="acme-pulse" style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">Acme</span><span class="acme-q" aria-hidden="true">?</span></h2>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="m3.003 4.702l4.22-2.025a1.8 1.8 0 0 1 1.554 0l4.22 2.025a.89.89 0 0 1 .503.8V6a8.55 8.55 0 0 1-3.941 7.201l-.986.631a1.06 1.06 0 0 1-1.146 0l-.986-.63A8.55 8.55 0 0 1 2.5 6v-.498c0-.341.196-.652.503-.8m3.57-3.377L2.354 3.35A2.39 2.39 0 0 0 1 5.502V6a10.05 10.05 0 0 0 4.632 8.465l.986.63a2.56 2.56 0 0 0 2.764 0l.986-.63A10.05 10.05 0 0 0 15 6v-.498c0-.918-.526-1.755-1.354-2.152l-4.22-2.025a3.3 3.3 0 0 0-2.852 0M8.47 9.97a.75.75 0 1 0 1.06 1.06c.575-.574 1.118-1.398 1.516-2.195c.386-.772.704-1.653.704-2.335a.75.75 0 0 0-1.5 0c0 .318-.182.937-.546 1.665c-.352.703-.809 1.379-1.234 1.805" clip-rule="evenodd"/></svg>
+        </div>
+        <!-- TODO: re-add "Licensed & Insured" benefit once official license is obtained -->
+        <div class="why-title font-display uppercase">Background Checked</div>
+        <div class="why-sub font-body">Every technician is vetted, trained, and trusted in your home.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <div class="why-title font-display uppercase">15 Min Avg ETA</div>
+        <div class="why-sub font-body">Fast response across Toronto &amp; GTA, 24/7.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>
+        </div>
+        <div class="why-title font-display uppercase">24/7 Available</div>
+        <div class="why-sub font-body">Real humans answer the phone. Every call, every night.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 512 512" fill="currentColor"><path d="m328.375 384l3.698 74.999l-75.862-52.719l-76.287 52.769L183.625 384h-32.039l-5.522 112h36.692l73.413-50.78L329.242 496h36.694l-5.522-112zm87.034-229.086l-2.194-48.054L372.7 80.933l-25.932-40.519l-48.055-2.2L256 16.093l-42.713 22.126l-48.055 2.2L139.3 80.933L98.785 106.86l-2.194 48.054l-22.127 42.714l22.127 42.715l2.2 48.053l40.509 25.927l25.928 40.52l48.055 2.195L256 379.164l42.713-22.126l48.055-2.195l25.928-40.52l40.518-25.923l2.195-48.053l22.127-42.715Zm-31.646 76.949L382 270.377l-32.475 20.78l-20.78 32.475l-38.515 1.76L256 343.125l-34.234-17.733l-38.515-1.76l-20.78-32.475L130 270.377l-1.759-38.514l-17.741-34.235l17.737-34.228L130 124.88l32.471-20.78l20.78-32.474l38.515-1.76L256 52.132l34.234 17.733l38.515 1.76l20.78 32.474L382 124.88l1.759 38.515l17.741 34.233Z"/></svg>
+        </div>
+        <div class="why-title font-display uppercase">Work Guaranteed</div>
+        <div class="why-sub font-body">Every job backed by our satisfaction guarantee.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── REVIEWS ───── -->
+<section id="reviews" class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 section-divider">
+  <div class="flex flex-wrap items-center md:items-end gap-4 pb-3 mb-7 sec-head--ctrl" style="border-bottom:3px solid #EDEDED;justify-content:center;text-align:center;">
+    <div class="flex flex-col md:flex-row gap-2 md:gap-3 items-center md:items-end">
+      <div>
+        <div class="font-mono t-cap" style="opacity:.6;">From our customers</div>
+        <h2 class="font-display t-h2 uppercase mt-1">What our <span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">customers</span> say</h2>
+      </div>
+    </div>
+    <!-- TODO: link to / embed real Google Reviews via Google Places API once live -->
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="reviewGrid">
+    <article class="review-card u-card flex flex-col p-5" style="background:#242427;">
+      <div class="flex justify-between items-center">
+        <span class="inline-flex gap-0.5" style="color:#27E0F5;">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+        </span>
+      </div>
+      <p class="font-body mt-3.5 flex-1" style="font-size:15px;line-height:1.55;text-wrap:pretty;">"Got locked out at 11pm with my dog inside. Tech was at my door in 14 minutes flat and had me back in within 5 more. Clean job, no damage to the lock, fair price. Saved as a contact."</p>
+      <div class="font-display mt-3 pt-2.5" style="font-size:16px;letter-spacing:.03em;border-top:1px solid #3a3a3e;text-transform:none;">Dana R.</div>
+    </article>
+    <article class="review-card u-card flex flex-col p-5" style="background:#242427;">
+      <div class="flex justify-between items-center">
+        <span class="inline-flex gap-0.5" style="color:#27E0F5;">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+        </span>
+      </div>
+      <p class="font-body mt-3.5 flex-1" style="font-size:15px;line-height:1.55;text-wrap:pretty;">"Had Acme rekey the whole house after closing. Marcus walked through every door and recommended swapping two deadbolts that were past their service life. No upsell pressure. Two-year warranty on the work."</p>
+      <div class="font-display mt-3 pt-2.5" style="font-size:16px;letter-spacing:.03em;border-top:1px solid #3a3a3e;text-transform:none;">Eli K.</div>
+    </article>
+    <article class="review-card u-card flex flex-col p-5" style="background:#242427;">
+      <div class="flex justify-between items-center">
+        <span class="inline-flex gap-0.5" style="color:#27E0F5;">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 3l2.6 6.1 6.4.6-4.8 4.4 1.4 6.4L12 17.3 6.4 20.5 7.8 14 3 9.7l6.4-.6z" fill="currentColor"/></svg>
+        </span>
+      </div>
+      <p class="font-body mt-3.5 flex-1" style="font-size:15px;line-height:1.55;text-wrap:pretty;">"Used them for our coffee shop — master key system across four doors plus a safe combination change. Took maybe 90 minutes. Receipt was exactly the quote."</p>
+      <div class="font-display mt-3 pt-2.5" style="font-size:16px;letter-spacing:.03em;border-top:1px solid #3a3a3e;text-transform:none;">Priya S.</div>
+    </article>
+  </div>
+  <div class="flex justify-center mt-8">
+    <button type="button" id="leaveReviewBtn" class="btn-msg-outline font-display uppercase inline-flex items-center justify-center">Leave a review</button>
+  </div>
+</section>
+
+<!-- ───── CONTACT ───── -->
+<section id="contact" class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 section-divider">
+  <div class="flex items-end gap-4 pb-3 mb-7" style="border-bottom:3px solid #EDEDED;justify-content:center;text-align:center;">
+    <div class="flex gap-4 sm:gap-3 items-end">
+      <div>
+        <div class="font-mono t-cap" style="opacity:.6;">Reach us</div>
+        <h2 class="font-display t-h2 uppercase mt-1">Pick up <span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">the phone</span>.</h2>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 lg:gap-8">
+    <div class="reach-left">
+      <a href="tel:+15550101234" data-biz-tel class="btn-hivis call-pulse relative flex flex-col" style="padding:26px 28px;background:#27E0F5;color:#1A1A1A;text-decoration:none;border:3px solid #EDEDED;">
+        <div class="caution-stripe absolute top-0 left-0 right-0" style="height:6px"></div>
+        <span class="font-mono t-cap mt-2" style="font-weight:700;">DISPATCH · OPEN NOW</span>
+        <span class="font-display t-phone-xl mt-2" data-biz-phone data-content-key="phone-number">(555) 010-1234</span>
+        <span class="font-body mt-2" style="font-size:14px;">Real human · 24 hours · 365 days</span>
+      </a>
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="u-card box-card p-4" style="background:#242427;">
+          <svg class="box-hd-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7V12L10.5 14.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="hazard" style="color:#EDEDED;">HOURS</span>
+          <div class="font-body mt-2.5" style="font-size:14px;line-height:1.7;">Open <strong data-biz-hours-dispatch data-content-key="hours-dispatch">24/7</strong> · 365 days</div>
+        </div>
+        <!-- Shop / walk-in address removed (Group 3): no physical storefront. Replaced with the payments block. -->
+        <div class="u-card box-card p-4" style="background:#242427;">
+          <svg class="box-hd-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 9H21M7 15H9M6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V8.2C21 7.0799 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="hazard" style="color:#EDEDED;">PAYMENTS</span>
+          <div class="font-body mt-2.5" style="font-size:13px;line-height:1.5;">All Payments Accepted<br/><span style="color:#9a9a9a;font-size:12px;">Apple Pay · Google Pay · Tap · Visa · Mastercard · Amex · Debit</span></div>
+        </div>
+        <div class="u-card box-card p-4" style="background:#242427;">
+          <svg class="box-hd-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="hazard" style="color:#EDEDED;">EMAIL</span>
+          <div class="font-body mt-2.5" style="font-size:14px;line-height:1.7;"><span data-biz-email data-content-key="email">dispatch@acmeservices.example</span></div>
+        </div>
+        <!-- TODO: re-add CREDENTIALS card (License # · Bonded · Insured · ALOA) once official license is obtained -->
+        <div class="u-card box-card p-4" style="background:#242427;">
+          <svg class="box-hd-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 16.0156C19.2447 16.5445 20 17.2392 20 18C20 19.6568 16.4183 21 12 21C7.58172 21 4 19.6568 4 18C4 17.2392 4.75527 16.5445 6 16.0156" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M17 8.44444C17 11.5372 12 17 12 17C12 17 7 11.5372 7 8.44444C7 5.35165 9.23858 3 12 3C14.7614 3 17 5.35165 17 8.44444Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><circle cx="12" cy="8" r="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg><span class="hazard" style="color:#EDEDED;">AREA</span>
+          <div class="font-body mt-2.5" style="font-size:13px;line-height:1.55;">Toronto &amp; GTA</div>
+        </div>
+      </div>
+      <!-- wa.me/SMS fallback uses the real dispatch number; content-patch.js overrides from business info when available -->
+      <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <a href="https://wa.me/15550101234" data-biz-wa class="btn-msg-outline font-display uppercase inline-flex items-center justify-center">WHATSAPP</a>
+        <a href="sms:+15550101234" data-biz-sms class="btn-msg-outline font-display uppercase inline-flex items-center justify-center">SMS</a>
+      </div>
+      <!-- Brand wordmark fills the space below the messaging buttons on desktop (hidden on mobile/tablet). -->
+      <div class="reach-logo-wrap" aria-hidden="true">
+        <span class="neon-logo reach-logo">
+          <span class="neon-logo-main">ACME</span>
+          <span class="neon-logo-sub">LOCKSMITH</span>
+        </span>
+      </div>
+    </div>
+    <form id="contactForm" class="grid gap-3.5 p-6" style="background:#242427;border:3px solid #EDEDED;" novalidate>
+      <span class="hazard" style="color:#1A1A1A;background:#f4c20a;border-color:#1A1A1A;width:fit-content;">NON-URGENT REQUEST</span>
+      <div class="font-display uppercase" style="font-size:clamp(22px,3vw,30px);line-height:1;letter-spacing:-.01em;">Send a note</div>
+      <label class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">NAME</span>
+        <input id="contactName" placeholder="Marcus H." required/>
+        <div id="contactName-error" class="form-error">Enter your name</div>
+      </label>
+      <label class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">PHONE</span>
+        <input id="contactPhone" data-format="phone" placeholder="(416) 555-1234" inputmode="numeric" maxlength="14" autocomplete="tel" required/>
+        <div id="contactPhone-error" class="form-error">Enter a valid 10-digit phone</div>
+      </label>
+      <label class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">POSTAL CODE</span>
+        <input id="contactPostal" data-format="postal" placeholder="A0A 0A0" maxlength="7" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" required/>
+        <div id="contactPostal-error" class="form-error">Use Canadian format: A0A 0A0</div>
+      </label>
+      <label class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">WHAT'S UP?</span>
+        <textarea id="contactNote" rows="4" placeholder="Rekey after move-in, smart lock install, etc."></textarea>
+        <div id="noteCounter" class="note-counter" aria-live="polite"><span id="noteCounterNum">0</span> / 250</div>
+        <div id="contactNote-error" class="form-error">Tell us what you need</div>
+      </label>
+      <div class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">ATTACH PHOTOS (OPTIONAL)</span>
+        <label class="photo-drop" id="photoDrop" tabindex="0" role="button" aria-label="Attach photos — click to add">
+          <input id="contactPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple/>
+          <svg class="photo-drop-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27E0F5" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span class="photo-drop-main font-display uppercase">Click to add photos</span>
+          <span class="photo-drop-sub font-mono">JPEG · PNG · WEBP — MAX 2, 5MB EACH</span>
+        </label>
+        <div id="photoPreviews" class="photo-previews"></div>
+        <div id="contactPhotos-error" class="form-error">Maximum 2 photos allowed</div>
+      </div>
+      <button type="submit" class="btn-hivis font-display uppercase" style="padding:14px 22px;background:#27E0F5;color:#1A1A1A;border:2px solid #EDEDED;cursor:pointer;font-size:16px;letter-spacing:.06em;">Send →</button>
+      <div id="contactFail" class="form-error">Couldn&rsquo;t send right now — please try again, or just call us.</div>
+      <div id="contactSuccess" class="form-success">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5cd97a" stroke-width="2.4" style="flex-shrink:0;"><path d="M4 12l5 5 11-12"/></svg>
+        <span class="font-display uppercase" style="font-size:13px;letter-spacing:.04em;">Note received. We'll be in touch shortly.</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ───── FLOATING CALL BUTTON ───── -->
+<a href="tel:+15550101234" data-biz-tel data-biz-aria-phone="Call dispatch — " id="callFab" aria-label="Call dispatch — (555) 010-1234">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/>
+  </svg>
+</a>
+
+<!-- ───── FLOATING MESSAGE BUTTON (WhatsApp + SMS) ───── -->
+<!-- wa.me/SMS fallback uses the real dispatch number; content-patch.js overrides from business info when available -->
+<div id="msgFab" class="msg-fab">
+  <button type="button" id="msgFabToggle" class="msg-fab-btn" aria-label="Message us" aria-expanded="false" aria-haspopup="menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+  </button>
+  <div class="msg-fab-options" role="menu" aria-label="Message options">
+    <a href="https://wa.me/15550101234" data-biz-wa class="msg-fab-opt msg-fab-wa" target="_blank" rel="noopener noreferrer" role="menuitem" aria-label="Message us on WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span>WHATSAPP</span>
+    </a>
+    <a href="sms:+15550101234" data-biz-sms class="msg-fab-opt msg-fab-sms" role="menuitem" aria-label="Send us an SMS">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span>SMS</span>
+    </a>
+  </div>
+</div>
+
+<!-- ───── SCROLL TO TOP ───── -->
+<button id="scrollTop" aria-label="Scroll to top" class="fixed bottom-6 right-6 w-12 h-12 bg-bg text-hivis flex items-center justify-center hover:text-white transition-opacity duration-300 opacity-0 pointer-events-none" style="z-index:999;border:2px solid #27E0F5;">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 5V19M12 5L6 11M12 5L18 11"/>
+  </svg>
+</button>
+
+<!-- ───── BOTTOM CTA ───── -->
+<section class="relative" style="background:#000000;color:#EDEDED;border-top:3px solid #27E0F5;">
+  <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-10">
+    <div class="flex-1 min-w-0">
+      <span class="hazard" style="color:#27E0F5;border-color:#27E0F5;background:transparent;">IF YOU'RE LOCKED OUT</span>
+      <div class="font-display uppercase mt-3.5" style="font-size:clamp(36px,5.6vw,64px);line-height:.92;letter-spacing:-.025em;">
+        Stop reading.<br/><span style="background:#27E0F5;color:#1A1A1A;padding:0 8px;display:inline-block;">Start</span> dialing.
+      </div>
+    </div>
+    <a id="stopCallBtn" href="tel:+15550101234" data-biz-tel class="btn-hivis call-pulse flex flex-col shrink-0" style="padding:18px 26px;background:#27E0F5;color:#1A1A1A;text-decoration:none;">
+      <span class="font-mono" style="font-size:10px;letter-spacing:.24em;font-weight:700;">CALL DISPATCH</span>
+      <span class="font-display" style="font-size:clamp(26px,3.4vw,40px);line-height:1;letter-spacing:-.02em;white-space:nowrap;" data-biz-phone data-content-key="phone-number">(555) 010-1234</span>
+    </a>
+  </div>
+</section>
+
+<!-- TODO: re-add Credentials strip (Licensed Locksmith · License #) once official license is obtained. Payments now live in the "Pick up the phone" contact grid. -->
+
+<!-- ───── FOOTER ───── -->
+<footer style="background:#1A1A1A;border-top:3px solid #EDEDED;">
+  <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Service-area landing pages (internal links for local SEO) -->
+    <div class="font-mono footer-legal" style="font-size:11px;letter-spacing:.16em;font-weight:600;text-transform:uppercase;color:#cdcdcd;line-height:1.7;margin-bottom:14px;">
+      <span style="color:#27E0F5;font-weight:700;">SERVICE AREAS:</span>
+      <a href="locksmith-etobicoke" style="color:#cdcdcd;text-decoration:none;">Etobicoke</a> ·
+      <a href="locksmith-scarborough" style="color:#cdcdcd;text-decoration:none;">Scarborough</a> ·
+      <a href="locksmith-mississauga" style="color:#cdcdcd;text-decoration:none;">Mississauga</a> ·
+      <a href="locksmith-north-york" style="color:#cdcdcd;text-decoration:none;">North York</a> ·
+      <a href="locksmith-brampton" style="color:#cdcdcd;text-decoration:none;">Brampton</a> ·
+      <a href="locksmith-vaughan" style="color:#cdcdcd;text-decoration:none;">Vaughan</a> ·
+      <a href="locksmith-richmond-hill" style="color:#cdcdcd;text-decoration:none;">Richmond Hill</a>
+    </div>
+    <!-- Meta row -->
+    <div class="flex flex-wrap gap-3 justify-between items-center font-mono t-cap-sm pt-4" style="opacity:.7;font-weight:600;border-top:1px solid #3a3a3e;">
+      <!-- Year auto-updates each load via seo.js (#copyYear ← current year); the
+           static value is a no-JS fallback, kept current. -->
+      <span>© <span id="copyYear">2026</span> <span data-biz-name>Acme Services</span>. ALL RIGHTS RESERVED.</span>
+      <!-- TODO: re-add "LIC # — PENDING / number" once official license is obtained -->
+      <span>TORONTO · GTA</span>
+      <span class="footer-legal"><a href="legal.html#privacy">PRIVACY</a> · <a href="legal.html#terms">TERMS</a> · <a href="legal.html#warranty">WARRANTY</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ───── LEAVE A REVIEW MODAL ───── -->
+<div id="reviewModal" class="site-modal" hidden role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+  <div class="site-modal-box">
+    <button type="button" class="site-modal-close" data-close aria-label="Close">&times;</button>
+    <span class="hazard" style="color:#EDEDED;width:fit-content;">YOUR EXPERIENCE</span>
+    <div id="reviewModalTitle" class="font-display uppercase site-modal-title">Leave a review</div>
+    <form id="reviewForm" class="grid gap-3.5" novalidate>
+      <label class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">NAME</span>
+        <input id="revName" placeholder="Dana R." maxlength="60" required/>
+        <div id="revName-error" class="form-error">Enter your name</div>
+      </label>
+      <div class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">RATING</span>
+        <div id="revStars" class="rev-stars" role="radiogroup" aria-label="Rating">
+          <button type="button" class="rev-star" data-star="1" aria-label="1 star">★</button>
+          <button type="button" class="rev-star" data-star="2" aria-label="2 stars">★</button>
+          <button type="button" class="rev-star" data-star="3" aria-label="3 stars">★</button>
+          <button type="button" class="rev-star" data-star="4" aria-label="4 stars">★</button>
+          <button type="button" class="rev-star" data-star="5" aria-label="5 stars">★</button>
+        </div>
+        <div id="revStars-error" class="form-error" style="position:static;display:none;">Pick a rating</div>
+      </div>
+      <label class="grid gap-1.5">
+        <span class="font-mono t-cap-sm" style="color:#9a9a9a;font-weight:700;">YOUR REVIEW</span>
+        <textarea id="revText" rows="4" maxlength="500" placeholder="How did it go?" required></textarea>
+        <div id="revText-error" class="form-error">Tell us a bit more (at least 10 characters)</div>
+      </label>
+      <button type="submit" class="btn-hivis font-display uppercase" style="padding:14px 22px;background:#27E0F5;color:#1A1A1A;border:2px solid #EDEDED;cursor:pointer;font-size:16px;letter-spacing:.06em;">Submit review →</button>
+      <div id="reviewFail" class="form-error" style="position:static;">Couldn&rsquo;t submit right now — please try again later.</div>
+    </form>
+    <div id="reviewThanks" class="rev-thanks" hidden>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#5cd97a" stroke-width="2.4"><path d="M4 12l5 5 11-12"/></svg>
+      <div class="font-display uppercase" style="font-size:18px;letter-spacing:.03em;">Thank you!</div>
+      <p class="font-body" style="font-size:14px;line-height:1.6;color:#9a9a9a;margin:0;">Your review has been received and will be published after it&rsquo;s approved by our team.</p>
+      <button type="button" class="btn-hivis font-display uppercase" data-close style="padding:12px 20px;background:#27E0F5;color:#1A1A1A;border:2px solid #EDEDED;cursor:pointer;font-size:14px;letter-spacing:.06em;">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast / popup target (used by Send-a-Note char limit) -->
+<div id="noteToast" class="note-toast" role="alert" aria-live="assertive">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.5"/></svg>
+  <span id="noteToastMsg">You have reached the maximum character limit (250)</span>
+</div>
+
+<script src="config.js?v=1" defer></script>
+<!-- ⚠️ TEMPORARY MOCKED PREVIEW — fake data, no backend, no auth. Delete with demo-mock.js. Must stay AFTER config.js. -->
+<script src="demo-mock.js" defer></script>
+<script src="apex-defaults.js?v=5" defer></script>
+<script src="content-patch.js?v=5" defer></script>
+<script src="app.js?v=13" defer></script>
+<script src="i18n.js?v=7" defer></script>
+<script>
+  (function(){
+    var overlay = document.getElementById('loadingOverlay');
+    var container = document.getElementById('loadingAnim');
+    if (!overlay || !container) return;
+
+    var anim = null;
+    var animDataPromise = fetch('new_icons/loading.json')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        // The Lottie ships with a solid "BG" layer; hide it so the
+        // container reads as transparent against the overlay.
+        if (data && Array.isArray(data.layers)) {
+          data.layers.forEach(function(l){
+            if (l && (l.nm === 'BG' || l.ty === 1)) l.hd = true;
+          });
+        }
+        return data;
+      })
+      .catch(function(){ return null; });
+    function ensureAnim(){
+      if (anim || typeof lottie === 'undefined') return;
+      animDataPromise.then(function(data){
+        if (anim) return;
+        anim = lottie.loadAnimation({
+          container: container,
+          renderer: 'svg',
+          loop: true,
+          autoplay: true,
+          animationData: data || undefined,
+          path: data ? undefined : 'new_icons/loading.json'
+        });
+      });
+    }
+    function showLoading(){
+      overlay.classList.remove('is-hidden');
+      // Force reflow so the opacity transition restarts cleanly
+      void overlay.offsetWidth;
+      overlay.classList.remove('is-hiding');
+      ensureAnim();
+    }
+    function hideLoading(){
+      overlay.classList.add('is-hiding');
+      setTimeout(function(){ overlay.classList.add('is-hidden'); }, 500);
+    }
+
+    // Load Lottie only after window.onload — does not block initial render
+    function loadLottie() {
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js';
+      s.onload = ensureAnim;
+      document.head.appendChild(s);
+    }
+
+    if (document.readyState === 'complete') {
+      loadLottie();
+      hideLoading();
+    } else {
+      window.addEventListener('load', function() {
+        loadLottie();
+        hideLoading();
+      });
+    }
+
+  })();
+</script>
+</body>
+</html>
+
+
+
+

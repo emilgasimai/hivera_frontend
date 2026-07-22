@@ -1,0 +1,58 @@
+/* ============================================================================
+   landing.css — the ONLY landing-page-specific CSS. Linked after styles.css on
+   every locksmith-<city>.html. Everything else (header, hero, service cards,
+   FAB, footer, forms, error states) is the homepage's own CSS from styles.css —
+   reused as-is, never re-implemented here, so the pages can't drift.
+
+   The single genuinely-unique need: the homepage shows its .svc-card set inside
+   a horizontal drag-carousel (.svc-carousel/.svc-track/.svc-slide); the landing
+   pages instead lay the SAME .svc-card component out in a static responsive
+   grid. That's all this file does.
+   ========================================================================== */
+.svc-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+@media (min-width:1024px){ .svc-grid{ grid-template-columns:repeat(3,1fr); gap:20px; } }
+
+/* The homepage's .svc-card uses cursor:grab because it's draggable in the
+   carousel. In a static grid it's a plain link, so restore the pointer cursor. */
+.svc-grid .svc-card,.svc-grid .svc-card *{ cursor:pointer; }
+
+/* Centre all section h2 headings on landing pages */
+section .t-h2{ text-align:center; }
+
+/* The hero H1's cyan city highlight (e.g. "Scarborough" / "Mississauga") was
+   too large on narrow phones and spilled past the right edge — an 11-letter
+   single word can't wrap inside the inline-block highlight. Trim the hero H1 on
+   small screens so the whole city name stays on-screen. Landing-only (this file
+   isn't loaded on the homepage, whose hero has different, shorter copy). Uses
+   `section .t-h1` (0,1,1) to beat the styles.css mobile rule at the same
+   breakpoint. */
+@media (max-width:640px){
+  section .t-h1{ font-size:clamp(30px,9.5vw,44px); }
+}
+
+/* Centre the eyebrow labels above Why Us, Reviews, and Contact headings */
+.why-section .font-mono.t-cap,
+#reviews .font-mono.t-cap,
+#contact .font-mono.t-cap{ text-align:center; }
+
+/* ── Compact review trust strip ─────────────────────────────────────────────
+   The 4 city pages used to repeat the homepage's 3 real testimonials verbatim
+   (Dana R. / Eli K. / Priya S.) — identical word-for-word on every URL, which
+   is duplicate content and adds no extra trust. Those 3 reviews now live only
+   on the homepage (single source of truth); each city page shows this short
+   aggregate strip instead and links back to the full set. Reuses the same
+   .review-card / .u-card treatment so it stays visually consistent. */
+.trust-strip{
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  gap:20px; max-width:620px; margin:0 auto; padding:26px 24px;
+}
+.trust-strip__rating{ display:flex; flex-direction:column; align-items:center; gap:7px; flex-shrink:0; }
+.trust-strip__score{ font-size:46px; line-height:1; color:#27E0F5; }
+.trust-strip__divider{ display:none; width:1px; align-self:stretch; background:#3a3a3e; }
+.trust-strip__copy{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+@media (min-width:640px){
+  .trust-strip{ flex-direction:row; text-align:left; gap:32px; padding:28px 34px; }
+  .trust-strip__rating{ align-items:flex-start; }
+  .trust-strip__divider{ display:block; }
+  .trust-strip__copy{ align-items:flex-start; }
+}

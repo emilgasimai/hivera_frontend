@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/locksmith_website/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ]
+}

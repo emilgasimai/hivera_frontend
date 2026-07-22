@@ -1,0 +1,305 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/brand_assets/apple-touch-icon.png"/>
+<title>404 — Page Not Found | Acme Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Chakra+Petch:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg:      '#1A1A1A',
+          bg2:     '#242427',
+          bg3:     '#2f2f33',
+          ink:     '#EDEDED',
+          inkDim:  '#9a9a9a',
+          rule:    '#3a3a3e',
+          hivis:   '#27E0F5',
+          hivisDk: '#1cb8c9',
+          caution: '#f4c20a',
+          green:   '#5cd97a',
+        },
+        fontFamily: {
+          display: ['"Archivo Black"', 'sans-serif'],
+          body:    ['"DM Sans"', 'sans-serif'],
+          mono:    ['"Space Grotesk"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+  /* 404-specific styles */
+  #error-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #1A1A1A;
+    padding: 40px 20px;
+  }
+
+  .error-container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .error-image {
+    max-width: 380px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 48px;
+    animation: floatKey 4s ease-in-out infinite;
+  }
+
+  @keyframes floatKey {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .error-code {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(72px, 20vw, 120px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: #EDEDED;
+    margin: 24px 0;
+    text-shadow: 0 0 40px rgba(39, 224, 245, 0.3);
+  }
+
+  .error-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(14px, 3vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #27E0F5;
+    margin: 24px 0;
+  }
+
+  .error-description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.6;
+    color: #EDEDED;
+    opacity: 0.6;
+    margin: 24px 0 48px;
+  }
+
+  .error-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: #27E0F5;
+    color: #1A1A1A;
+    text-decoration: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 2px solid #EDEDED;
+    transition: transform 0.15s cubic-bezier(0.2, 0.7, 0.3, 1.4), background-color 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+  }
+
+  .error-button:hover {
+    background: #1cb8c9;
+    transform: translateY(-2px);
+  }
+
+  .error-button:active {
+    transform: translateY(0);
+  }
+
+  .error-button:focus-visible {
+    outline: 2px solid #27E0F5;
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    #error-page {
+      padding: 32px 16px;
+    }
+
+    .error-image {
+      max-width: 240px;
+      margin-bottom: 40px;
+    }
+
+    .error-code {
+      font-size: clamp(56px, 16vw, 72px);
+      margin: 20px 0;
+    }
+
+    .error-description {
+      margin: 20px 0 40px;
+    }
+  }
+</style>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- ───── TOP STRIPE + DISPATCH BAR ───── -->
+<div class="bg-ink text-bg" style="background:#0f0f10;color:#EDEDED;border-top:3px solid #27E0F5;">
+  <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between font-mono t-cap-sm">
+    <div class="flex items-center gap-3 sm:gap-4">
+      <span class="inline-flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 bg-green pulse-dot" style="background:#5cd97a;border-radius:50%!important;"></span>
+        <span class="hidden xs:inline">ON-DUTY · 24/7</span>
+        <span class="xs:hidden">24/7</span>
+      </span>
+      <span class="opacity-60 hidden sm:inline">TORONTO · GTA</span>
+    </div>
+    <a href="tel:+15550101234" class="text-hivis font-display flex items-center gap-2 hover:underline topbar-tel" style="font-size:14px;letter-spacing:.06em;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>
+      (555) 010-1234
+    </a>
+  </div>
+</div>
+
+<!-- ───── HEADER ───── -->
+<header id="header">
+  <div id="headerContent" class="px-5 sm:px-6 flex items-center justify-between">
+    <div class="logo-lockup">
+      <a href="index.html" class="flex items-center" aria-label="Acme Services — home">
+        <span class="neon-logo" aria-hidden="true">
+          <span class="neon-logo-main">ACME</span>
+          <span class="neon-logo-sub">LOCKSMITH</span>
+        </span>
+      </a>
+      <span class="logo-divider" aria-hidden="true"></span>
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-1">
+      <a href="index.html#home" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Home</a>
+      <a href="index.html#services" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Services</a>
+      <a href="index.html#about" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">About</a>
+      <a href="index.html#reviews" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Reviews</a>
+      <a href="index.html#contact" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Contact</a>
+      <a href="tel:+15550101234" class="btn-hivis call-pulse ml-2 inline-flex items-center gap-2" style="padding:10px 18px;background:#27E0F5;color:#1A1A1A;text-decoration:none;font-family:'Archivo Black',sans-serif;font-size:13px;letter-spacing:.04em;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>
+        CALL NOW
+      </a>
+    </nav>
+
+    <!-- Mobile/Tablet lock button -->
+    <button id="lockBtn" class="menu-lock-btn lg:hidden" aria-label="Toggle menu" aria-expanded="false">
+      <span class="menu-lock-ico">
+        <svg id="lockSvg" viewBox="0 0 34 40" fill="none" aria-hidden="true">
+          <defs>
+            <mask id="lkKeyhole">
+              <rect x="8" y="18" width="18" height="15" rx="4" fill="#fff"/>
+              <circle cx="17" cy="24.4" r="2.4" fill="#000"/>
+              <rect x="15.75" y="24.4" width="2.5" height="4.9" rx="1.25" fill="#000"/>
+            </mask>
+          </defs>
+          <g class="lk-drop">
+            <g class="lk-swing">
+              <path class="lk-shackle" d="M11 27 V13 a6 6 0 0 1 12 0 V19" stroke="currentColor" stroke-width="3.9" stroke-linecap="round" fill="none"/>
+              <rect x="8" y="18" width="18" height="15" rx="4" fill="currentColor" mask="url(#lkKeyhole)"/>
+            </g>
+          </g>
+        </svg>
+      </span>
+      <span class="menu-lock-txt">MENU</span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="mobile-menu">
+    <nav class="max-w-[1180px] mx-auto px-5 sm:px-6 py-4 flex flex-col gap-1">
+      <a href="index.html#home" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Home</a>
+      <a href="index.html#services" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Services</a>
+      <a href="index.html#about" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">About</a>
+      <a href="index.html#reviews" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Reviews</a>
+      <a href="index.html#contact" class="nav-link" data-nav style="padding:9px 14px;font-weight:500;font-size:14px;letter-spacing:.01em;text-decoration:none;">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ───── 404 ERROR SECTION ───── -->
+<section id="error-page">
+  <div class="error-container">
+    <img src="brand_assets/error404.webp" alt="Broken key" class="error-image"/>
+    <h1 class="error-code">404</h1>
+    <p class="error-title">This key doesn't fit.</p>
+    <p class="error-description">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="index.html" class="error-button">Back to Home →</a>
+  </div>
+</section>
+
+<!-- ───── FLOATING CALL BUTTON ───── -->
+<a href="tel:+15550101234" id="callFab" aria-label="Call dispatch — (555) 010-1234">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 3h4l2 5-2 2a12 12 0 005 5l2-2 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/>
+  </svg>
+</a>
+
+<!-- ───── FLOATING MESSAGE BUTTON (WhatsApp + SMS) ───── -->
+<div id="msgFab" class="msg-fab">
+  <button type="button" id="msgFabToggle" class="msg-fab-btn" aria-label="Message us" aria-expanded="false" aria-haspopup="menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+  </button>
+  <div class="msg-fab-options" role="menu" aria-label="Message options">
+    <a href="https://wa.me/15550101234" class="msg-fab-opt msg-fab-wa" target="_blank" rel="noopener noreferrer" role="menuitem" aria-label="Message us on WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span>WHATSAPP</span>
+    </a>
+    <a href="sms:+15550101234" class="msg-fab-opt msg-fab-sms" role="menuitem" aria-label="Send us an SMS">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span>SMS</span>
+    </a>
+  </div>
+</div>
+
+<!-- ───── FOOTER ───── -->
+<footer style="background:#1A1A1A;border-top:3px solid #EDEDED;">
+  <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Service areas -->
+    <div class="font-mono footer-areas" style="font-size:11px;letter-spacing:.16em;font-weight:600;text-transform:uppercase;color:#cdcdcd;line-height:1.7;margin-bottom:14px;">
+      <span style="color:#27E0F5;font-weight:700;">SERVING:</span>
+      Downtown Toronto · North York · Scarborough · Etobicoke · Mississauga · Vaughan · Richmond Hill · Markham · Brampton · + All GTA Locations
+    </div>
+    <!-- Meta row -->
+    <div class="flex flex-wrap gap-3 justify-between items-center font-mono t-cap-sm pt-4" style="opacity:.7;font-weight:600;border-top:1px solid #3a3a3e;">
+      <span>© 2025 Acme Services. ALL RIGHTS RESERVED.</span>
+      <span>TORONTO · GTA</span>
+      <span>PRIVACY · TERMS · WARRANTY</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
+

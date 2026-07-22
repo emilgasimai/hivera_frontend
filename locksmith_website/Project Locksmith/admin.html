@@ -1,0 +1,591 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex,nofollow"/>
+<!-- iOS "Add to Home Screen": home-screen label + standalone web-app shell. -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Acme Admin"/>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/brand_assets/apple-touch-icon-admin.png"/>
+<title>Acme Admin</title>
+<link rel="stylesheet" href="admin.css?v=24"/>
+</head>
+<body>
+
+<!-- ============================ LOGIN VIEW ============================ -->
+<div id="loginView" class="login-view">
+  <form id="loginForm" class="login-card" autocomplete="on" novalidate>
+    <div class="login-brand">
+      <span class="login-mark">ACME</span>
+      <span class="login-sub">ADMIN</span>
+    </div>
+    <div id="loginNotice" class="login-notice" hidden></div>
+    <label class="field">
+      <span class="field-label">Username</span>
+      <input id="loginUser" type="text" name="username" autocomplete="username" autocapitalize="off" spellcheck="false" required/>
+    </label>
+    <label class="field">
+      <span class="field-label">Password</span>
+      <input id="loginPass" type="password" name="password" autocomplete="current-password" required/>
+    </label>
+    <div id="loginError" class="login-error" role="alert" hidden>Invalid username or password.</div>
+    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+    <p class="login-hint">Authorized access only.</p>
+  </form>
+</div>
+
+<!-- ============================ DASHBOARD VIEW ============================ -->
+<div id="dashView" class="dash-view" hidden>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button id="sidebarToggle" type="button" class="topbar-burger" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <span class="topbar-brand">
+        <svg class="topbar-brand-icon" viewBox="0 0 310.551 310.551" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill="#27E0F5" d="M308.122,127.396c-0.728-4.297-4.796-7.012-9.042-6.039l-26.584,6.08c-3.03-12.809-8.108-24.824-14.864-35.686l23.063-14.576c3.681-2.322,4.619-7.131,2.09-10.676c0,0-3.964-7.273-17.711-21.018c-13.745-13.748-21.433-17.998-21.433-17.998c-3.554-2.521-8.35-1.564-10.665,2.125l-14.504,23.107c-10.884-6.719-22.914-11.76-35.734-14.748l5.997-26.598c0.959-4.248-1.771-8.311-6.067-9.029c0,0-7.947-2.34-27.389-2.34s-27.883,2.432-27.883,2.432c-4.293,0.729-7.012,4.797-6.039,9.043l6.082,26.586c-12.808,3.029-24.822,8.105-35.685,14.861L77.179,29.859c-2.326-3.68-7.131-4.621-10.676-2.094c0,0-7.274,3.967-21.022,17.713C31.735,59.225,27.484,66.914,27.484,66.914c-2.521,3.551-1.565,8.352,2.124,10.666l23.108,14.502c-6.719,10.885-11.759,22.914-14.748,35.734l-26.599-5.998c-4.247-0.957-8.31,1.773-9.028,6.068c0,0-2.34,7.947-2.34,27.391c0,19.439,2.431,27.881,2.431,27.881c0.729,4.293,4.798,7.012,9.044,6.039l26.585-6.082c3.029,12.809,8.106,24.822,14.862,35.686L29.86,233.375c-3.681,2.326-4.621,7.131-2.092,10.678c0,0,3.964,7.271,17.712,21.021c13.745,13.744,21.434,17.994,21.434,17.994c3.552,2.522,8.351,1.566,10.666-2.123l14.503-23.107c10.883,6.721,22.913,11.76,35.733,14.75l-5.997,26.596c-0.959,4.248,1.773,8.311,6.069,9.027c0,0,7.945,2.342,27.389,2.34c19.439,0,27.881-2.43,27.881-2.43c4.294-0.728,7.012-4.797,6.039-9.043l-6.082-26.584c12.809-3.029,24.824-8.108,35.686-14.861l14.575,23.059c2.324,3.684,7.13,4.621,10.676,2.092c0,0,7.272-3.963,21.02-17.711c13.745-13.746,17.996-21.434,17.996-21.434c2.521-3.553,1.566-8.348-2.123-10.664l-23.107-14.504c6.72-10.883,11.76-22.914,14.749-35.734l26.598,5.996c4.246,0.961,8.309-1.773,9.026-6.068c0,0,2.34-7.945,2.34-27.387C310.554,135.838,308.122,127.396,308.122,127.396z M155.278,191.256c-19.871,0-35.979-16.107-35.979-35.979c0-19.871,16.107-35.979,35.979-35.979s35.98,16.107,35.98,35.979C191.258,175.148,175.15,191.256,155.278,191.256z"/>
+          <path fill="#0d8fa0" d="M155.278,96.115c-32.674,0-59.161,26.488-59.161,59.162s26.487,59.162,59.161,59.162s59.162-26.488,59.162-59.162C214.441,122.604,187.952,96.115,155.278,96.115z M155.278,191.256c-19.871,0-35.979-16.107-35.979-35.979c0-19.871,16.107-35.979,35.979-35.979s35.98,16.107,35.98,35.979C191.258,175.148,175.15,191.256,155.278,191.256z"/>
+        </svg>
+        <span class="brand-words"><span class="brand-acme">Acme</span> <span class="brand-sub">Admin</span></span>
+      </span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        Signed in as <strong id="topbarUser">admin</strong>
+      </span>
+      <button id="logoutBtn" type="button" class="btn btn-ghost">Log out</button>
+    </div>
+  </header>
+
+  <div class="dash-body">
+    <!-- Sidebar nav -->
+    <nav class="sidebar" aria-label="Admin sections">
+      <ul class="nav-list" id="navList">
+        <li><button type="button" class="nav-item is-active" data-view="dashboard">Dashboard</button></li>
+        <li><button type="button" class="nav-item" data-view="content">Content Editor</button></li>
+        <li><button type="button" class="nav-item" data-view="business">Business Info</button></li>
+        <li><button type="button" class="nav-item" data-view="reviews">Reviews</button></li>
+        <li><button type="button" class="nav-item" data-view="versions">Saved Changes</button></li>
+        <li class="nav-sep" role="separator"></li>
+        <li><button type="button" class="nav-item nav-item-dispatch" data-view="dispatch-board">Dispatch Control<span class="nav-badge" id="dispatchBadge" hidden>0</span></button></li>
+        <li><button type="button" class="nav-item" data-view="dispatch-users">Dispatch Personnel</button></li>
+        <li><button type="button" class="nav-item" data-view="technicians">Technician Personnel</button></li>
+        <li><button type="button" class="nav-item" data-view="revenue">Revenue</button></li>
+        <li><button type="button" class="nav-item" data-view="export">Export</button></li>
+      </ul>
+      <div class="sidebar-foot">v1.0.0</div>
+    </nav>
+
+    <!-- Mobile drawer backdrop -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <!-- Main area -->
+    <main class="main" id="mainArea">
+
+      <!-- ── Dashboard (default landing) ── -->
+      <section class="view view-form" data-view="dashboard" hidden>
+        <div class="dash-wrap">
+          <div class="form-head">
+            <div>
+              <h2>Dashboard</h2>
+              <p class="form-sub">Today's volume, revenue and the queues that need attention.</p>
+            </div>
+            <button id="dashRefreshBtn" type="button" class="btn btn-ghost btn-sm">Refresh</button>
+          </div>
+          <div id="dashError" class="people-notice" hidden></div>
+
+          <!-- 1 — Today summary -->
+          <div class="dash-summary" id="dashSummary">
+            <div class="acme-loading"><span class="acme-spinner"></span>Loading…</div>
+          </div>
+
+          <!-- 2 — Trends (jobs + revenue) -->
+          <div class="dash-block">
+            <div class="dash-block-head">
+              <h3 class="dash-h3">Trends</h3>
+              <div class="dash-period seg" id="dashPeriod" role="tablist" aria-label="Chart period">
+                <button type="button" class="seg-btn" data-period="day">Daily</button>
+                <button type="button" class="seg-btn" data-period="week">Week</button>
+                <button type="button" class="seg-btn is-active" data-period="month">Month</button>
+                <button type="button" class="seg-btn" data-period="custom">Custom</button>
+              </div>
+            </div>
+            <div class="dash-range" id="dashRange" hidden>
+              <label class="field field-inline"><span class="field-label">From</span><input type="date" id="dashFrom"/></label>
+              <label class="field field-inline"><span class="field-label">To</span><input type="date" id="dashTo"/></label>
+              <button type="button" class="btn btn-primary btn-sm" id="dashRangeApply">Apply</button>
+            </div>
+            <div class="dash-charts">
+              <div class="chart-card">
+                <div class="chart-card-head"><span class="chart-title">Jobs over time</span></div>
+                <div class="chart-canvas-wrap">
+                  <canvas id="jobsChart"></canvas>
+                  <div class="chart-empty" id="jobsEmpty" hidden>No data</div>
+                </div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-card-head"><span class="chart-title">Revenue trend</span></div>
+                <div class="chart-canvas-wrap">
+                  <canvas id="revenueChart"></canvas>
+                  <div class="chart-empty" id="revenueEmpty" hidden>No data</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 — Breakdown (status donut + source) -->
+          <div class="dash-block">
+            <div class="dash-breakdown">
+              <div class="chart-card">
+                <div class="chart-card-head"><span class="chart-title">Job status</span></div>
+                <div class="donut-wrap">
+                  <div class="donut-canvas-wrap">
+                    <canvas id="statusChart"></canvas>
+                    <div class="chart-empty" id="statusEmpty" hidden>No data</div>
+                  </div>
+                  <ul class="donut-legend" id="statusLegend"></ul>
+                </div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-card-head"><span class="chart-title">Job source</span></div>
+                <ul class="source-list" id="sourceList"><li class="acme-loading"><span class="acme-spinner"></span>Loading…</li></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 — Needs attention -->
+          <div class="dash-block">
+            <h3 class="dash-h3">Needs attention</h3>
+            <div class="dash-attention" id="dashAttention">
+              <div class="acme-loading"><span class="acme-spinner"></span>Loading…</div>
+            </div>
+          </div>
+
+          <!-- 5 — Technician workload -->
+          <div class="dash-block">
+            <h3 class="dash-h3">Technician workload</h3>
+            <div class="tech-workload" id="techWorkload"><div class="acme-loading"><span class="acme-spinner"></span>Loading…</div></div>
+          </div>
+
+          <!-- 6 — Recent activity -->
+          <div class="dash-recent">
+            <h3 class="dash-recent-title">Recent activity</h3>
+            <div id="recentList" class="recent-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Content Editor ── -->
+      <section class="view view-content" data-view="content">
+        <div class="editor-toolbar">
+          <div class="editor-toolbar-left">
+            <span class="editor-title">Content Editor</span>
+            <!-- Mobile-only: collapses the tool grid so the preview gets the room.
+                 Shows the current tool; tap to reveal the grid, pick a tool, it auto-hides. -->
+            <button type="button" id="modeToggle" class="ed-mode-toggle" aria-expanded="false" aria-controls="editorModes">
+              <span class="ed-mode-toggle-cur" id="modeToggleLabel">Inline edit</span>
+              <svg class="ed-mode-toggle-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="editor-modes" id="editorModes" role="tablist" aria-label="Editor mode">
+              <button type="button" class="ed-mode is-active" data-mode="inline">Inline edit</button>
+              <button type="button" class="ed-mode" data-mode="carousel">Carousel cards</button>
+              <button type="button" class="ed-mode" data-mode="services">Service finder</button>
+              <button type="button" class="ed-mode" data-mode="menu">Menu labels</button>
+            </div>
+          </div>
+          <div class="editor-toolbar-right">
+            <button id="undoBtn" type="button" class="btn btn-ghost" title="Undo last change" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
+              Undo
+            </button>
+            <span id="dirtyFlag" class="dirty-flag" hidden>● Unsaved changes</span>
+          </div>
+        </div>
+
+        <div class="editor-stage">
+          <!-- Carousel cards manager -->
+          <div class="manager-pane" id="carouselPane" hidden>
+            <div class="manager-head">
+              <div class="manager-head-text">
+                <span class="manager-title">Carousel cards</span>
+                <span class="manager-hint">Reorder with ↑ ↓ · previews live</span>
+              </div>
+              <button id="addCardBtn" type="button" class="btn btn-primary btn-sm">+ Add card</button>
+            </div>
+            <div class="manager-list" id="cardList"></div>
+          </div>
+
+          <!-- Service finder manager -->
+          <div class="manager-pane" id="servicePane" hidden>
+            <div class="manager-head">
+              <div class="manager-head-text">
+                <span class="manager-title">Service finder</span>
+                <span class="manager-hint">Categories are fixed · edit the items</span>
+              </div>
+            </div>
+            <div class="seg" id="svcCatTabs" role="tablist"></div>
+            <div class="manager-list" id="svcItemList"></div>
+            <div class="manager-foot">
+              <button id="addSvcBtn" type="button" class="btn btn-ghost btn-sm">+ Add service item</button>
+            </div>
+          </div>
+
+          <!-- Sidebar menu-label editor -->
+          <div class="manager-pane" id="menuPane" hidden>
+            <div class="manager-head">
+              <div class="manager-head-text">
+                <span class="manager-title">Menu labels</span>
+                <span class="manager-hint">Rename the admin sidebar items · previews live</span>
+              </div>
+            </div>
+            <div class="manager-list" id="menuList"></div>
+          </div>
+
+          <div class="stage-frame-wrap">
+          <iframe id="siteFrame" class="site-frame" src="/" title="Site preview"></iframe>
+
+          <!-- Slide-in edit panel (right-side on desktop, bottom sheet on mobile) -->
+          <aside id="editPanel" class="edit-panel" aria-hidden="true">
+            <div class="edit-panel-grip" id="editPanelGrip" role="button" tabindex="0" aria-label="Drag down or tap to close"></div>
+            <div class="edit-panel-head">
+              <span id="editPanelTitle" class="edit-panel-title">Edit</span>
+              <button id="editPanelClose" type="button" class="icon-btn" aria-label="Close panel">&times;</button>
+            </div>
+            <div class="edit-panel-body">
+              <!-- Text editor -->
+              <div id="editText" class="edit-block" hidden>
+                <div id="sharedNote" class="shared-note" hidden></div>
+                <label class="field">
+                  <span class="field-label">Text content</span>
+                  <textarea id="editTextInput" rows="5"></textarea>
+                </label>
+              </div>
+              <!-- Image editor -->
+              <div id="editImage" class="edit-block" hidden>
+                <div class="img-preview-wrap">
+                  <img id="editImagePreview" class="img-preview" alt="Preview"/>
+                  <span class="img-preview-empty">No image</span>
+                </div>
+                <label class="field">
+                  <span class="field-label">Upload a file</span>
+                  <input id="editImageFile" type="file" accept="image/*"/>
+                </label>
+                <div class="field-or">— or —</div>
+                <label class="field">
+                  <span class="field-label">Paste an image URL</span>
+                  <input id="editImageUrl" type="url" placeholder="https://… or brand_assets/…"/>
+                </label>
+              </div>
+            </div>
+            <div class="edit-panel-foot">
+              <div class="edit-panel-actions">
+                <button id="elAcceptBtn" type="button" class="pel-btn pel-accept" title="Accept — keep this change (apply later)" aria-label="Accept this element's change">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 7"/></svg>
+                  Accept
+                </button>
+                <button id="elRevertBtn" type="button" class="pel-btn pel-revert" title="Revert — undo all changes to this element" aria-label="Revert this element to its previous value">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+                <button id="elUndoBtn" type="button" class="pel-btn pel-undo" title="Undo the last change to this element" aria-label="Undo last change to this element">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
+                </button>
+              </div>
+              <span class="edit-panel-path" id="editPanelPath"></span>
+            </div>
+          </aside>
+          </div><!-- /stage-frame-wrap -->
+        </div>
+
+        <!-- Fixed bottom action bar -->
+        <div class="editor-bottombar">
+          <div class="bottombar-status" id="bottombarStatus">No pending changes</div>
+          <div class="bottombar-actions">
+            <button id="cancelBtn" type="button" class="btn btn-ghost" disabled>Cancel</button>
+            <button id="applyBtn" type="button" class="btn btn-primary" disabled>Apply</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Business Info ── -->
+      <section class="view view-form" data-view="business" hidden>
+        <div class="form-wrap">
+          <div class="form-head">
+            <div>
+              <h2>Business Info</h2>
+              <p class="form-sub">Updates the phone, email, address &amp; hours everywhere they appear on the site.</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <label class="field">
+              <span class="field-label">Phone number (as shown)</span>
+              <input id="bizPhone" type="text" placeholder="(555) 010-1234"/>
+              <span class="field-note">tel: and WhatsApp links are derived from this number.</span>
+            </label>
+            <label class="field">
+              <span class="field-label">Email</span>
+              <input id="bizEmail" type="email" placeholder="dispatch@acmeservices.example"/>
+            </label>
+            <label class="field">
+              <span class="field-label">Shop address — line 1</span>
+              <input id="bizAddr1" type="text" placeholder="123 Queen St W"/>
+            </label>
+            <label class="field">
+              <span class="field-label">Shop address — line 2</span>
+              <input id="bizAddr2" type="text" placeholder="Toronto, ON M5V 1A1"/>
+            </label>
+            <label class="field">
+              <span class="field-label">Hours — Dispatch</span>
+              <input id="bizHoursDispatch" type="text" placeholder="24/7"/>
+            </label>
+            <label class="field">
+              <span class="field-label">Hours — Shop walk-ins</span>
+              <input id="bizHoursShop" type="text" placeholder="Mon–Sat 8a–6p"/>
+            </label>
+          </div>
+          <div class="form-actions">
+            <span class="form-status" id="bizStatus">No pending changes</span>
+            <div class="form-actions-btns">
+              <button id="bizResetBtn" type="button" class="btn btn-ghost" disabled>Reset</button>
+              <button id="bizSaveBtn" type="button" class="btn btn-primary" disabled>Save</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Reviews ── -->
+      <section class="view view-form" data-view="reviews" hidden>
+        <div class="form-wrap form-wrap-wide">
+          <div class="form-head">
+            <div>
+              <h2>Reviews</h2>
+              <p class="form-sub">Shown in the “4.9★ on Google” section on the live site.</p>
+            </div>
+            <button id="addReviewBtn" type="button" class="btn btn-primary btn-sm">+ Add review</button>
+          </div>
+          <div class="manager-list" id="reviewList"></div>
+          <div class="form-actions">
+            <span class="form-status" id="reviewStatus">No pending changes</span>
+            <div class="form-actions-btns">
+              <button id="reviewCancelBtn" type="button" class="btn btn-ghost" disabled>Cancel</button>
+              <button id="reviewApplyBtn" type="button" class="btn btn-primary" disabled>Apply</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Saved Changes / Version History ── -->
+      <section class="view view-form" data-view="versions" hidden>
+        <div class="form-wrap form-wrap-wide">
+          <div class="form-head">
+            <div>
+              <h2>Saved Changes</h2>
+              <p class="form-sub">A snapshot is captured automatically each time you Apply or Save. Restore any version to roll the whole site back. Keeps the 20 most recent.</p>
+            </div>
+            <button id="saveDefaultBtn" type="button" class="btn btn-primary btn-sm" title="Set the current content as the protected Default checkpoint">★ Save as Default</button>
+          </div>
+
+          <div id="defaultCurrent" class="default-current"></div>
+
+          <div class="version-filter">
+            <label class="people-switch version-filter-switch" title="Hide auto-saved snapshots and show only named checkpoints">
+              <input type="checkbox" id="versionsNamedOnly"/>
+              <span class="people-switch-track"><span class="people-switch-thumb"></span></span>
+              <span class="people-switch-label">Named only</span>
+            </label>
+            <span class="version-filter-count" id="versionFilterCount"></span>
+          </div>
+
+          <div class="manager-list" id="versionList"></div>
+
+          <!-- Protected Default checkpoints -->
+          <div class="default-section">
+            <button id="defaultHistoryToggle" type="button" class="default-toggle" aria-expanded="false">
+              <span>Default History <span class="default-count"></span></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="defaultHistoryList" class="manager-list" hidden></div>
+            <button id="restoreDefaultBtn" type="button" class="btn btn-danger btn-block" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:6px;"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+              Restore Default
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Dispatch Control (embedded dispatch board, reuses the admin JWT) ── -->
+      <section class="view view-embed" data-view="dispatch-board" hidden>
+        <iframe id="dispatchFrame" class="dispatch-frame" title="Dispatch board" loading="lazy"></iframe>
+      </section>
+
+      <!-- ── Revenue ── -->
+      <section class="view view-form" data-view="revenue" hidden>
+        <div class="form-wrap form-wrap-wide">
+          <div class="form-head">
+            <div>
+              <h2>Revenue</h2>
+              <p class="form-sub">Total from completed jobs in the selected period. Set job prices on the dispatch board.</p>
+            </div>
+          </div>
+          <div class="seg" id="revPeriods" role="tablist" aria-label="Revenue period">
+            <button type="button" class="seg-btn is-active" data-period="today">Today</button>
+            <button type="button" class="seg-btn" data-period="week">This Week</button>
+            <button type="button" class="seg-btn" data-period="month">This Month</button>
+            <button type="button" class="seg-btn" data-period="all">All Time</button>
+          </div>
+          <div id="revError" class="people-notice" hidden></div>
+          <div id="revCards" class="dash-cards">
+            <div class="acme-loading"><span class="acme-spinner"></span>Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Export (CSV, admin) ── -->
+      <section class="view view-form" data-view="export" hidden>
+        <div class="form-wrap form-wrap-wide">
+          <div class="form-head">
+            <div>
+              <h2>Export</h2>
+              <p class="form-sub">Download a dataset as a CSV file. The optional date range filters by creation date.</p>
+            </div>
+          </div>
+          <div class="export-range">
+            <label class="field"><span class="field-label">From <span class="field-opt">(optional)</span></span><input id="exportFrom" type="date"/></label>
+            <label class="field"><span class="field-label">To <span class="field-opt">(optional)</span></span><input id="exportTo" type="date"/></label>
+          </div>
+          <div id="exportErr" class="people-notice" hidden></div>
+          <div class="export-buttons">
+            <button type="button" class="btn btn-primary" data-export="jobs">Export Jobs</button>
+            <button type="button" class="btn btn-primary" data-export="quotes">Export Quotes</button>
+            <button type="button" class="btn btn-primary" data-export="contacts">Export Contacts</button>
+            <button type="button" class="btn btn-primary" data-export="reviews">Export Reviews</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Dispatch Personnel ── -->
+      <section class="view view-form" data-view="dispatch-users" hidden>
+        <div class="form-wrap form-wrap-wide">
+          <div class="form-head">
+            <div>
+              <h2>Dispatch Personnel</h2>
+              <p class="form-sub">Dispatch-team logins. Every change here writes straight to the database — there is no Apply step.</p>
+            </div>
+          </div>
+          <div id="duNotice" class="people-notice" hidden></div>
+          <div class="manager-list" id="dispatchUserList">
+            <div class="acme-loading"><span class="acme-spinner"></span>Loading…</div>
+          </div>
+
+          <div class="people-add">
+            <h3 class="people-add-title">Add Dispatch User</h3>
+            <form id="dispatchUserForm" class="people-form" autocomplete="off" novalidate>
+              <div class="people-form-grid">
+                <label class="field"><span class="field-label">First name</span><input id="duFirst" type="text" autocomplete="off" required/></label>
+                <label class="field"><span class="field-label">Last name</span><input id="duLast" type="text" autocomplete="off" required/></label>
+                <label class="field"><span class="field-label">Username</span><input id="duUser" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required/></label>
+                <label class="field"><span class="field-label">Password</span><input id="duPass" type="password" autocomplete="new-password" required/></label>
+                <label class="field"><span class="field-label">Confirm password</span><input id="duPass2" type="password" autocomplete="new-password" required/></label>
+              </div>
+              <div class="people-form-foot">
+                <span class="people-form-err" id="duErr" hidden></span>
+                <button type="submit" class="btn btn-primary" id="duAddBtn">Add dispatch user</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Technician Personnel ── -->
+      <section class="view view-form" data-view="technicians" hidden>
+        <div class="form-wrap form-wrap-wide">
+          <div class="form-head">
+            <div>
+              <h2>Technician Personnel</h2>
+              <p class="form-sub">Field technicians shown in the dispatch board's assign dropdown. Saved to the database immediately.</p>
+            </div>
+            <button id="techRefreshBtn" type="button" class="btn btn-ghost btn-sm">Refresh status</button>
+          </div>
+          <div id="tcNotice" class="people-notice" hidden></div>
+          <div class="manager-list" id="techList">
+            <div class="acme-loading"><span class="acme-spinner"></span>Loading…</div>
+          </div>
+
+          <div class="people-add">
+            <h3 class="people-add-title">Add Technician</h3>
+            <form id="techForm" class="people-form" autocomplete="off" novalidate>
+              <div class="people-form-grid">
+                <label class="field"><span class="field-label">First name</span><input id="tcFirst" type="text" autocomplete="off" required/></label>
+                <label class="field"><span class="field-label">Last name</span><input id="tcLast" type="text" autocomplete="off" required/></label>
+                <label class="field"><span class="field-label">Phone</span><input id="tcPhone" type="tel" autocomplete="off" required/></label>
+                <label class="field"><span class="field-label">Email <span class="field-opt">(optional)</span></span><input id="tcEmail" type="email" autocomplete="off"/></label>
+                <label class="field people-form-wide"><span class="field-label">Notes <span class="field-opt">(optional)</span></span><input id="tcNotes" type="text" autocomplete="off"/></label>
+                <label class="field"><span class="field-label">Username <span class="field-opt">(portal login)</span></span><input id="tcUsername" type="text" autocomplete="off" spellcheck="false"/></label>
+                <label class="field"><span class="field-label">Password</span><input id="tcPassword" type="password" autocomplete="new-password" required/></label>
+              </div>
+              <div class="people-form-foot">
+                <span class="people-form-err" id="tcErr" hidden></span>
+                <button type="submit" class="btn btn-primary" id="tcAddBtn">Add technician</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- Dashboard card drill-down modal -->
+<div id="drillModal" class="modal-overlay drill-overlay" hidden>
+  <div class="modal-box drill-box" role="dialog" aria-modal="true" aria-labelledby="drillTitle">
+    <div class="drill-head">
+      <div>
+        <h3 id="drillTitle" class="modal-title">Details</h3>
+        <p id="drillSub" class="drill-sub"></p>
+      </div>
+      <button id="drillClose" type="button" class="icon-btn" aria-label="Close">&times;</button>
+    </div>
+    <div id="drillBody" class="drill-body"><div class="acme-loading"><span class="acme-spinner"></span>Loading…</div></div>
+  </div>
+</div>
+
+<!-- Confirm modal — styled warning dialog (used by Restore Default) -->
+<div id="confirmModal" class="modal-overlay" hidden>
+  <div class="modal-box" role="alertdialog" aria-modal="true" aria-labelledby="confirmModalTitle" aria-describedby="confirmModalMsg">
+    <h3 id="confirmModalTitle" class="modal-title">Restore Default?</h3>
+    <p id="confirmModalMsg" class="modal-msg"></p>
+    <div class="modal-actions">
+      <button id="confirmModalCancel" type="button" class="btn btn-ghost">Cancel</button>
+      <button id="confirmModalOk" type="button" class="btn btn-danger">Yes, Restore Default</button>
+    </div>
+  </div>
+</div>
+
+<script src="site-config.js?v=2"></script>
+<script src="config.js?v=1"></script>
+<!-- ⚠️ TEMPORARY MOCKED PREVIEW — replaces every backend call with fake data and
+     disables auth. Delete this line together with demo-mock.js once the real
+     isolated demo backend exists. Must stay AFTER config.js (it overrides apiFetch). -->
+<script src="demo-mock.js"></script>
+<script src="apex-defaults.js?v=13"></script>
+<!-- Chart.js (admin analytics dashboard). Loaded before admin.js so window.Chart is ready; all chart code degrades gracefully if this fails to load. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="admin-store.js?v=23"></script>
+<script src="admin.js?v=29"></script>
+</body>
+</html>
+
+
+
+

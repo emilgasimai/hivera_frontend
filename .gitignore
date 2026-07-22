@@ -14,10 +14,75 @@ temporary screenshots/
 # The customer-facing pricing lives in the Pricing section of the site instead.
 Pricing/
 
-# Client platform source, copied here only as a reference for building the
-# embedded live demo. This repo is public and that code carries real client
-# identifiers — it must never be committed. Ignore the whole tree.
-locksmith_website/
+# Client platform demo. This repo is public, so the default here is DENY:
+# everything under locksmith_website/ is ignored, and only the specific
+# rebranded, fully-mocked frontend files the embedded demo needs are added back
+# below. The backend, dev tooling, node_modules, local credential/state files
+# and the original-resolution source images all stay out.
+#
+# Before widening this list, re-run the identifier scan:
+#   grep -rIoiE "aston|astonlocksmith|steelyard" "locksmith_website/Project Locksmith" \
+#     --exclude-dir=node_modules --exclude-dir=design_handoff_steelyard_locksmith
+# It must return 0. Anything carrying a real client identifier is never publishable.
+locksmith_website/*
+!locksmith_website/Project Locksmith/
+locksmith_website/Project Locksmith/*
+
+# Pages (marketing site, city landing pages, legal, and the three portals)
+!locksmith_website/Project Locksmith/*.html
+
+# Styles
+!locksmith_website/Project Locksmith/admin.css
+!locksmith_website/Project Locksmith/dispatch.css
+!locksmith_website/Project Locksmith/landing.css
+!locksmith_website/Project Locksmith/styles.css
+!locksmith_website/Project Locksmith/tailwind.css
+
+# Scripts — demo-mock.js is what makes the whole thing run with no backend
+!locksmith_website/Project Locksmith/admin-store.js
+!locksmith_website/Project Locksmith/admin.js
+!locksmith_website/Project Locksmith/apex-defaults.js
+!locksmith_website/Project Locksmith/app.js
+!locksmith_website/Project Locksmith/config.js
+!locksmith_website/Project Locksmith/content-patch.js
+!locksmith_website/Project Locksmith/demo-mock.js
+!locksmith_website/Project Locksmith/i18n.js
+!locksmith_website/Project Locksmith/landing.js
+!locksmith_website/Project Locksmith/seo.js
+!locksmith_website/Project Locksmith/site-config.js
+!locksmith_website/Project Locksmith/site-footer.js
+!locksmith_website/Project Locksmith/js/
+
+# Icons and images. The *_original.* files are multi-megabyte pre-optimisation
+# sources that nothing references — keep serving the .webp/.jpg versions only.
+!locksmith_website/Project Locksmith/favicon.ico
+!locksmith_website/Project Locksmith/favicon.svg
+!locksmith_website/Project Locksmith/favicon-16.png
+!locksmith_website/Project Locksmith/favicon-32.png
+!locksmith_website/Project Locksmith/admin_icons/
+!locksmith_website/Project Locksmith/bg_icons/
+!locksmith_website/Project Locksmith/new_icons/
+# brand_assets is allowlisted file by file rather than wholesale: the folder
+# also holds unreferenced source images, and an image is the one kind of file
+# where a leftover client mark would not show up in a text scan.
+!locksmith_website/Project Locksmith/brand_assets/
+locksmith_website/Project Locksmith/brand_assets/*
+!locksmith_website/Project Locksmith/brand_assets/apple-touch-icon.png
+!locksmith_website/Project Locksmith/brand_assets/apple-touch-icon-admin.png
+!locksmith_website/Project Locksmith/brand_assets/apple-touch-icon-dispatch.png
+!locksmith_website/Project Locksmith/brand_assets/apple-touch-icon-tech.png
+!locksmith_website/Project Locksmith/brand_assets/carkey.jpg
+!locksmith_website/Project Locksmith/brand_assets/concrete.webp
+!locksmith_website/Project Locksmith/brand_assets/door-handle.webp
+!locksmith_website/Project Locksmith/brand_assets/error404.webp
+!locksmith_website/Project Locksmith/brand_assets/og-image.jpg
+!locksmith_website/Project Locksmith/upscaledimages/
+locksmith_website/Project Locksmith/upscaledimages/*_original.*
+# owneroperated.webp is an AI render whose toolbox carries garbled pseudo-text
+# that reads like a business name. Nothing in it points at the real client, but
+# "probably fine" is not the bar for an image on a public page — it stays out,
+# and index.html's hero slot uses residental.webp instead.
+locksmith_website/Project Locksmith/upscaledimages/owneroperated.webp
 
 # Belt-and-braces. The rule above already covers these, but a plaintext
 # credential dump is too dangerous to protect with a single rule that a future

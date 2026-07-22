@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="theme-color" content="#0b1213"/>
+<!-- iOS "Add to Home Screen": home-screen label + standalone web-app shell. -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Acme Dispatch"/>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/brand_assets/apple-touch-icon-dispatch.png"/>
+<title>Acme Dispatch</title>
+<!-- Apply the saved theme before first paint to avoid a flash of the wrong theme. -->
+<script>try{var t=localStorage.getItem('acme_dispatch_theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}</script>
+<link rel="stylesheet" href="dispatch.css?v=21"/>
+</head>
+<body>
+
+<!-- ============================ LOGIN VIEW ============================ -->
+<div id="loginView" class="login-view">
+  <form id="loginForm" class="login-card" autocomplete="on" novalidate>
+    <div class="login-brand">
+      <span class="login-mark">ACME</span>
+      <span class="login-sub">Dispatch</span>
+    </div>
+    <p class="login-tag">Dispatch team console</p>
+    <div id="loginNotice" class="login-notice" hidden></div>
+    <div id="loginError" class="login-error" role="alert" hidden>Invalid username or password.</div>
+    <label class="field">
+      <span class="field-label">Username</span>
+      <input id="loginUser" type="text" name="username" autocomplete="username" autocapitalize="off" spellcheck="false" required/>
+    </label>
+    <label class="field">
+      <span class="field-label">Password</span>
+      <input id="loginPass" type="password" name="password" autocomplete="current-password" required/>
+    </label>
+    <button type="submit" id="loginBtn" class="btn btn-primary btn-block">Sign in</button>
+    <p class="login-hint">Authorized dispatch staff only.</p>
+  </form>
+</div>
+
+<!-- ============================ DASHBOARD VIEW ============================ -->
+<div id="dashView" class="dash-view" hidden>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="topbar-mark">Acme</span>
+      <span class="topbar-mark-sub">Dispatch</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-user">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="uname-text"><span class="u-prefix">Signed in as </span><b id="topUser">—</b></span>
+      </span>
+      <button id="themeToggle" type="button" class="btn btn-ghost theme-toggle" aria-label="Switch to light theme" title="Switch to light theme">
+        <svg class="theme-ico theme-ico-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 11.5373 21.3065 11.4608 21.0672 11.8568C19.9289 13.7406 17.8615 15 15.5 15C11.9101 15 9 12.0899 9 8.5C9 6.13845 10.2594 4.07105 12.1432 2.93276C12.5392 2.69347 12.4627 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="currentColor"/></svg>
+        <svg class="theme-ico theme-ico-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;" aria-hidden="true"><path d="M18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.4142 1.25 12.75 1.58579 12.75 2V3C12.75 3.41421 12.4142 3.75 12 3.75C11.5858 3.75 11.25 3.41421 11.25 3V2C11.25 1.58579 11.5858 1.25 12 1.25ZM4.39861 4.39861C4.6915 4.10572 5.16638 4.10572 5.45927 4.39861L5.85211 4.79145C6.145 5.08434 6.145 5.55921 5.85211 5.85211C5.55921 6.145 5.08434 6.145 4.79145 5.85211L4.39861 5.45927C4.10572 5.16638 4.10572 4.6915 4.39861 4.39861ZM19.6011 4.39887C19.894 4.69176 19.894 5.16664 19.6011 5.45953L19.2083 5.85237C18.9154 6.14526 18.4405 6.14526 18.1476 5.85237C17.8547 5.55947 17.8547 5.0846 18.1476 4.79171L18.5405 4.39887C18.8334 4.10598 19.3082 4.10598 19.6011 4.39887ZM1.25 12C1.25 11.5858 1.58579 11.25 2 11.25H3C3.41421 11.25 3.75 11.5858 3.75 12C3.75 12.4142 3.41421 12.75 3 12.75H2C1.58579 12.75 1.25 12.4142 1.25 12ZM20.25 12C20.25 11.5858 20.5858 11.25 21 11.25H22C22.4142 11.25 22.75 11.5858 22.75 12C22.75 12.4142 22.4142 12.75 22 12.75H21C20.5858 12.75 20.25 12.4142 20.25 12ZM18.1476 18.1476C18.4405 17.8547 18.9154 17.8547 19.2083 18.1476L19.6011 18.5405C19.894 18.8334 19.894 19.3082 19.6011 19.6011C19.3082 19.894 18.8334 19.894 18.5405 19.6011L18.1476 19.2083C17.8547 18.9154 17.8547 18.4405 18.1476 18.1476ZM5.85211 18.1479C6.145 18.4408 6.145 18.9157 5.85211 19.2086L5.45927 19.6014C5.16638 19.8943 4.6915 19.8943 4.39861 19.6014C4.10572 19.3085 4.10572 18.8336 4.39861 18.5407L4.79145 18.1479C5.08434 17.855 5.55921 17.855 5.85211 18.1479ZM12 20.25C12.4142 20.25 12.75 20.5858 12.75 21V22C12.75 22.4142 12.4142 22.75 12 22.75C11.5858 22.75 11.25 22.4142 11.25 22V21C11.25 20.5858 11.5858 20.25 12 20.25Z" fill="currentColor"/></svg>
+      </button>
+      <button id="logoutBtn" type="button" class="btn btn-ghost">Log out</button>
+    </div>
+  </header>
+
+  <main class="dash-main">
+
+    <!-- Search -->
+    <section class="search-bar" aria-label="Find a job">
+      <form id="searchForm" class="search-form" role="search">
+        <input id="searchInput" type="search" autocomplete="off"
+               placeholder="Search Job ID, phone, or customer name…" aria-label="Search by job ID, phone, or customer name"/>
+        <button type="submit" id="searchBtn" class="btn btn-primary">Search</button>
+        <button type="button" id="searchClear" class="btn btn-ghost" hidden>Clear</button>
+      </form>
+      <button id="muteToggle" type="button" class="btn btn-ghost mute-toggle" aria-label="Mute new-job sound" title="Mute new-job sound">
+        <svg class="mute-ico mute-ico-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <svg class="mute-ico mute-ico-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      </button>
+    </section>
+    <div id="searchMeta" class="search-meta" hidden></div>
+    <!-- Subtle hint: the new-job chime is blocked until the browser unlocks audio. -->
+    <div id="audioHint" class="audio-hint" hidden>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      Click anywhere to enable the new-job sound.
+    </div>
+
+    <!-- Stats -->
+    <section class="stats-bar" id="statsBar" aria-label="Today's dispatch stats">
+      <div class="stat">          <div class="stat-num" id="statToday">—</div>   <div class="stat-label">Total Today</div></div>
+      <div class="stat is-warn">  <div class="stat-num" id="statPending">—</div> <div class="stat-label">Pending Review</div></div>
+      <div class="stat is-prog">  <div class="stat-num" id="statProgress">—</div><div class="stat-label">In Progress</div></div>
+      <div class="stat is-done">  <div class="stat-num" id="statCompleted">—</div><div class="stat-label">Completed Today</div></div>
+    </section>
+
+    <!-- Status / source tabs -->
+    <section class="tab-bar" id="tabBar" role="tablist" aria-label="Job views">
+      <button type="button" class="tab is-active" data-tab="active" role="tab" aria-selected="true">Active <span class="count" id="countActive">0</span></button>
+      <button type="button" class="tab" data-tab="completed" role="tab" aria-selected="false">Completed <span class="count" id="countCompleted">0</span></button>
+      <button type="button" class="tab" data-tab="cancelled" role="tab" aria-selected="false">Cancelled <span class="count" id="countCancelled">0</span></button>
+      <button type="button" class="tab" data-tab="calls" role="tab" aria-selected="false">Calls <span class="count" id="countCalls">0</span></button>
+      <button type="button" class="tab" data-tab="notes" role="tab" aria-selected="false">Customer Notes <span class="count" id="countNotes">0</span></button>
+      <button type="button" class="tab tab-archive" data-tab="archive" role="tab" aria-selected="false" hidden>Archive <span class="count" id="countArchive">0</span></button>
+    </section>
+
+    <!-- Filters -->
+    <section class="filter-bar" aria-label="Filters">
+      <!-- Active-tab sub-filter pills (replace the old status dropdown). -->
+      <div class="active-filter-pills" id="activeFilterPills" role="group" aria-label="Filter active jobs">
+        <button type="button" class="af-pill is-active" data-af="all" aria-pressed="true">All</button>
+        <button type="button" class="af-pill" data-af="assigned" aria-pressed="false">Assigned</button>
+        <button type="button" class="af-pill" data-af="unassigned" aria-pressed="false">Unassigned</button>
+        <button type="button" class="af-pill" data-af="in-progress" aria-pressed="false">In Progress</button>
+        <button type="button" class="af-pill" data-af="pending" aria-pressed="false">Pending</button>
+      </div>
+      <!-- Unified date filter — applies to EVERY tab (active by createdAt, completed by
+           completedAt, cancelled by cancelledAt, calls/notes by createdAt, archive by
+           deletedAt). Default: Today. "Custom" reveals the From/To inputs below. -->
+      <div class="date-preset-group" id="datePresetGroup" role="group" aria-label="Filter by date range">
+        <button type="button" class="date-preset is-active" data-range="today" aria-pressed="true">Today</button>
+        <button type="button" class="date-preset" data-range="week" aria-pressed="false">Week</button>
+        <button type="button" class="date-preset" data-range="month" aria-pressed="false">Month</button>
+        <button type="button" class="date-preset" data-range="custom" aria-pressed="false">Custom</button>
+      </div>
+      <!-- Custom date range — only visible when "Custom" is the selected preset. -->
+      <div class="filter-group date-range-group" id="dateRangeGroup" hidden>
+        <span class="field-label">From</span>
+        <input id="dateFrom" type="date" aria-label="From date"/>
+        <span class="field-label">To</span>
+        <input id="dateTo" type="date" aria-label="To date"/>
+      </div>
+      <div class="filter-group" id="priorityFilterGroup">
+        <span class="field-label">Priority</span>
+        <select id="filterPriority" aria-label="Filter by priority">
+          <option value="">All priorities</option>
+          <option value="emergency">Emergency</option>
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <button type="button" id="newCallBtn" class="btn btn-primary new-call-btn" hidden>+ New Call</button>
+      <div class="filter-spacer"></div>
+      <div class="refresh-meta">
+        <span class="live"><span class="pulse" aria-hidden="true"></span>Auto-refresh 25s</span>
+        <span id="lastUpdated">Updated just now</span>
+        <button id="refreshBtn" type="button" class="btn btn-ghost" style="min-height:32px;padding:6px 11px;">Refresh</button>
+      </div>
+    </section>
+
+    <!-- Queue -->
+    <section class="queue" id="queue" aria-live="polite">
+      <div class="acme-loading"><span class="acme-spinner"></span>Loading job queue…</div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- Customer history modal -->
+<div id="custModal" class="modal-overlay" hidden>
+  <div class="modal-box cust-box" role="dialog" aria-modal="true" aria-labelledby="custTitle">
+    <div class="cust-head">
+      <h3 id="custTitle" class="cust-title">Customer History</h3>
+      <button id="custClose" type="button" class="icon-btn" aria-label="Close">&times;</button>
+    </div>
+    <div id="custBody" class="cust-body"><div class="cust-loading">Loading…</div></div>
+  </div>
+</div>
+
+<!-- Signed Customer Agreement viewer — opened from a job card's "View signed agreement" -->
+<div id="agrModal" class="modal-overlay" hidden>
+  <div class="modal-box agr-box" role="dialog" aria-modal="true" aria-labelledby="agrTitle">
+    <div class="cust-head">
+      <h3 id="agrTitle" class="cust-title">Signed Agreement</h3>
+      <button id="agrClose" type="button" class="icon-btn" aria-label="Close">&times;</button>
+    </div>
+    <div id="agrBody" class="agr-body"><div class="cust-loading">Loading…</div></div>
+  </div>
+</div>
+
+<!-- New Call modal -->
+<div id="callModal" class="modal-overlay" hidden>
+  <div class="modal-box call-box" role="dialog" aria-modal="true" aria-labelledby="callTitle">
+    <div class="cust-head">
+      <h3 id="callTitle" class="cust-title">Log a phone call</h3>
+      <button id="callClose" type="button" class="icon-btn" aria-label="Close">&times;</button>
+    </div>
+    <form id="callForm" class="call-form" novalidate>
+      <div id="callError" class="login-error" role="alert" hidden></div>
+      <label class="field">
+        <span class="field-label">Customer name</span>
+        <input id="callName" type="text" maxlength="100" autocomplete="off" required/>
+      </label>
+      <label class="field">
+        <span class="field-label">Phone</span>
+        <input id="callPhone" type="tel" inputmode="tel" maxlength="30" autocomplete="off" required/>
+      </label>
+      <label class="field">
+        <span class="field-label">Service type</span>
+        <input id="callService" type="text" maxlength="100" autocomplete="off" placeholder="e.g. Lockout — residential" required/>
+      </label>
+      <label class="field">
+        <span class="field-label">Address <span class="field-opt">(optional)</span></span>
+        <input id="callAddress" type="text" maxlength="300" autocomplete="off" placeholder="Street address for the tech"/>
+      </label>
+      <label class="field">
+        <span class="field-label">Priority</span>
+        <select id="callPriority">
+          <option value="">Normal (default)</option>
+          <option value="emergency">Emergency</option>
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="field-label">Details</span>
+        <textarea id="callDesc" rows="3" maxlength="2000" placeholder="What did the caller need?"></textarea>
+      </label>
+      <div class="call-actions">
+        <button type="button" id="callCancel" class="btn btn-ghost">Cancel</button>
+        <button type="submit" id="callSubmit" class="btn btn-primary">Log call</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Photo lightbox -->
+<div id="imgModal" class="img-overlay" hidden>
+  <img id="imgModalImg" class="img-full" alt="Attached photo enlarged"/>
+</div>
+
+<script src="config.js?v=1" defer></script>
+<!-- ⚠️ TEMPORARY MOCKED PREVIEW — replaces every backend call with fake data and
+     disables auth. Delete this line together with demo-mock.js once the real
+     isolated demo backend exists. Must stay AFTER config.js (it overrides apiFetch). -->
+<script src="demo-mock.js" defer></script>
+<script src="js/dispatch.js?v=19" defer></script>
+</body>
+</html>
