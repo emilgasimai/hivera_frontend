@@ -83,7 +83,10 @@
   }
   .nav-inner{display:flex;align-items:center;height:92px}
   .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text)}
-  .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.24rem;letter-spacing:.01em}
+  .brand-name{
+    font-family:'Sora',sans-serif;font-weight:700;font-size:1.24rem;letter-spacing:.01em;
+    transition:font-size .32s cubic-bezier(.2,.8,.2,1);
+  }
 
   /* Spacing between links comes from their own padding, so the hit target and
      the visual gap are the same measurement. */
@@ -107,16 +110,24 @@
     letter-spacing:.022em;
     padding-left:21px;padding-right:21px;
   }
+  /* The mark and the CTA travel with the links, so the whole bar settles as one
+     movement rather than the words shifting against fixed furniture. */
+  nav:not(.is-stuck) .hex-logo{width:38px;height:43px}
+  nav:not(.is-stuck) .brand-name{font-size:1.34rem}
+  nav:not(.is-stuck) .nav-cta{font-size:1.05rem;padding:17px 38px}
 
   .nav-cta{
     margin-left:clamp(20px,6.5vw,94px);
     display:inline-flex;align-items:center;gap:9px;
-    padding:15px 24px;
+    padding:15px 34px;
     color:var(--text);text-decoration:none;
     font-size:1rem;font-weight:600;line-height:1;
     background:transparent;
     border:1px solid var(--violet);border-radius:999px;
-    transition:background .25s cubic-bezier(.2,.8,.2,1), border-color .2s ease, transform .25s cubic-bezier(.2,.8,.2,1);
+    transition:background .25s cubic-bezier(.2,.8,.2,1), border-color .2s ease,
+               transform .25s cubic-bezier(.2,.8,.2,1),
+               font-size .32s cubic-bezier(.2,.8,.2,1),
+               padding .32s cubic-bezier(.2,.8,.2,1);
   }
   .nav-cta svg{width:13px;height:13px;flex:none;color:var(--lavender);transition:transform .25s cubic-bezier(.2,.8,.2,1), color .2s ease}
   .nav-cta:hover{background:linear-gradient(92deg,var(--violet-deep),var(--violet));border-color:transparent}
@@ -179,8 +190,8 @@
   /* padding lives on the inner wrapper so max-height:0 collapses fully */
   .mobile-nav-inner{padding:6px 24px 18px}
   /* Matches the nav breakpoint below: the wide header needs more room than the
-     old 64px bar did, so the hamburger takes over earlier than 760px now. */
-  @media (min-width:1001px){ .mobile-nav{display:none} }
+     old 64px bar did, so the hamburger takes over at 1100px now. */
+  @media (min-width:1101px){ .mobile-nav{display:none} }
   .mobile-nav a{
     display:block;
     padding:16px 4px;
@@ -195,7 +206,10 @@
   .mobile-nav a:hover,.mobile-nav a:focus-visible{color:var(--text)}
 
   /* ---------- Hex logo ---------- */
-  .hex-logo{width:34px;height:38px;flex-shrink:0}
+  .hex-logo{
+    width:34px;height:38px;flex-shrink:0;
+    transition:width .32s cubic-bezier(.2,.8,.2,1), height .32s cubic-bezier(.2,.8,.2,1);
+  }
 
   /* ---------- Hero ---------- */
   header.hero{position:relative;overflow:hidden;padding:110px 0 90px}
@@ -232,7 +246,7 @@
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'Sora',sans-serif;font-weight:600;font-size:.95rem;
-    padding:13px 24px;border-radius:10px;text-decoration:none;
+    padding:13px 34px;border-radius:10px;text-decoration:none;
     transition:transform .15s ease, box-shadow .15s ease, background .2s;
     border:1px solid transparent;cursor:pointer;
   }
@@ -591,7 +605,7 @@
     .nav-bar{transition:none}
     .mobile-nav{transition:none}
     .mobile-nav a{transition:none}
-    nav,.nav-cta,.nav-cta svg,.nav-links a{transition:none}
+    nav,.nav-cta,.nav-cta svg,.nav-links a,.hex-logo,.brand-name{transition:none}
     .nav-cta:hover svg{transform:none}
     .nav-cta:active{transform:none}
     html{scroll-behavior:auto}
@@ -599,8 +613,8 @@
 
   /* The desktop header carries six items plus a pill CTA, so it runs out of
      room well before the old 760px cut-off. Hand over to the existing mobile
-     menu at 1000px instead — the menu itself is unchanged. */
-  @media (max-width:1000px){
+     menu at 1100px instead — the menu itself is unchanged. */
+  @media (max-width:1100px){
     .nav-links,.nav-cta{display:none}
     .nav-toggle{display:inline-flex;margin-left:auto}
     /* Stays 64px: .mobile-nav is pinned to top:64px, so the bar height below
@@ -1324,9 +1338,9 @@
       }
     });
     // Keep state sane if the viewport grows past the mobile breakpoint while open
-    // (1000px — see the nav media query; the menu is the active nav below it)
+    // (1100px — see the nav media query; the menu is the active nav below it)
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 1000 && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
+      if (window.innerWidth > 1100 && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
     });
   }
 
