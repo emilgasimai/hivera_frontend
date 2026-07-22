@@ -81,6 +81,10 @@
     backdrop-filter:blur(14px);
     border-bottom-color:var(--line);
   }
+  /* Overrides .wrap's 1080px cap: the header spans a wider track than the page
+     body so the logo sits closer to the left edge and the CTA closer to the
+     right, while the sections below stay in the narrower column. */
+  nav .nav-inner{max-width:1320px;padding:0 40px}
   .nav-inner{display:flex;align-items:center;height:92px}
   .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text)}
   .brand-name{
@@ -618,8 +622,9 @@
     .nav-links,.nav-cta{display:none}
     .nav-toggle{display:inline-flex;margin-left:auto}
     /* Stays 64px: .mobile-nav is pinned to top:64px, so the bar height below
-       this breakpoint is load-bearing for the menu panel. */
-    .nav-inner{height:64px}
+       this breakpoint is load-bearing for the menu panel. Padding returns to
+       the body column's 24px so the bar lines up with the mobile menu panel. */
+    nav .nav-inner{height:64px;padding:0 24px}
   }
 
   @media (max-width:760px){
