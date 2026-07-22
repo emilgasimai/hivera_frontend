@@ -92,9 +92,21 @@
     padding:20px 18px;
     color:var(--text);text-decoration:none;
     font-size:1rem;font-weight:600;line-height:1.375;
-    transition:color .2s ease;
+    transition:color .2s ease,
+               font-size .32s cubic-bezier(.2,.8,.2,1),
+               letter-spacing .32s cubic-bezier(.2,.8,.2,1),
+               padding .32s cubic-bezier(.2,.8,.2,1);
   }
   .nav-links a:hover,.nav-links a:focus-visible{color:var(--lavender)}
+
+  /* At the very top the links sit in a roomier setting; the first scroll
+     settles them into the compact baseline above. Keyed off the same .is-stuck
+     class as the background, so type and surface resolve on one threshold. */
+  nav:not(.is-stuck) .nav-links a{
+    font-size:1.05rem;
+    letter-spacing:.022em;
+    padding-left:21px;padding-right:21px;
+  }
 
   .nav-cta{
     margin-left:clamp(20px,6.5vw,94px);
@@ -119,13 +131,15 @@
     width:42px;height:42px;padding:0;
     align-items:center;justify-content:center;
     background:var(--surface);
-    border:1px solid var(--line);
+    border:0;
     border-radius:11px;
     cursor:pointer;
-    transition:border-color .2s, background .2s;
+    transition:background .2s;
   }
-  .nav-toggle:hover{border-color:var(--violet)}
-  .nav-toggle:active{background:var(--surface-2)}
+  /* No border in any state — the surface alone carries the affordance, so
+     hover and active shift the fill instead of a border colour. */
+  .nav-toggle:hover{background:var(--surface-2)}
+  .nav-toggle:active{background:var(--line)}
   .nav-toggle-box{position:relative;display:block;width:18px;height:14px}
   .nav-bar{
     position:absolute;left:0;width:100%;height:2px;border-radius:2px;
@@ -577,7 +591,7 @@
     .nav-bar{transition:none}
     .mobile-nav{transition:none}
     .mobile-nav a{transition:none}
-    nav,.nav-cta,.nav-cta svg{transition:none}
+    nav,.nav-cta,.nav-cta svg,.nav-links a{transition:none}
     .nav-cta:hover svg{transform:none}
     .nav-cta:active{transform:none}
     html{scroll-behavior:auto}
@@ -1322,6 +1336,9 @@
     const syncNav = () => navBar.classList.toggle('is-stuck', window.scrollY > 8);
     syncNav();
     window.addEventListener('scroll', syncNav, { passive: true });
+    // Landing on a #hash starts the page already scrolled, and the browser
+    // performs that jump after this script runs — re-check once it has.
+    window.addEventListener('load', syncNav);
   }
 
   // Scroll reveal — IntersectionObserver is the primary path. The fallbacks below make sure
