@@ -79,6 +79,37 @@ Until Phase 3 ships, the only thing keeping the demo out of the parent page is t
 containment code in `demo-mock.js` (blanking `siteFrame`, disabling the Content
 Editor nav item). That is a workaround, not a boundary — do not treat it as one.
 
+## The Three Backends — do not confuse them (ABSOLUTE RULE)
+
+There are **three separate backends** in this project's orbit. They share no
+database, no origin, and no deploy. Mixing them up — pointing one at another's
+database, deploying one over another, copying secrets across — is a serious error.
+
+1. **Aston Locksmith production backend** — the real, live client system.
+   - Path: `C:\Users\none of ur business\Desktop\project_locksmith_backend` (ORIGINAL).
+   - Deploys to Railway; serves astonlocksmith.ca; holds real customer data.
+   - **NEVER TOUCH** — covered by the absolute never-touch rule above. The copy at
+     `Hivera/locksmith_website/project_locksmith_backend/` is read-only reference
+     for matching proven patterns; it is gitignored and has no live database.
+
+2. **Locksmith demo mock** — NOT a backend at all.
+   - Path: `Hivera/locksmith_website/Project Locksmith/demo-mock.js` (client-side).
+   - Intercepts `fetch`/`authedFetch` with an in-memory fake data layer. No server,
+     no database, no auth. Resets on reload. This is what the embedded demo runs on.
+
+3. **Hivera's own account backend** — THIS system (new).
+   - Path: `Hivera/hivera-backend/` (Node/Express, its own git repo, gitignored from
+     the frontend repo so Vercel never serves it).
+   - Its OWN separate MongoDB Atlas database and its OWN separate Railway project —
+     never the locksmith database or the locksmith Railway project.
+   - Purpose: Hivera visitor accounts (register/login, favorites) + admin
+     infrastructure for Hivera itself. Nothing to do with any locksmith data.
+   - Env lives only in Railway/`.env` (gitignored). `JWT_SECRET`, `MONGODB_URI`, and
+     `ADMIN_*` here are distinct from every other system's.
+
+Before any backend work: confirm which of the three you are in. If a task would
+point Hivera's backend at the locksmith database (or vice versa), STOP and flag it.
+
 ## Design system
 
 - **Color palette** follows Railway.app tones:

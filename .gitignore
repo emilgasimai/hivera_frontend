@@ -1,6 +1,11 @@
 # Dependencies
 node_modules/
 
+# Hivera's own account backend is its OWN git repo and its OWN Railway deploy.
+# It must never be tracked by this (public, Vercel-served) frontend repo — that
+# would both expose its source over the CDN and entangle two separate deploys.
+hivera-backend/
+
 # Local dev artifacts
 temporary screenshots/
 *.log
