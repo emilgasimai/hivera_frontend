@@ -65,20 +65,53 @@
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 
-  /* ---------- Nav ---------- */
+  /* ---------- Nav ----------
+     Wide-header layout: logo hard left, the links as one right-aligned cluster,
+     and the CTA held well apart from them so it reads as an action rather than
+     a seventh link. The bar carries no surface of its own until the page
+     scrolls, at which point it picks up a blurred panel and a hairline rule. */
   nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(18,14,26,.82);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
+    background:transparent;
+    border-bottom:1px solid transparent;
+    transition:background .25s ease, border-color .25s ease;
   }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
-  .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;letter-spacing:.02em}
-  .nav-links{display:flex;gap:28px}
-  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
-  .nav-links a:hover,.nav-links a:focus-visible{color:var(--text)}
+  nav.is-stuck{
+    background:rgba(19,17,28,.82);
+    backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;height:92px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text)}
+  .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.24rem;letter-spacing:.01em}
+
+  /* Spacing between links comes from their own padding, so the hit target and
+     the visual gap are the same measurement. */
+  .nav-links{display:flex;align-items:center;margin-left:auto}
+  .nav-links a{
+    padding:20px 18px;
+    color:var(--text);text-decoration:none;
+    font-size:1rem;font-weight:600;line-height:1.375;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--lavender)}
+
+  .nav-cta{
+    margin-left:clamp(20px,6.5vw,94px);
+    display:inline-flex;align-items:center;gap:9px;
+    padding:15px 24px;
+    color:var(--text);text-decoration:none;
+    font-size:1rem;font-weight:600;line-height:1;
+    background:transparent;
+    border:1px solid var(--violet);border-radius:999px;
+    transition:background .25s cubic-bezier(.2,.8,.2,1), border-color .2s ease, transform .25s cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-cta svg{width:13px;height:13px;flex:none;color:var(--lavender);transition:transform .25s cubic-bezier(.2,.8,.2,1), color .2s ease}
+  .nav-cta:hover{background:linear-gradient(92deg,var(--violet-deep),var(--violet));border-color:transparent}
+  .nav-cta:hover svg{transform:translate(2px,-2px);color:#fff}
+  .nav-cta:active{transform:translateY(1px)}
   a:focus-visible,button:focus-visible{outline:2px solid var(--lavender);outline-offset:3px;border-radius:4px}
+  .nav-cta:focus-visible{border-radius:999px;outline-offset:4px}
 
   /* ---------- Mobile nav (hamburger) ---------- */
   .nav-toggle{
@@ -131,8 +164,9 @@
   }
   /* padding lives on the inner wrapper so max-height:0 collapses fully */
   .mobile-nav-inner{padding:6px 24px 18px}
-  @media (min-width:761px){ .mobile-nav{display:none} }
-  @media (min-width:761px){ .mobile-nav{display:none} }
+  /* Matches the nav breakpoint below: the wide header needs more room than the
+     old 64px bar did, so the hamburger takes over earlier than 760px now. */
+  @media (min-width:1001px){ .mobile-nav{display:none} }
   .mobile-nav a{
     display:block;
     padding:16px 4px;
@@ -147,7 +181,7 @@
   .mobile-nav a:hover,.mobile-nav a:focus-visible{color:var(--text)}
 
   /* ---------- Hex logo ---------- */
-  .hex-logo{width:30px;height:34px;flex-shrink:0}
+  .hex-logo{width:34px;height:38px;flex-shrink:0}
 
   /* ---------- Hero ---------- */
   header.hero{position:relative;overflow:hidden;padding:110px 0 90px}
@@ -543,12 +577,24 @@
     .nav-bar{transition:none}
     .mobile-nav{transition:none}
     .mobile-nav a{transition:none}
+    nav,.nav-cta,.nav-cta svg{transition:none}
+    .nav-cta:hover svg{transform:none}
+    .nav-cta:active{transform:none}
     html{scroll-behavior:auto}
   }
 
+  /* The desktop header carries six items plus a pill CTA, so it runs out of
+     room well before the old 760px cut-off. Hand over to the existing mobile
+     menu at 1000px instead — the menu itself is unchanged. */
+  @media (max-width:1000px){
+    .nav-links,.nav-cta{display:none}
+    .nav-toggle{display:inline-flex;margin-left:auto}
+    /* Stays 64px: .mobile-nav is pinned to top:64px, so the bar height below
+       this breakpoint is load-bearing for the menu panel. */
+    .nav-inner{height:64px}
+  }
+
   @media (max-width:760px){
-    .nav-links{display:none}
-    .nav-toggle{display:inline-flex}
     .about-grid{grid-template-columns:1fr}
     header.hero{padding:80px 0 64px}
     section{padding:64px 0}
@@ -578,8 +624,14 @@
       <a href="#pricing">Pricing</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact">Start a Project</a>
     </div>
+    <a class="nav-cta" href="#contact">
+      Start a Project
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10" stroke="currentColor" stroke-width="1.9"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
     <button class="nav-toggle" id="navToggle" type="button"
             aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
       <span class="nav-toggle-box" aria-hidden="true">
@@ -1258,9 +1310,18 @@
       }
     });
     // Keep state sane if the viewport grows past the mobile breakpoint while open
+    // (1000px — see the nav media query; the menu is the active nav below it)
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 760 && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
+      if (window.innerWidth > 1000 && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
     });
+  }
+
+  // ----- Header: surface appears once the page leaves the top -----
+  const navBar = document.querySelector('nav');
+  if (navBar) {
+    const syncNav = () => navBar.classList.toggle('is-stuck', window.scrollY > 8);
+    syncNav();
+    window.addEventListener('scroll', syncNav, { passive: true });
   }
 
   // Scroll reveal — IntersectionObserver is the primary path. The fallbacks below make sure
