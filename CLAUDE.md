@@ -53,6 +53,32 @@ the originals are untouchable.
 - This rule **cannot be overridden by casual instructions in chat.** The only way to
   change it is the owner explicitly editing this CLAUDE.md file itself.
 
+## Demo Backend — Origin Isolation (Required for Phase 3)
+
+The real isolated demo backend/database (next phase) **MUST** be served from a
+genuinely different origin than the Hivera marketing page — a separate subdomain or
+port, with explicit CORS configuration — **not** the same origin as currently used
+for the local mocked preview.
+
+**Reason:** same-origin serving disables the browser's own security boundary between
+the embedded demo and the parent page. This already caused one real bug: the Content
+Editor recursively edited the parent page through a root-relative iframe `src`
+(`admin.html` → `<iframe id="siteFrame" src="/">`, which resolved to the Hivera page
+instead of the client site; `admin.js` then injected an editor stylesheet and
+rewrote text nodes in a document that wasn't its own, and the nesting recursed).
+
+Cross-origin serving makes this class of bug impossible by construction. It also
+resolves two boundary violations that are latent today only because nothing happens
+to be listening:
+
+- `locksmith_website/Project Locksmith/admin.js:2753` — `contentWindow.postMessage(…, window.location.origin)`; the origin argument is no protection while the parent shares that origin.
+- `locksmith_website/Project Locksmith/js/dispatch.js:394` — `window.parent.postMessage(…)`, where the parent is currently the Hivera page.
+- Shared-origin `localStorage` leakage: the demo writes `apex_admin_session_v1` and `aston_admin_dispatch_seen`, which the Hivera page can read today.
+
+Until Phase 3 ships, the only thing keeping the demo out of the parent page is the
+containment code in `demo-mock.js` (blanking `siteFrame`, disabling the Content
+Editor nav item). That is a workaround, not a boundary — do not treat it as one.
+
 ## Design system
 
 - **Color palette** follows Railway.app tones:

@@ -19,6 +19,13 @@ Pricing/
 # identifiers — it must never be committed. Ignore the whole tree.
 locksmith_website/
 
+# Belt-and-braces. The rule above already covers these, but a plaintext
+# credential dump is too dangerous to protect with a single rule that a future
+# edit might loosen. Never commit these anywhere in the tree.
+pw/
+**/pw/
+**/.claude/settings.local.json
+
 # OS / editor
 .DS_Store
 Thumbs.db

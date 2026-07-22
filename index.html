@@ -275,18 +275,54 @@
     background:var(--bg);border:1px solid var(--line);border-radius:7px;
     padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .role-tabs{display:flex;gap:6px}
-  .role-tab{
-    font-family:'Sora',sans-serif;font-size:.8rem;font-weight:600;
-    color:var(--muted);background:transparent;
-    border:1px solid var(--line);border-radius:8px;
-    padding:6px 14px;cursor:pointer;transition:all .2s;
+  /* ── Demo picker — the single control for switching the frame above ── */
+  .demo-picker{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+    margin-top:18px;padding:0;list-style:none;
   }
-  .role-tab:hover{color:var(--text);border-color:var(--violet)}
-  .role-tab.active{
-    color:#fff;
-    background:linear-gradient(92deg,var(--violet-deep),var(--violet));
-    border-color:transparent;
+  .demo-card{
+    position:relative;display:flex;flex-direction:column;gap:10px;
+    width:100%;text-align:left;cursor:pointer;
+    padding:18px 16px 16px;
+    background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 1px 2px rgba(8,5,20,.5), 0 10px 24px -18px rgba(108,63,231,.5);
+    transition:transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s cubic-bezier(.2,.8,.2,1), border-color .2s ease;
+  }
+  /* Hexagon watermark, echoing the hive motif — kept faint. */
+  .demo-card::after{
+    content:'';position:absolute;right:-14px;bottom:-18px;width:76px;height:86px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 68'%3E%3Cpath d='M30 2 56 17v34L30 66 4 51V17Z' fill='none' stroke='%236C3FE7' stroke-width='3'/%3E%3C/svg%3E") no-repeat center/contain;
+    opacity:.05;pointer-events:none;transition:opacity .28s ease;
+  }
+  .demo-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(8,5,20,.55), 0 18px 36px -20px rgba(108,63,231,.75)}
+  .demo-card:hover::after{opacity:.1}
+  .demo-card:focus-visible{outline:2px solid var(--fuchsia);outline-offset:3px}
+  .demo-card:active{transform:translateY(-1px)}
+  .demo-card[aria-pressed="true"]{
+    border-color:var(--violet);
+    background:linear-gradient(180deg,rgba(108,63,231,.16),var(--surface));
+    box-shadow:0 1px 2px rgba(8,5,20,.5), 0 0 0 1px rgba(108,63,231,.45), 0 16px 40px -22px rgba(108,63,231,.95);
+  }
+  .demo-card[aria-pressed="true"]::after{opacity:.14}
+  .demo-card .dc-ic{width:30px;height:34px;flex:none}
+  .demo-card h4{
+    font-family:'Sora',sans-serif;font-size:.94rem;font-weight:600;
+    color:var(--text);letter-spacing:-.01em;margin:0;
+  }
+  .demo-card p{font-size:.78rem;line-height:1.55;color:var(--muted);margin:0}
+  .demo-card[aria-pressed="true"] h4{color:#fff}
+  .dc-live{
+    position:absolute;top:12px;right:12px;
+    width:7px;height:7px;border-radius:50%;background:var(--violet);
+    opacity:0;transition:opacity .25s ease;
+  }
+  .demo-card[aria-pressed="true"] .dc-live{opacity:1;box-shadow:0 0 0 3px rgba(108,63,231,.22)}
+  @media (max-width:880px){ .demo-picker{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:460px){ .demo-picker{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce){
+    .demo-card{transition:border-color .2s ease}
+    .demo-card:hover,.demo-card:active{transform:none}
   }
   .emu-screen{
     position:relative;
@@ -297,7 +333,15 @@
       var(--bg);
     display:flex;align-items:center;justify-content:center;
   }
-  .emu-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .emu-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3;background:var(--bg)}
+  /* Shown only while the mocked preview is embedded — see the demo probe in script. */
+  .emu-demo-note{
+    position:absolute;left:0;right:0;bottom:0;z-index:4;
+    padding:7px 14px;
+    font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.04em;
+    color:var(--lavender);background:rgba(19,17,28,.92);
+    border-top:1px solid var(--line);text-align:center;
+  }
   .emu-skeleton{position:absolute;inset:0;width:100%;height:100%;opacity:.9;pointer-events:none}
   /* Brighten the wireframe so the frame reads as a dashboard, not an empty box */
   .emu-skeleton [stroke="#2B2740"]{stroke:#B9A6F5;stroke-opacity:.3}
@@ -693,17 +737,19 @@
       <div class="emulator" style="margin-top:14px">
         <div class="emu-bar">
           <div class="emu-dots"><span></span><span></span><span></span></div>
-          <div class="emu-url" id="emuUrl">demo.hivera.app/acme-services</div>
-          <div class="role-tabs" role="tablist" aria-label="Choose portal">
-            <button class="role-tab active" data-role="admin" role="tab" aria-selected="true">Admin</button>
-            <button class="role-tab" data-role="dispatch" role="tab" aria-selected="false">Dispatch</button>
-            <button class="role-tab" data-role="tech" role="tab" aria-selected="false">Technician</button>
-          </div>
+          <!-- View switching lives in the picker cards below the frame — one
+               control, not two. This bar only reports the current view. -->
+          <div class="emu-url" id="emuUrl">acmeservices.example</div>
         </div>
         <div class="emu-screen" id="emuScreen">
-          <!-- When the real demo is deployed, replace the placeholder below with:
-               <iframe src="https://demo.hivera.app/?role=admin" title="Hivera live demo" loading="lazy"></iframe>
-               and switch the src per role in script. -->
+          <!-- TEMPORARY MOCKED PREVIEW.
+               This iframe points at the rebranded client platform running with a
+               fake in-memory data layer (locksmith_website/.../demo-mock.js) —
+               no backend, no database, no auth. That folder is gitignored, so it
+               only resolves on a local dev server; in production the probe in
+               script fails and the placeholder below stays visible. Both are
+               replaced by the real isolated demo backend in the next phase. -->
+          <iframe id="emuFrame" title="Acme Services platform demo — sample data" loading="lazy" hidden></iframe>
           <svg class="emu-skeleton" viewBox="0 0 800 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none">
             <rect x="24" y="24" width="150" height="412" rx="10" stroke="#2B2740"/>
             <rect x="40" y="86" width="118" height="20" rx="6" fill="#6C3FE7" opacity=".18"/>
@@ -743,6 +789,50 @@
           </div>
         </div>
       </div>
+      <!-- Primary control for the frame above. Each button owns one view. -->
+      <div class="demo-picker" role="group" aria-label="Choose which part of the platform to view">
+        <button type="button" class="demo-card" data-view="site" aria-pressed="true">
+          <span class="dc-live" aria-hidden="true"></span>
+          <svg class="dc-ic" viewBox="0 0 60 68" aria-hidden="true">
+            <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#B9A6F5" stroke-width="3"/>
+            <rect x="17" y="24" width="26" height="19" rx="2" fill="none" stroke="#B9A6F5" stroke-width="2.4"/>
+            <path d="M17 30h26" stroke="#B9A6F5" stroke-width="2.4"/>
+          </svg>
+          <h4>Website</h4>
+          <p>The client-facing site your customers actually see.</p>
+        </button>
+        <button type="button" class="demo-card" data-view="admin" aria-pressed="false">
+          <span class="dc-live" aria-hidden="true"></span>
+          <svg class="dc-ic" viewBox="0 0 60 68" aria-hidden="true">
+            <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/>
+            <rect x="18" y="25" width="10" height="18" rx="2" fill="#6C3FE7" opacity=".55"/>
+            <rect x="32" y="31" width="10" height="12" rx="2" fill="#6C3FE7" opacity=".85"/>
+          </svg>
+          <h4>Admin</h4>
+          <p>Full visibility over jobs, revenue, customers and staff.</p>
+        </button>
+        <button type="button" class="demo-card" data-view="dispatch" aria-pressed="false">
+          <span class="dc-live" aria-hidden="true"></span>
+          <svg class="dc-ic" viewBox="0 0 60 68" aria-hidden="true">
+            <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#A063F7" stroke-width="3"/>
+            <circle cx="30" cy="34" r="9" fill="none" stroke="#A063F7" stroke-width="2.4"/>
+            <path d="M30 27v7l5 3" stroke="#A063F7" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <h4>Dispatch</h4>
+          <p>Assign the right technician to the right job in seconds.</p>
+        </button>
+        <button type="button" class="demo-card" data-view="tech" aria-pressed="false">
+          <span class="dc-live" aria-hidden="true"></span>
+          <svg class="dc-ic" viewBox="0 0 60 68" aria-hidden="true">
+            <path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#B9A6F5" stroke-width="3"/>
+            <rect x="23" y="23" width="14" height="22" rx="3" fill="none" stroke="#B9A6F5" stroke-width="2.4"/>
+            <path d="M28 41h4" stroke="#B9A6F5" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <h4>Technician</h4>
+          <p>Mobile-first field tools — job details and status updates.</p>
+        </button>
+      </div>
+
       <div class="proj-meta">
         <span class="chip">React</span>
         <span class="chip">Node.js</span>
@@ -974,30 +1064,88 @@
 </footer>
 
 <script>
-  // Role tab switching (placeholder text now; swap to iframe src switching when demo is live)
-  const roleCopy = {
-    admin:    ["Admin portal demo",      "The live sandbox is being prepared. Soon you'll be able to explore the full admin dashboard right here — real interface, safe demo data."],
-    dispatch: ["Dispatch portal demo",   "Assign jobs, watch statuses update and manage the schedule — the live dispatch sandbox will be embedded here."],
-    tech:     ["Technician portal demo", "See exactly what a field technician sees on their phone — the mobile portal sandbox will run here."]
+  /* ----- Emulator: 4 demo views, driven by the picker cards ----------------
+     TEMPORARY MOCKED PREVIEW. The rebranded client platform runs from a
+     gitignored folder, so it exists on a local dev server and nowhere else.
+     Probe for it once: if it answers, embed it and switch src per view; if not
+     (i.e. production), leave the placeholder exactly as it was. A missing demo
+     must never break this page. Replaced by the real isolated demo backend in
+     the next phase, which will be served from its OWN origin. -------------- */
+  const DEMO_BASE = 'locksmith_website/Project%20Locksmith/';
+
+  const VIEWS = {
+    site: {
+      file: 'index.html',
+      url:  'acmeservices.example',
+      title: 'Client website demo',
+      text:  "The marketing site we build for the client — the storefront their customers land on. The live sandbox is being prepared."
+    },
+    admin: {
+      file: 'admin.html',
+      url:  'acmeservices.example/admin',
+      title: 'Admin portal demo',
+      text:  "The live sandbox is being prepared. Soon you'll be able to explore the full admin dashboard right here — real interface, safe demo data."
+    },
+    dispatch: {
+      file: 'dispatch.html',
+      url:  'acmeservices.example/dispatch',
+      title: 'Dispatch portal demo',
+      text:  "Assign jobs, watch statuses update and manage the schedule — the live dispatch sandbox will be embedded here."
+    },
+    tech: {
+      file: 'tech.html',
+      url:  'acmeservices.example/tech',
+      title: 'Technician portal demo',
+      text:  "See exactly what a field technician sees on their phone — the mobile portal sandbox will run here."
+    }
   };
-  const urlMap = {
-    admin: "demo.hivera.app/acme-services/admin",
-    dispatch: "demo.hivera.app/acme-services/dispatch",
-    tech: "demo.hivera.app/acme-services/tech"
-  };
-  document.querySelectorAll('.role-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.role-tab').forEach(b => {
-        b.classList.remove('active'); b.setAttribute('aria-selected','false');
-      });
-      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-      const r = btn.dataset.role;
-      document.getElementById('phTitle').textContent = roleCopy[r][0];
-      document.getElementById('phText').textContent  = roleCopy[r][1];
-      document.getElementById('emuUrl').textContent  = urlMap[r];
-      // When live: document.querySelector('.emu-screen iframe').src = "https://demo.hivera.app/?role=" + r;
-    });
-  });
+
+  const emuFrame = document.getElementById('emuFrame');
+  const cards = [...document.querySelectorAll('.demo-card')];
+  let demoLive = false;
+
+  function paintChrome(view) {
+    const v = VIEWS[view];
+    document.getElementById('phTitle').textContent = v.title;
+    document.getElementById('phText').textContent  = v.text;
+    document.getElementById('emuUrl').textContent  = v.url;
+    cards.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.view === view)));
+  }
+
+  function showDemo(view) {
+    emuFrame.src = DEMO_BASE + VIEWS[view].file;
+    emuFrame.title = VIEWS[view].title + ' — sample data';
+    emuFrame.hidden = false;
+    const ph = document.querySelector('.emu-placeholder');
+    const sk = document.querySelector('.emu-skeleton');
+    if (ph) ph.hidden = true;
+    if (sk) sk.style.display = 'none';
+    if (!document.querySelector('.emu-demo-note')) {
+      const note = document.createElement('p');
+      note.className = 'emu-demo-note';
+      note.textContent = 'Mocked preview — sample data, no live backend';
+      document.getElementById('emuScreen').appendChild(note);
+    }
+  }
+
+  function selectView(view) {
+    paintChrome(view);
+    if (demoLive) showDemo(view);
+  }
+
+  cards.forEach(btn => btn.addEventListener('click', () => selectView(btn.dataset.view)));
+
+  // One probe covers all four views — they ship from the same folder.
+  fetch(DEMO_BASE + VIEWS.site.file, { method: 'HEAD' })
+    .then(res => {
+      if (!res.ok) return;
+      demoLive = true;
+      const active = cards.find(c => c.getAttribute('aria-pressed') === 'true');
+      selectView(active ? active.dataset.view : 'site');
+    })
+    .catch(() => { /* not available — placeholder and cards still work as copy */ });
+
+  paintChrome('site');
 
   // ----- Start a Project form (front-end only for now) -----
   // TODO: connect to backend endpoint
