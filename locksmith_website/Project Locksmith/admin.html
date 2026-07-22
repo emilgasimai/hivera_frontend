@@ -250,7 +250,11 @@
           </div>
 
           <div class="stage-frame-wrap">
-          <iframe id="siteFrame" class="site-frame" src="/" title="Site preview"></iframe>
+          <!-- Starts blank on purpose. src="/" resolved to whatever sits at the
+               deploy root, which in the demo build is the parent marketing page,
+               not this client site. demo-mock.js blanks it on load anyway, but
+               that fires after the request is already out. -->
+          <iframe id="siteFrame" class="site-frame" src="about:blank" title="Site preview"></iframe>
 
           <!-- Slide-in edit panel (right-side on desktop, bottom sheet on mobile) -->
           <aside id="editPanel" class="edit-panel" aria-hidden="true">
