@@ -112,13 +112,33 @@ point Hivera's backend at the locksmith database (or vice versa), STOP and flag 
 
 ## Design system
 
-- **Color palette** follows Railway.app tones:
-  - Background `#13111C`
-  - Primary violet `#6C3FE7`, gradient to `#A063F7`
-  - Lavender accent `#B9A6F5`
-  - Text `#F2F0F7`, muted `#9D96B8`, borders `#2B2740`
+- **Color palette** — purple family on a near-black base (dark theme only). These
+  are the current live values after the v2 redesign; the earlier Railway-tone
+  palette (`#13111C` / `#6C3FE7` / `#A063F7` / `#F2F0F7` / `#9D96B8` / `#2B2740`)
+  is retired — do not reintroduce it.
+  - Base backgrounds (elevation rhythm): `--bg #161020` (true-dark sections) →
+    `--surface #1F1730` (raised sections + chrome bars) → `--surface-2 #2A2145`
+    (cards/rows within raised sections). `--near-black #191322` (inverted cards,
+    featured pricing card, pricing-toggle track). `--footer-bg #100A18` (footer,
+    and the text colour used on solid-violet fills).
+  - Primary violet `--violet #8F6FFF`; **hover LIGHTENS** to `--violet-hover #A78BFA`
+    (not a darker shade). `--violet-2 #9E82FF` for the hero solid hexagon inner.
+  - Lavender accent `--lavender #B9A3FF` (eyebrows, links, `.hl` headline accent).
+  - Text scale: `--text #E9E2FC` (headings/primary — never pure white),
+    `--body-text #CFC8DE` (body copy on cards), `--nav-text #B4ACC6` (nav, chip
+    captions), `--muted #9C93B0` (secondary), `--faint #6E6486` (decorative/aria-
+    hidden ticker only — keep real copy at `--muted` or lighter for WCAG AA).
+  - Borders use alpha-over-background: `rgba(196,178,255, X)`, X ≈ 0.06 (subtle
+    dividers) to 0.18 (emphasised, e.g. active pricing-card border).
   - A small honey-amber `#F5B942` appears **ONLY** in the logo hexagon core — do not use it anywhere else.
 - **Fonts:** Sora (display/headings), Inter (body), JetBrains Mono (labels/eyebrows).
+  - **Scoped font exception — Anton.** Anton (Google Fonts) is loaded as a fourth
+    family used **ONLY** for the two-tone headline accent words — the `.hl` spans
+    inside `h1`/`h2` (e.g. "LIKE A HIVE", "EVERY ROLE"). It is never used in body
+    text, buttons, labels, or any other UI. This is a narrow, documented exception
+    to the Sora/Inter/Mono default, in the same spirit as the scoped Tailwind-CDN
+    exception below: the default stays Sora/Inter/Mono; Anton is only this one
+    headline treatment. Don't widen its use without asking.
 - **Signature visual motif:** hexagons/honeycomb (the "hive" identity). Keep it subtle.
 - **Dark theme only.** Restrained, premium feel — avoid neon or oversaturated colors.
 
