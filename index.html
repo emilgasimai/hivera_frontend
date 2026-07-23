@@ -311,6 +311,64 @@
   }
   }
 
+  /* ---------- Industries (Who we build for) ---------- */
+  .ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .ind-card{
+    position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px;box-shadow:var(--shadow-card);
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .ind-card:hover{border-color:var(--violet);transform:translateY(-3px);box-shadow:var(--shadow-float)}
+  .ind-card .hex-ic{width:34px;height:38px}
+  .ind-card h3{font-family:'Sora',sans-serif;font-size:1rem;font-weight:600;color:var(--text)}
+  .ind-more{
+    margin-top:22px;color:var(--muted);font-size:.95rem;
+  }
+  .ind-more a{color:var(--lavender);text-decoration:none;font-weight:600}
+  .ind-more a:hover,.ind-more a:focus-visible{color:var(--text)}
+  @media (prefers-reduced-motion:reduce){ .ind-card:hover{transform:none} }
+
+  /* ---------- Why Hivera (differentiators) ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .why-card{
+    position:relative;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow-card);
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .why-card:hover{border-color:var(--violet);transform:translateY(-3px);box-shadow:var(--shadow-float)}
+  .why-card .hex-ic{width:38px;height:42px;margin-bottom:16px}
+  .why-card h3{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:8px;color:var(--text)}
+  .why-card p{color:var(--muted);font-size:.92rem}
+  .why-card::after{
+    content:"";position:absolute;right:14px;bottom:12px;width:44px;height:50px;pointer-events:none;opacity:.05;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 68"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="%23B9A6F5" stroke-width="4"/></svg>') no-repeat center/contain;
+  }
+  @media (prefers-reduced-motion:reduce){ .why-card:hover{transform:none} }
+
+  /* ---------- Case study narrative (within Live demos) ---------- */
+  .case-study{
+    margin-top:22px;position:relative;
+    background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 24px;box-shadow:var(--shadow-card);
+  }
+  .case-study h3{
+    font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:600;
+    letter-spacing:-.01em;margin:10px 0 10px;color:var(--text);
+  }
+  .case-study p{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:64ch}
+  .case-study p + p{margin-top:12px}
+  .case-facts{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .case-facts li{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.03em;
+    color:var(--lavender);background:rgba(108,63,231,.12);
+    border:1px solid var(--line);border-radius:99px;padding:5px 12px;
+  }
+
+  /* Response-time note under the submit button */
+  .form-response{font-size:.85rem;color:var(--muted);margin:0}
+
   /* ---------- Featured project / emulator ---------- */
   .project-tag{
     font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;
@@ -887,6 +945,40 @@
   </div>
 </section>
 
+<!-- ======= INDUSTRIES / WHO WE BUILD FOR ======= -->
+<section id="industries">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Who we build for</span>
+      <h2>Built for the businesses that run on dispatch.</h2>
+      <p>Any service business that sends people out to jobs — these are the trades we know best.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/><circle cx="25" cy="30" r="6" fill="none" stroke="#B9A6F5" stroke-width="3"/><path d="M29 34l10 10m-4-4l4-4m-8 0l4-4" stroke="#B9A6F5" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Locksmith</h3>
+      </div>
+      <div class="ind-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#A063F7" stroke-width="3"/><path d="M30 20c5 7 8 12 8 17a8 8 0 01-16 0c0-5 3-10 8-17z" fill="none" stroke="#B9A6F5" stroke-width="3" stroke-linejoin="round"/></svg>
+        <h3>Plumbing</h3>
+      </div>
+      <div class="ind-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#B9A6F5" stroke-width="3"/><path d="M32 18l-10 16h7l-2 14 12-18h-8z" fill="none" stroke="#B9A6F5" stroke-width="3" stroke-linejoin="round"/></svg>
+        <h3>Electrical</h3>
+      </div>
+      <div class="ind-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/><rect x="22" y="30" width="16" height="16" rx="3" fill="none" stroke="#B9A6F5" stroke-width="3"/><path d="M26 30V22h8v8M30 18v3M25 20l1 2M35 20l-1 2" stroke="#B9A6F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Cleaning</h3>
+      </div>
+      <div class="ind-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#A063F7" stroke-width="3"/><circle cx="30" cy="34" r="4" fill="#B9A6F5"/><path d="M30 34c0-8 3-12 8-11-1 5-4 8-8 11zm0 0c-8 0-12-3-11-8 5 1 8 4 11 8zm0 0c0 8-3 12-8 11 1-5 4-8 8-11zm0 0c8 0 12 3 11 8-5-1-8-4-11-8z" fill="none" stroke="#B9A6F5" stroke-width="2.6" stroke-linejoin="round"/></svg>
+        <h3>HVAC</h3>
+      </div>
+    </div>
+    <p class="ind-more reveal">Don't see your industry? <a href="#contact">Ask us anyway.</a></p>
+  </div>
+</section>
+
 <!-- ======= FEATURED PROJECT / EMULATOR ======= -->
 <section id="work">
   <div class="wrap">
@@ -1016,6 +1108,20 @@
         <span class="chip">Real-time dispatch</span>
         <span class="chip">Built for a 24/7 service company</span>
       </div>
+
+      <!-- DRAFT COPY — owner to refine with real project specifics (before/after, timeline, outcome) -->
+      <div class="case-study reveal">
+        <span class="project-tag">The story behind this</span>
+        <h3>One connected system for the whole operation.</h3>
+        <p>The client needed a way to run dispatch, admin, and field operations from one connected system, instead of stitching together separate tools. We built all three portals from the ground up — admin, dispatch, and technician — with real-time job assignment and role-based access, so every part of the team works from the same live data. Frontend and backend, end to end.</p>
+        <p>That's the demo above — a real, working build you can explore, not a slideshow.</p>
+        <ul class="case-facts">
+          <li>3 role-based portals</li>
+          <li>Real-time job assignment</li>
+          <li>Role-based access control</li>
+          <li>Built end to end</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1080,6 +1186,34 @@
     </div>
 
     <p class="price-note reveal" id="pricingNote">All prices in CAD, plus applicable tax (HST). Setup billed 50% at project start, 50% on delivery; monthly billing begins at launch. No lock-in — cancel with 30 days' notice. Optional add-ons and custom quotes available.</p>
+  </div>
+</section>
+
+<!-- ======= WHY HIVERA ======= -->
+<!-- DRAFT differentiators — owner may want to add or adjust these. -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why Hivera</span>
+      <h2>A small studio, built around a few honest advantages.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#6C3FE7" stroke-width="3"/><circle cx="30" cy="28" r="6" fill="none" stroke="#B9A6F5" stroke-width="3"/><path d="M20 46c0-6 4-10 10-10s10 4 10 10" fill="none" stroke="#B9A6F5" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Direct access</h3>
+        <p>You talk to the person actually writing your code — not an account manager relaying messages back and forth.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#A063F7" stroke-width="3"/><rect x="20" y="34" width="8" height="12" rx="1.5" fill="none" stroke="#B9A6F5" stroke-width="2.6"/><rect x="32" y="28" width="8" height="18" rx="1.5" fill="none" stroke="#B9A6F5" stroke-width="2.6"/><path d="M18 46h24" stroke="#B9A6F5" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <h3>Proven foundation</h3>
+        <p>Every build starts from a working, production-tested platform architecture — not a blank page and a hopeful estimate.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg class="hex-ic" viewBox="0 0 60 68" aria-hidden="true"><path d="M30 2 56 17v34L30 66 4 51V17Z" fill="none" stroke="#B9A6F5" stroke-width="3"/><path d="M17 34c4-6 9-9 13-9s9 3 13 9c-4 6-9 9-13 9s-9-3-13-9z" fill="none" stroke="#B9A6F5" stroke-width="2.6" stroke-linejoin="round"/><circle cx="30" cy="34" r="3.5" fill="#B9A6F5"/></svg>
+        <h3>See before you buy</h3>
+        <p>Every project can be explored as a live, working demo — you drive the real thing, not just a pitch deck.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1224,9 +1358,12 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Send request</button>
+      <!-- Owner can adjust the exact timeframe. A "Book a call" option (Calendly /
+           Cal.com link) could sit alongside this once a scheduling account exists —
+           not built now to avoid shipping a dead placeholder button. -->
+      <p class="form-response">We typically respond within 1–2 business days.</p>
       <p class="form-note" id="pf-note" role="status" aria-live="polite" hidden></p>
-      <!-- TODO: link to real privacy policy page once one exists -->
-      <p class="form-privacy">We only use this information to respond to your request.</p>
+      <p class="form-privacy">We only use this information to respond to your request. <a href="privacy.html">Privacy policy</a>.</p>
     </form>
 
     <p class="contact-alt reveal">
@@ -1241,7 +1378,8 @@
 <footer>
   <div class="wrap foot-inner">
     <span>© 2026 Hivera. All rights reserved.</span>
-    <span><a href="https://www.linkedin.com/in/emil-gasimov-32b13b423/" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:hello@hivera.app">Email</a></span>
+    <!-- TODO: replace with real GitHub profile URL -->
+    <span><a href="https://www.linkedin.com/in/emil-gasimov-32b13b423/" target="_blank" rel="noopener">LinkedIn</a> · <a href="#">GitHub</a> · <a href="mailto:hello@hivera.app">Email</a></span>
   </div>
 </footer>
 
